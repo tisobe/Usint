@@ -1,0 +1,6 @@
+setenv PYTHONPATH "/proj/sot/ska/arch/x86_64-linux_CentOS-5/lib/python2.7/site-packages:"
+
+cd /data/mta4/CUS/www/Usint/TOO_Obs/Mscript
+
+/data/mta4/CUS/www/Usint/TOO_Obs/Mscript/update_obs_lists.py
+/data/mta4/CUS/www/Usint/TOO_Obs/Mscript/new_too_ddt_notifier.py

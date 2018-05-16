@@ -1,0 +1,19 @@
+{% block hrc_parameters  %}
+
+<table border=1 style='border-spacing:5ps; border-collapse:separate; width:90%'>
+    <tr>
+        <th colspan=4>HRC Paramters</th>
+    </tr>
+    <tr>
+        <th style='color:green;width:30%'>Parameter Name</th>
+        <th style='color:green;width:20%'>Original Value</th>
+        <th style='color:green;width:20%'>Requested Value</th>
+        <th style='color:green;width:20%'>Updated Value</th>
+    </tr>
+    {% for ent in hrc_list %}
+        {% include  'chkupdata/table_elements.html' %}
+    {% endfor %}
+
+</table>
+
+{% endblock %}

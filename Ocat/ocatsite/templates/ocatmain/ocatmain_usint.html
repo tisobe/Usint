@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% comment %} ocat main page for USINT user  {% endcomment %}
+
+{% comment %}header section {% endcomment %}
+
+{% block title %}
+{{ "Oct Main Page"  }}
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Ocat Main Page</h2>
+
+<form action="." method="post">{% csrf_token %}
+
+{% comment %} if password change is requested, display this {% endcomment %}
+
+{% ifequal passchange 'yes' %}
+
+    {% include 'ocatmain/password_change.html' %}
+
+{% comment %} ocatmain main page {% endcomment %}
+
+{% else %}
+
+    <table border=0 style='padding-bottom:20px;'>
+        <tr>
+            <th>User  Name: </th>
+            <th style='background-color:lime;text-align:center'>{{ submitter }}</th>
+            <td style='text-align:center;'><input type='submit' name='check0' value='Change User'>
+            <!--
+            / <input type='submit' name='check0' value='Change Password'></td>
+            -->
+            {% ifnotequal pcomment '' %}
+                <td style='color:red;'><b>{{ pcomment }}</b></td>
+            {% endifnotequal %}
+        </tr>
+    </table>
+    <hr />
+    
+
+{% comment %} display first page  {% endcomment %}
+
+    {%include 'ocatmain/ocat_sec1_usint.html' %}
+    
+{% endifequal %}
+
+<input type='hidden' name='durl'      value={{ durl }}>
+<input type='hidden' name='submitter' value={{ submitter }}>
+<input type='hidden' name='dperiod'   value={{ dperiod }}>
+<input type='hidden' name='opi'       value={{ opi }}>
+<input type='hidden' name='toochk'    value={{ toochk }}>
+<input type='hidden' name='ddtchk'    value={{ ddtchk }}>
+<input type='hidden' name='d30chk'    value={{ d30chk }}>
+<input type='hidden' name='open_item' value={{ open_item }}>
+<input type='hidden' name='too_data'  value={{ too_data }}>
+<input type='hidden' name='ddt_data'  value={{ ddt_data }}>
+<input type='hidden' name='d30_data'  value={{ d30_data }}>
+<input type='hidden' name='section'   value={{ section }}>
+<input type='hidden' name='obs_list'  value={{ obs_list }}>
+<input type='hidden' name='vlist'     value={{ vlist }}>
+
+</form>
+
+
+{% comment %}If there is no observation list, push down the footer for at least 500 px {% endcomment %}
+
+{% ifequal ddtchk 0 %}
+    {% ifequal toochk 0 %}
+        {% ifequal d30chk 0 %}
+    
+            <div style='padding-bottom:500px'>
+            </div>
+
+        {% endifequal %}
+    {% endifequal %}
+{% endifequal %}
+
+{%include 'ocatmain/footer.html' %}
+
+{% endblock %}
+

@@ -1,0 +1,44 @@
+{% block comment_section %}
+
+{% comment %} Comments and Remarks Section {% endcomment %}
+
+<h2>Comments and Remarks</h2>
+
+<table>
+    <tr>
+        <td colspan=3>
+        <b>
+        The remarks area below is reserved for remarks related to constraints, 
+        actions/considerations that apply to the observation. Please put all other 
+        remarks/comments into the comment area below. 
+        </b>
+        </td>
+    </tr>
+    <tr>
+        <th style="vertical-align:top"><a href="#" onClick="WindowOpen(remarks);return false;">Remarks</a>:</th>
+        <td><textarea name="remarks" rows="10" cols="60"> {{ dbval.remarks }} </textarea></td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td colspan=3>
+        <b> 
+        Comments are kept as a record of why a change was made.<br />
+        If a CDO approval is required, or if you have a special instruction for ARCOPS, 
+        add the comment in this area.
+        </b>
+        </td>
+    </tr>
+    <tr>
+        <th  style='vertical-align:top'><a href="#" onClick="WindowOpen(comments);return false;">Comments</a>:</th>
+        <td><textarea name='comments' rows='3' cols='60' > {{ dbval.comments }} </textarea> </td>
+        <td>&#160;</td>
+    </tr>
+</table>
+
+<input type="hidden" name='comments_b'          value={{ dbval.comments_b }}>
+<input type="hidden" name='remarks_b'           value={{ dbval.remarks_b }}>
+<input type="hidden" name='org_comments_b'      value={{ dbval.org_comments_b }}>
+<input type="hidden" name='org_remarks_b'       value={{ dbval.org_remarks_b }}>
+
+{% endblock %}
+

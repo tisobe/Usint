@@ -1,0 +1,60 @@
+{% block warning_section  %}
+
+{% comment %} Warning Table and Other warnings{% endcomment %}
+
+{% ifequal std_chk '1' %}
+
+    <h3 style='color:red'>Warnings for Submitted Values</h3>
+
+    <table border=1> 
+        <tr>
+            <th>Parameter</th>
+            <th>Submitted Value</th>
+            <th>Potential Problems</th>
+        </tr>
+    
+        {% for ent in  std_warning %}
+            <tr>
+                <th> {{ ent.0 }} </th>
+                <td> {{ ent.1 }} </td>
+                <td> {{ ent.2 }} </td>
+            </tr>
+        {% endfor %}
+    
+    </table>
+
+{% endifequal %}
+
+{% ifequal cdo_chk '1' %}
+
+    <h3 style='color:red'>CDO Warnings ---  
+    <span style='font-size:90%'>  Following changes require CDO permission.</span>
+    </h3>
+    <ul>
+        {% for ent in cdo_warning %}
+            <li class='warning'>{{ ent }} </li>
+        {% endfor %}
+    </ul>
+
+{% endifequal %}
+    
+{% ifequal spl_chk '1' %}
+
+    {% ifequal std_chk '1' %}
+        <h3 style='color:red'>Other Warnings</h3>
+    {% else %}
+        <h3 style='color:red'>Warnings</h3>
+    {% endifequal %}
+
+
+    <ul>
+        {% for ent in spl_warning %}
+            <li class='warning'>{{ ent }} </li>
+        {% endfor %}
+    </ul>
+
+{% endifequal %}
+
+<hr />
+{% endblock %}
+

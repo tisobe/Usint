@@ -1,0 +1,164 @@
+{% block acis_win_constraint %}
+
+{% comment %} ACIS Window Constraints Section. {% endcomment %}
+
+<h2>ACIS Window Constraints</h2>
+
+<input type="hidden" name="ordr" value={{ dbval.ordr }}>
+
+{% ifequal dbval.spwindow_flag 'Y'  %}
+{% comment %} There are constraints; show the following part. {% endcomment %}
+
+    <input type="hidden" name='spwindow_flag'  value={{ dbval.spwindow_flag }}>
+
+    <p class='tight'>
+        <b>NOTE</b>: By default, the sample rate is 0 and the window specified is an <b>EXCLUSION</b> area. 
+        To set as INCLUSION, set the sample rate to 1 in the desired window and then an exclusion window 
+        for 1024 x 1024, with a sample value of 0.
+    </p>
+    <p class='tight'>
+        For example,  you want an inclusion window for the 128 x 128 rectangle, set an exclusion window for
+        the 128 x 128 rectagnle (e.g., start row:1, start column:1 height: 128, width: 128) with a sample value 
+        of 1 in rank 1, then in rank 2, set an exclusion window for 1024 x 1024, with a sample value of 0.
+    </p>
+    <p class='tight'>
+        For each pixel, the software looks at the specified windows in order (starting with 1). When 
+        it finds a window which has the pixel within its range, it uses the specification in that window, 
+        ignoring later windows in the list.
+    </p>
+    
+    <table>
+        <tr>
+            <th><a href="#" onClick="WindowOpen(ordr);return false;">Rank</a></th>
+            <th><a href="#" onClick="WindowOpen(chip);return false;">Chip</a></th>
+            <th><a href="#" onClick="WindowOpen(spwindow_start_row);return false;">Start Row</a></th>
+            <th><a href="#" onClick="WindowOpen(spwindow_start_column);return false;">Start Column</a></th>
+            <th><a href="#" onClick="WindowOpen(spwindow_height);return false;">Height</a></th>
+            <th><a href="#" onClick="WindowOpen(spwindow_width);return false;">Width</a></th>
+            <th><a href="#" onClick="WindowOpen(spwindow_lower_threshold);return false;">Lowest Energy</a></th>
+            <th><a href="#" onClick="WindowOpen(spwindow_pha_range);return false;">Energy Range</a></th>
+            <th><a href="#" onClick="WindowOpen(spwindow_sample);return false;">Sample Rate</a></th>
+        </tr>
+    
+{% comment %} Depending on ranks, show different numbers of rows. {% endcomment %}
+
+        {% ifequal dbval.ordr 1 %}
+            {% include 'ocatdatapage/acis_win_constraint_sub1.html' %}
+        {% endifequal %}
+     
+        {% ifequal dbval.ordr 2 %}
+            {% include 'ocatdatapage/acis_win_constraint_sub2.html' %}
+        {% endifequal %}
+     
+        {% ifequal dbval.ordr 3 %}
+            {% include 'ocatdatapage/acis_win_constraint_sub3.html' %}
+        {% endifequal %}
+     
+        {% ifequal dbval.ordr 4 %}
+            {% include 'ocatdatapage/acis_win_constraint_sub4.html' %}
+        {% endifequal %}
+     
+        {% ifequal dbval.ordr 5 %}
+            {% include 'ocatdatapage/acis_win_constraint_sub5.html' %}
+        {% endifequal %}
+     
+        {% ifequal dbval.ordr 6 %}
+            {% include 'ocatdatapage/acis_win_constraint_sub6.html' %}
+        {% endifequal %}
+    </table>
+    
+    <p>
+        {% ifnotequal dbval.ordr 6 %}
+            <input type="submit" name="check" value="Add Another ACIS Window Constraint">
+            <br />
+        {% endifnotequal %}
+        <input type="submit" name="check" value="Remove Null ACIS Window Constraint">
+    </p>
+
+
+{% else %}
+    {% ifequal dbval.spwindow_flag 'P'  %}
+{% comment %} There are constraints; show the following part. {% endcomment %}
+
+        <input type="hidden" name='spwindow_flag'  value={{ dbval.spwindow_flag }}>
+    
+        <p class='tight'>
+            <b>NOTE</b>: By default, the sample rate is 0 and the window specified is an <b>EXCLUSION</b> area.
+            To set as INCLUSION, set the sample rate to 1 in the desired window and then an exclusion window
+            for 1024 x 1024, with a sample value of 0.
+        </p>
+        <p class='tight'>
+            For example,  you want an inclusion window for the 128 x 128 rectangle, set an exclusion window for
+            the 128 x 128 rectagnle (e.g., start row:1, start column:1 height: 128, width: 128) with a sample value
+            of 1 in rank 1, then in rank 2, set an exclusion window for 1024 x 1024, with a sample value of 0.
+        </p>
+        <p class='tight'>
+            For each pixel, the software looks at the specified windows in order (starting with 1). When
+            it finds a window which has the pixel within its range, it uses the specification in that window,
+            ignoring later windows in the list.
+        </p>
+    
+        <table>
+            <tr>
+                <th><a href="#" onClick="WindowOpen(ordr);return false;">Rank</a></th>
+                <th><a href="#" onClick="WindowOpen(chip);return false;">Chip</a></th>
+                <th><a href="#" onClick="WindowOpen(spwindow_start_row);return false;">Start Row</a></th>
+                <th><a href="#" onClick="WindowOpen(spwindow_start_column);return false;">Start Column</a></th>
+                <th><a href="#" onClick="WindowOpen(spwindow_height);return false;">Height</a></th>
+                <th><a href="#" onClick="WindowOpen(spwindow_width);return false;">Width</a></th>
+                <th><a href="#" onClick="WindowOpen(spwindow_lower_threshold);return false;">Lowest Energy</a></th>
+                <th><a href="#" onClick="WindowOpen(spwindow_pha_range);return false;">Energy Range</a></th>
+                <th><a href="#" onClick="WindowOpen(spwindow_sample);return false;">Sample Rate</a></th>
+            </tr>
+
+{% comment %} Depending on ranks, show different numbers of rows. {% endcomment %}
+
+            {% ifequal dbval.ordr 1 %}
+                {% include 'ocatdatapage/acis_win_constraint_sub1.html' %}
+            {% endifequal %}
+    
+            {% ifequal dbval.ordr 2 %}
+                {% include 'ocatdatapage/acis_win_constraint_sub2.html' %}
+            {% endifequal %}
+    
+            {% ifequal dbval.ordr 3 %}
+                {% include 'ocatdatapage/acis_win_constraint_sub3.html' %}
+            {% endifequal %}
+    
+            {% ifequal dbval.ordr 4 %}
+                {% include 'ocatdatapage/acis_win_constraint_sub4.html' %}
+            {% endifequal %}
+    
+            {% ifequal dbval.ordr 5 %}
+                {% include 'ocatdatapage/acis_win_constraint_sub5.html' %}
+            {% endifequal %}
+    
+            {% ifequal dbval.ordr 6 %}
+                {% include 'ocatdatapage/acis_win_constraint_sub6.html' %}
+            {% endifequal %}
+        </table>
+    
+        <p>
+            {% ifnotequal dbval.ordr 6 %}
+                <input type="submit" name="check" value="Add Another ACIS Window Constraint">
+                <br />
+            {% endifnotequal %}
+            <input type="submit" name="check" value="Remove Null ACIS Window Constraint">
+        </p>
+
+    {% else %}
+{% comment %} If there is no constraints, show this part.  {% endcomment %}
+
+        <p>
+            There are no ACIS window  constraints. Do you need to add?
+     
+            {% include "includes/jstag.html" with p1='' p2='' p3=gen_name.spwindow_flag %}
+     
+            <input type="submit" name="check" value="Update">
+        </p>
+    
+    {% endifequal %}
+{% endifequal %}
+
+{% endblock %}
+

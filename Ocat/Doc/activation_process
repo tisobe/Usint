@@ -1,0 +1,65 @@
+
+
+Test Site:          /data/mta4/CUS/www/Usint/Ocat/
+Production Stie:    /proj/web-r2d2-v/lib/python2.7/site-packages/r2d2-v/
+
+0. put notification on:     (at least a month before the transition)
+
+        obsid_poc_list.cgi      
+        ocatdata2html_lite.cgi  
+        updated.cgi
+        chkupdata.cgi             
+        rm_submission.cgi
+        express_signoff.cgi       
+        obsid_usint_list.cgi    
+        orupdate.cgi            
+        schedule_submitter.cgi
+        extract_contact_info.cgi  
+        ocatdata2html.cgi       
+        orupdated.cgi           
+        insert_person.cgi         
+        ocatdata2html_full.cgi  
+        poc_obsid_list.cgi
+
+1. ask Gray Galstian (ggalstian@cfa.harvard.edu) to stop updating the production site. 
+
+2. stop cron job of the test site on r2d2-v
+
+3. in /data/mta4/CUS/www/Usint/Ocat/others (and the equivalent in the production site):
+    * mv run_main_script run_main_script~
+    * mv run_main_script_live run_main_script
+        --- this will stop copying the database from the cgi sites.
+
+4. in /data/mta4/CUS/www/Usint/Ocat/utils/create_log_and_email.py:
+    * change line 58: ccaddress
+    * change line 67: test "yes" to "no"
+    * remove "TEST!!! around lines 100 - 105
+
+5. /data/mta4/CUS/www/Usint/Ocat/ocatdatapage/management/commands:
+    * naggem.py: check lines 241 - 252.
+    * create_schedule_table.py: lines: 65: admin/ 327: cmd/ 406: ofile
+
+6. in /data/mta4/CUS/www/Usint/
+        move the following to somewhere and symbolic link to notification.html (not created yet)
+        obsid_poc_list.cgi      
+        ocatdata2html_lite.cgi  
+        updated.cgi
+        chkupdata.cgi             
+        rm_submission.cgi
+        express_signoff.cgi       
+        obsid_usint_list.cgi    
+        orupdate.cgi            
+        schedule_submitter.cgi
+        extract_contact_info.cgi  
+        ocatdata2html.cgi       
+        orupdated.cgi           
+        insert_person.cgi         
+        ocatdata2html_full.cgi  
+        poc_obsid_list.cgi
+
+
+
+
+
+
+

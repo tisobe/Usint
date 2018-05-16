@@ -1,0 +1,138 @@
+Sequence Number::seq_nbr
+Status::status
+ObsID #::obsid
+Proposal Number::prop_num
+Proposal Title::title
+Obs AO Status::obs_ao_str
+Charge AO Status::charge_ao_str
+Proposal AO Status::ao_str
+Target Name::targname
+SI Mode::si_mode
+ACA Mode::aca_mode
+Instrument::instrument
+Grating::grating
+Type::type
+PI Name::pi_name
+Observer::observer
+Exposrue time::approved_exposure_time
+Remaining Exposure Time::rem_exp_time
+Joint Proposal::joint
+HST Approved Time::hst_approved_time
+NOAO Approved Time::noao_approved_time
+XMM Approved Time::xmm_approved_time
+RXTE Approved Time::rxte_approved_time
+VLA Approved Time::vla_approved_time
+VLBA Approved Time::vlba_approved_time
+Schedule Date::soe_st_sched_date
+LTS Date::lts_lt_plan
+RA (HMS)::ra
+DEC (DMS)::dec
+RA::dra
+DEC::ddec
+Planned Roll::planned_roll
+Roll Observed::roll_obsr
+Offset: Y::y_det_offset
+Offset: Z::z_det_offset
+Z-Sim::trans_offset
+Sim-Focus::focus_offset
+Focus::defocus
+Raster Scan::raster_scan
+Dither::dither_flag
+Y Amp::y_amp
+Z Amp::z_amp
+Y Freq::y_freq
+Z Freq::z_freq
+Y Phase::y_phase
+Z Phase::z_phase
+Uninterrupted Obs::uninterrupt
+Extended SRC::extended_src
+Solar System Object::obj_flag
+Object::object
+Photometry::photometry_flag
+V Mag::vmagnitude
+Count Rate::est_cnt_rate
+1st Order Rate::forder_cnt_rate
+Roll Rank::roll_ordr
+Roll Angle Constraints::roll_constraint
+Roll Angle::roll
+Roll Tolerance::roll_tolerance
+Time Rank::time_ordr
+Window Flag::window_flag
+Temporal Window::window_constraint
+Temporal Start::tstart
+Temporal End::tstop
+Constraints in Remarks?::constr_in_remarks
+Phase Constraint::phase_constraint_flag
+Phase Epoch::phase_epoch
+Phase Period::phase_period
+Phase Min::phase_start
+Phase Min Err::phase_start_margin
+Phase Max::phase_end
+Phase Max Err::phase_end_margin
+Group ID::group_id
+Monitoring Observations?::monitor_flag
+Follows ObsID#::pre_id
+Follows Obs Min Int::pre_min_lead
+Follows Obs Max Int::pre_max_lead
+Coordinated Observation::multitelescope
+Observatories::observatories
+Max Coordination Offset::multitelescope_interval
+HRC Configuration::hrc_config
+Zero Block::hrc_zero_block
+Timing Mode::timing_mode
+SI Mode::hrc_si_mode
+ACIS Exposure Mode::exp_mode
+Event TM Format::bep_pack
+Frame Time::frame_time
+Most Efficient::most_efficient
+Standard Chips::standard_chips
+I0::ccdi0_on
+I1::ccdi1_on
+I2::ccdi2_on
+I3::ccdi3_on
+S0::ccds0_on
+S1::ccds1_on
+S2::ccds2_on
+S3::ccds3_on
+S4::ccds4_on
+S5::ccds5_on
+Subarray Type::subarray
+Start::subarray_start_row
+Rows::subarray_row_count
+Frame Time::subarray_frame_time
+Duty Cycle::duty_cycle
+Number::secondary_exp_count
+Tprimary::primary_exp_time
+Tsecondary::secondary_exp_time
+Onchip Summing::onchip_sum
+Rows::onchip_row_count
+Columns::onchip_column_count
+Event Filter::eventfilter
+Lowest Energy::eventfilter_lower
+Energy Range::eventfilter_higher
+MultiSpectral Lines::multiple_spectral_lines
+Spectra Max Count::spectra_max_count
+Window Filter::spwindow_flag
+Rank::ordr
+Chip::chip
+Photon Type::include_flag
+START ROW::start_row
+Start Column::start_column
+Height::height
+Width::width
+Lower Energy::lower_threshold
+Energy Range::pha_range
+Sample Rate::sample
+Bias::bias_request
+Frequency::frequency
+Bias After::bias_after
+Roll Flag::roll_flag
+TOO ID::tooid
+TOO Trigger::too_trig
+TOO Type::too_type
+Start::too_start
+Stop::too_stop
+# of Follow-up Observations::too_followup
+TOO Remarks::too_remarks
+Remarks::remarks
+Comments::comments

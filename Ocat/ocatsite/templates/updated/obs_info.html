@@ -1,0 +1,42 @@
+{% block obs_info   %}
+{% comment %} 
+
+This file contains the top part of orupdate.html page.
+
+{% endcomment %}
+
+<table border = 0>
+
+{% comment %} -- first  row starts - {% endcomment %}
+
+<tr>
+<td style='width:40%'>
+    <b>
+    The table below  contains to the links to a list which lists verified targets in that specific year/month.
+    </b>
+</td>
+<td style='width:5%'>
+    &#160;
+</td> 
+<td style='width:40%'>
+    <b>Links</b>
+    <ul>
+    <li>
+        <a href='{{ durl }}/orupdate/'>Target Parameter Update Status Form</a>.
+    </li>
+    <li>
+        <a href='{{ durl }}/ocatmain/'>Ocat Main Page</a>.
+    </li>
+<!--
+    <li>
+        <a href='https://cxc.cfa.harvard.edu/cus/index.html'>Chandra Uplink Support Page</a>
+    </li>
+-->
+</td>
+</tr>
+</table>
+
+{% endblock %}
+
+
+

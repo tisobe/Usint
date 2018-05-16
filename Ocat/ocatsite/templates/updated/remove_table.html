@@ -1,0 +1,85 @@
+{% block main_table   %}
+{% comment %}
+
+This file contains the table part of orupdate.html page
+
+{% endcomment %}
+
+<table border=1 style='border-spacing:5ps; border-collapse:separate;width:90%'>
+    <tr>
+        <th style='text-align:center;color:green;width:10%'>Obsid.Rev</th>
+        <th style='text-align:center;color:green;width:10%'>General Obscat</th>
+        <th style='text-align:center;color:green;width:10%'>ACIS Obscat</th>
+        <th style='text-align:center;color:green;width:10%'>SI Mode</th>
+        <th style='text-align:center;color:green;width:10%'>Verified by</th>
+    </tr>
+{% comment %}
+
+    ent is a list with:
+
+        ent.0   --- obsidrev 
+        ent.1   --- general 
+        ent.2   --- acis    
+        ent.3   --- si mode 
+        ent.4   --- verified 
+        ent.5   --- seq number 
+        ent.6   --- poc 
+        ent.7   --- date 
+        ent.8   --- name of gen_status          example: 16259_002_gen
+        ent.9   --- name of acis_status         example: 16259_002_acis
+        ent.10  --- name of si mode stateus     example: 16259_002_si
+        ent.11  --- name of verified status     example: 16259_002_verified
+        ent.12  --- new comments?               'y' or 'n'
+        ent.13  --- large coord shift?          'y' or 'n'
+        ent.14  --- multi rev? higher rev       'y' or 'n'
+        ent.15  --- obsidrev (of ent.14)        'y' or 'n'
+        ent.16  --- in approved list?           'y' or 'n'
+
+{% endcomment %}
+
+    {% for ent in updates_list %}
+        <tr>
+            <th style='text-align:center'>
+                <a href='{{ durl }}/ocatdatapage/{{ ent.0 }}/'>{{ ent.0 }}</a>
+                <br /> {{ ent.5 }} <br /> {{ ent.7  }} <br /> {{ent.6 }}
+            </th>
+
+            <td style='text-align:center'> 
+                {% ifequal ent.1 'NA' %}
+                    <input type="submit" size=10 name={{ ent.8 }} valu='Remove' >
+                {% else %}
+                    {{ ent.1 }} 
+                {% endifequal %}
+            </td>
+
+            <td style='text-align:center'> 
+                {% ifequal ent.2 'NA' %}
+                    <input type="submit" size=10 name={{ ent.9 }} value='Remove'>
+                {% else %}
+                    {{ ent.2 }} 
+                {% endifequal %}
+            </td>
+
+            <td style='text-align:center'> 
+                {% ifequal ent.3 'NA' %}
+                    <input type="submit" size=10 name={{ ent.10 }} value='Remove'>
+                {% else %}
+                    {{ ent.3 }} 
+                {% endifequal %}
+            </td>
+
+            <td style='text-align:center'> 
+                {% ifequal ent.4 'NA' %}
+                    <input type="submit" size=10 name={{ ent.11 }} value='Remove'>
+                {% else %}
+                    {{ ent.4 }} 
+                {% endifequal %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,56 @@
+{% block dither %}
+
+{% comment %} Dither section {% endcomment %}
+
+<h2>Dither</h2>
+
+{% ifequal dbval.dither_flag 'Y'   %}
+{% comment %} dither flag is YES; show all information. {% endcomment %}
+
+    <p>
+        {% include "includes/jstag.html" with p1='dither_flag' p2=pname.dither_flag p3=gen_name.dither_flag %}
+    </p>
+    
+    
+    <table>
+        <tr>
+            {% include "includes/jstag.html" with p1='y_amp'   p2=pname.y_amp   p3=gen_name.y_amp_asec  p4='(arcsec)'     %}
+            {% include "includes/jstag.html" with p1='y_freq'  p2=pname.y_freq  p3=gen_name.y_freq_asec p4='(arcsec/sec)' %}
+            {% include "includes/jstag.html" with p1='y_phase' p2=pname.y_phase p3=gen_name.y_phase %}
+        </tr>
+        <tr>
+            <th>Y Amp  </th><td>{{ dbval.y_amp }}  (deg)    </td>
+            <th>Y Freq </th><td>{{ dbval.y_freq }} (deg/sec)</td>
+            <input type="hidden" name='y_amp'       value={{ dbval.y_amp  }} >
+            <input type="hidden" name='y_Freq'      value={{ dbval.y_freq  }} >
+            <th>&#160; </th><td>&#160;</td>
+        </tr>
+        <tr>
+            {% include "includes/jstag.html" with p1='z_amp'   p2=pname.z_amp   p3=gen_name.z_amp_asec  p4='(arcsec)'     %}
+            {% include "includes/jstag.html" with p1='z_freq'  p2=pname.z_freq  p3=gen_name.z_freq_asec p4='(arcsec/sec)' %}
+            {% include "includes/jstag.html" with p1='z_phase' p2=pname.z_phase p3=gen_name.z_phase %}
+        </tr>
+        <tr>
+            <th>Z Amp  </th><td>{{ dbval.z_amp }}  (deg)    </td>
+            <th>Z Freq </th><td>{{ dbval.z_freq }} (deg/sec)</td>
+            <input type="hidden" name='z_amp'       value={{ dbval.z_amp  }} >
+            <input type="hidden" name='z_Freq'      value={{ dbval.z_freq  }} >
+            <th>&#160; </th><td>&#160;</td>
+        </tr>
+    </table>
+
+{% else %}
+{% comment %} If dither flag is NULL, No, or None, show this part. {% endcomment %}
+
+    <table>
+        <tr>
+            <td style='font-size:110%' >There are no dither constraints. Do you need to add?</td>
+            {% include "includes/jstag.html" with p1='dither_flag' p2=pname.dither_flag p3=gen_name.dither_flag %}
+            <td><input type="submit" name="check" value="Update"></td>
+        </tr>
+    </table>
+
+{% endifequal %}
+
+{% endblock %}
+

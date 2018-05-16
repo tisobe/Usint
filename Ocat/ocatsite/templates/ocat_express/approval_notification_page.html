@@ -1,0 +1,66 @@
+{% block approval_notification_page   %}
+{% comment %} 
+
+This file contains the ocat express submission page
+
+{% endcomment %}
+
+{% ifnotequal rejected_list 'na' %}
+    {% ifequal approved_list 'na' %}
+        <h3>
+            None of obsids on the list submitted were approved. 
+            If you need to approve them, ploase do so indivisually.
+        </h3>
+    {% else %}
+        <h3>
+            The following obsids were NOT approved.
+        </h3>
+    {% endifequal %}
+    <ul>
+        {% for ent in rejected_list %}
+            <li> <a href='{{ durl }}/ocatdatapage/{{ ent }}/'>{{ ent }}</a> </li> 
+        {% endfor %}
+    </ul>
+{% endifnotequal %}
+
+
+{% ifnotequal approved_list 'na' %}
+    {% ifnotequal reject_list 'na' %}
+        <div style='padding-top:10px'>
+        </div>
+        <hr />
+        <div style='padding-top:10px'>
+        </div>
+    {% endifnotequal %}
+    <h3>
+        The following obsids were approved.
+    </h3>
+    <ul>
+        {% for ent in approved_list %}
+            <li> {{ ent }} </li> 
+        {% endfor %}
+    </ul>
+
+    <p style='padding-top:4px; padding-bottom:5px'>
+    <a href='{{ durl }}/orupdate/'><b>Check Target Parameter Update Status Form </a></b>
+    </p>
+
+    <hr />
+
+{% endifnotequal %}
+
+
+
+
+<p style='padding-top:10px'>
+<b>Go back to the Front Page: </b>
+<input type="submit"  name='check' value='Back To Front Page'>
+</p>
+
+<div style='padding-bottom:400px'>
+</div>
+
+{% endblock %}
+
+
+

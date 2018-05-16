@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Express Approval Page Page frame work page. It is built on "base.html."
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Express Approval Page"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+
+<h1 style='text-align:left'>Ocat Data Express Approval Page</h1>
+
+<ul style='text-align:right;'>
+    <li><a href="{{ durl }}/ocatmain">Go to Ocat Main Page</a></li>
+    <li>
+        <a href='{{ durl }}/orupdate/' >Target Parameter Update Status Form</a>
+    </li>
+<!--
+    <li><a href='https://cxc.cfa.harvard.edu/cus/index.html'>Chandra Uplink Support Page</a></li>
+-->
+</ul>
+
+
+<form  method='post'>{% csrf_token %}
+{%include 'ocat_express/obs_info.html' %}
+
+<hr />
+
+{% ifequal panel 2 %}
+    {%include 'ocat_express/verification_page.html' %}
+{% else %}
+    {% ifequal panel 3 %}
+        {%include 'ocat_express/approval_notification_page.html' %}
+    {% else %}
+        {%include 'ocat_express/submission_page.html' %}
+    {% endifequal %}
+{% endifequal %}
+
+<input type="hidden" name="submitter"  value={{ submitter }}>
+</form>
+
+
+{%include 'ocat_express/footer.html' %}
+    
+
+
+{% endblock %}

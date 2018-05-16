@@ -1,0 +1,77 @@
+{% block submission_check_page2  %}
+
+{% comment %} Submission entry check page for asis, remove, and split  {% endcomment %}
+
+<h2>Submitted Parameters</h2>
+
+<table border=0>
+    <tr>
+        <th>User Name: </th><td>{{ dbval.submitter }}</td>
+    </tr>
+</table>
+
+
+{% ifequal gen_name.asis 'asis' %}
+    <p>
+        <b>
+        You have checked that this obsid {{ dbval.obsid }} is  <span style='color:red;'>ready for flight</span>. 
+        Any parameter changes you made will not be submitted with this request.
+        </b>
+    </>
+{% endifequal %}
+
+
+{% ifequal gen_name.asis 'remove' %}
+    <p>
+        <b>
+        You have requested this obsid {{ dbval.obsid }} to be <span style='color:red;'>removed</span> from the 
+        "ready to go" list. Any parameter changes you made will not be submitted with this request.
+        </b>
+    </p>
+{% endifequal %}
+
+
+{% ifequal gen_name.asis 'clone' %}
+    <p>
+        <b>
+        You have submitted a a request for <span style='color:red;'>splitting</span> obsid {{ dbval.obsid }}. 
+        No parameter changes will be submitted with this request.
+        </b>
+    </p>
+    <p style='color:red;'>
+        <b>
+        You need to explain why you need to split this observation.Plese go back and add the explanation 
+        in the comment area
+        </b>
+    </p>
+{% endifequal %}
+
+
+{% comment %} sending back all parameter values. {% endcomment %}
+
+{% for ent in  submitted %}
+
+    <input type="hidden" name={{ ent.0 }}  value={{ ent.3 }}>
+
+{% endfor %}
+
+{% for ent in org_keys %}
+
+    <input type="hidden" name={{ ent.0 }}  value={{ ent.1 }}>
+{% endfor %}
+
+
+<input type="hidden" name='remarks'     value={{ dbval.remarks }}>
+<input type="hidden" name='comments'    value={{ dbval.comments }}>
+<input type="hidden" name='hrc_si_select'    value={{ dbval.hrc_si_select }}>
+
+<p>
+<input type="submit" name="check" value="Previous Page">
+<input type="submit" name="check" value="FINALIZE">
+</p>
+
+<div style='padding-bottom:500px'>
+</div>
+
+{% endblock %}
+

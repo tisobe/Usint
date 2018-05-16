@@ -1,0 +1,141 @@
+{% block main_table   %}
+{% comment %}
+
+This file contains the table part of orupdate.html page
+
+{% endcomment %}
+{% ifequal updates_list '' %}
+    <p style='font-size:110%;padding-top:20px'>
+        <b>
+        Sorry, but there is no entry which you can remove at this time.
+        </b> 
+    </p>
+    
+    <table border=0>
+    <tr><th style='font-size:120%'>
+        Go to <em>Target Parameter Update Status Form</em>: 
+    </th>
+    <td>
+        <table border=1>
+            <tr><th>
+                <a href='http://127.0.0.1:8000/orupdate/orupdate/'> Go </a>
+            </th></tr>
+        </table>
+    </td>
+    </tr>
+    </table>
+    <p style='font-size:110%;padding-bottom:300px'>
+    </p>
+
+{% else %}
+<div style='padding-top:10px'>
+</div>
+
+<table border=1 style='border-spacing:5ps; border-collapse:separate;width:90%'>
+    <tr>
+        <th style='text-align:center;color:green;width:10%'>Obsid.Rev</th>
+        <th style='text-align:center;color:green;width:10%'>General Obscat</th>
+        <th style='text-align:center;color:green;width:10%'>ACIS Obscat</th>
+        <th style='text-align:center;color:green;width:10%'>SI Mode</th>
+        <th style='text-align:center;color:green;width:10%'>Verified by</th>
+    </tr>
+{% comment %}
+
+    ent is a list with:
+
+        ent.0   --- obsidrev 
+        ent.1   --- general 
+        ent.2   --- acis    
+        ent.3   --- si mode 
+        ent.4   --- verified 
+        ent.5   --- seq number 
+        ent.6   --- poc 
+        ent.7   --- date 
+        ent.8   --- name of gen_status          example: 16259_002_gen
+        ent.9   --- name of acis_status         example: 16259_002_acis
+        ent.10  --- name of si mode stateus     example: 16259_002_si
+        ent.11  --- name of verified status     example: 16259_002_verified
+        ent.12  --- general removable?          'y' or 'n'
+        ent.13  --- acis removable?             'y' or 'n'
+        ent.14  --- si_mode removable?          'y' or 'n'
+        ent.15  --- verify removable?           'y' or 'n'
+
+{% endcomment %}
+
+    {% for ent in updates_list %}
+        <tr>
+            <th style='text-align:center'>
+                <a href='http://127.0.0.1:8000/ocatdatapage/ocatdatapage/{{ ent.0 }}/' target='blank'>{{ ent.0 }}</a>
+                <br /> {{ ent.5 }} <br /> {{ ent.7  }} <br /> {{ent.6 }}
+            </th>
+
+{% comment %} General Sign Off Part  {% endcomment %}
+
+            <td style='text-align:center'> 
+                {% ifequal ent.12 'y' %}
+                    {{ ent.1 }} <br />
+                    <input type="submit"  name={{ ent.8 }} value='Remove' >
+                {% else %}
+                    {% ifequal ent.1 'NA' %}
+                        Not Signed Off Yet
+                    {% else %}
+                        {{ ent.1 }} 
+                    {% endifequal %}
+                {% endifequal %}
+            </td>
+
+{% comment %} ACIS Sign Off Part  {% endcomment %}
+
+            <td style='text-align:center'> 
+                {% ifequal ent.13 'y' %}
+                    {{ ent.2 }} <br />
+                    <input type="submit"  name={{ ent.9 }} value='Remove'>
+                {% else %}
+                    {% ifequal ent.2 'NA' %}
+                        Not Signed Off Yet
+                    {% else %}
+                        {{ ent.2 }} 
+                    {% endifequal %}
+                {% endifequal %}
+            </td>
+
+{% comment %} SI Mode Sign Off Part  {% endcomment %}
+
+            <td style='text-align:center'> 
+                {% ifequal ent.14 'y' %}
+                    {{ ent.3 }} <br />
+                    <input type="submit"  name={{ ent.10 }} value='Remove'>
+                {% else %}
+                    {% ifequal ent.3 'NA' %}
+                        Not Signed Off Yet
+                    {% else %}
+                        {{ ent.3 }} 
+                    {% endifequal %}
+                {% endifequal %}
+            </td>
+
+{% comment %} Verified by Sign Off Part  {% endcomment %}
+
+            <td style='text-align:center'> 
+                {% ifequal ent.15 'y' %}
+                    {{ ent.4 }} <br />
+                    <input type="submit"  name={{ ent.11 }} value='Remove'>
+                {% else %}
+                    {% ifequal ent.4 'NA' %}
+                        Not Signed Off Yet
+                    {% else %}
+                        {{ ent.4 }}
+                    {% endifequal %}
+                {% endifequal %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endifequal %}
+
+<input type='hidden' name='check' vlaue='back'>
+
+{% endblock %}
+
+
+

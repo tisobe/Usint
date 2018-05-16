@@ -1,0 +1,103 @@
+{% block main_table   %}
+{% comment %}
+
+This file contains the table part of orupdate.html page
+
+{% endcomment %}
+
+<table border=1>
+    <tr>
+        <th style='text-align:center'>Contact</th>
+        <th colspan=3 style='text-align:center'>Start Date</th>
+        <th colspan=3 style='text-align:center'>Finish Date</th>
+        <th style='text-align:center'>Assigned By</th>
+        <th style='text-align:center'>Status</th>
+    </tr>
+    <tr>
+        <th>&#160;</th>
+        <th>Month</th>
+        <th>Day</th>
+        <th>Year</th>
+        <th>Month</th>
+        <th>Day</th>
+        <th>Year</th>
+        <th>&#160;</th>
+        <th>&#160;</th>
+    </tr>
+
+
+    {% for ent in data_list %}
+
+{% comment %}
+Setting color of each row depending of the data status
+{% endcomment %}
+
+        {% ifequal ent.ochk 'c'%}
+            <tr style='background-color:#D2691E;'>
+        {% else %}
+            {% ifequal ent.ochk 'y'%}
+                <tr>
+            {% else %}
+                <tr style='background-color:#DEB887;'>
+            {% endifequal %}
+        {% endifequal %}
+
+{% comment %} 
+        Input are open 
+        there are 4 different day_list depending of the month (length: 28, 29, 30, or 31)
+{% endcomment %}
+
+            {% ifequal ent.ochk 'y' %}
+                {% include 
+                        "schedule_submitter/editable_entry.html"
+                            with ent=ent 
+                                 contact_list=contact_list 
+                                 day_list=day_list 
+                                 day_list2=day_list2 
+                                 day_list3=day_list3 
+                                 day_list4=day_list4 
+                                 year_list=year_list 
+                %}
+
+{% comment %} Input are closed {% endcomment %}
+
+            {% else %}
+                {% include "schedule_submitter/noneditable_entry.html" with ent=ent  %}
+                {% ifequal ent.ochk 'c' %}
+                    <td class='bold'>Closed</td>
+                {% else %}
+                    <td><input type='submit' name={{ ent.submit }} value='unlock'></td>
+                {% endifequal %}
+
+{% comment %} if the data is closed, you still need to send the data value to the next round {% endcomment %}
+
+                <input type='hidden' name= {{ ent.name_id }} value = {{ ent.name }}>
+                <input type='hidden' name= {{ ent.start_month_id }} value = {{ ent.start_month }}>
+                <input type='hidden' name= {{ ent.start_day_id }} value = {{ ent.start_day }}>
+                <input type='hidden' name= {{ ent.start_year_id }} value = {{ ent.start_year }}>
+                <input type='hidden' name= {{ ent.finish_month_id }} value = {{ ent.finish_month }}>
+                <input type='hidden' name= {{ ent.finish_day_id }} value = {{ ent.finish_day }}>
+                <input type='hidden' name= {{ ent.finish_year_id }} value = {{ ent.finish_year }}>
+                <input type='hidden' name= {{ ent.assigned_id }} value = {{ ent.assigned }}>
+
+            {% endifequal %}
+            <input type='hidden' name= {{ ent.start_id }}  value = {{ ent.start }}>
+            <input type='hidden' name= {{ ent.finish_id }} value = {{ ent.finish }}>
+            <input type='hidden' name= {{ ent.id_id }}     value = {{ ent.id }}>
+            <input type='hidden' name= {{ ent.user_id }}   value = {{ ent.user }}>
+            <input type='hidden' name= {{ ent.ochk_id }}   value = {{ ent.ochk }}>
+        </tr>
+    {% endfor %}
+
+</table>
+
+<input type='hidden' name= 'id_list' value= {{ id_list }}>
+
+
+<br /><br />
+
+
+{% endblock %}
+
+
+

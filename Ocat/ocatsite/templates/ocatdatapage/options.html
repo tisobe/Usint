@@ -1,0 +1,123 @@
+{% block options %}
+
+{% comment %} Submission Option Section {% endcomment %}
+
+<h3>Submission Options </h3>
+
+{% ifequal dbval.head_notificaiton 3 %}
+    <p style='color:red;'> 
+        Please remove this observation from the approved list before updating the paramters.
+    </p>
+{% else %}
+    {% ifequal dbval.head_notificaiton 2 %}
+        <p style='color:red;'>
+            <b>Currently under review in an active OR list. Contact MP before submission!</b>
+        </p>
+    {% else %}
+        {% ifequal dbval.head_notificaiton 4 %}
+            <p style='color:red;'>
+                <b>{{ dval.lts_span }} day(s) left to LTS date. Contact MP before submission!</b>
+            </p>
+        {% else %}
+            <p>
+                Please select one radio button, and press the submit button. 
+                You will have a chance to review your submission before the final submission.
+            </p>
+    
+        {% endifequal %}
+    {% endifequal %}
+{% endifequal %}
+
+<table style='margin-left:25px;'>
+{% ifequal dbval.head_notificaiton 3 %}
+    
+    <tr>
+        <th style="text-align:left">
+
+        <input type="radio" name="asis" value="remove" checked>
+
+        <b>ObsID no longer ready to go</b>
+        </th>
+        <td>
+        REMOVES ObsID from the Approved List - nothing else
+        </td>
+    </tr>
+
+{% else %}
+    <tr>
+        <th style="text-align:left">
+
+        {% ifequal dbval.asis 'norm' %}
+            <input type="radio" name="asis" value="norm" checked>
+        {% else %}
+            <input type="radio" name="asis" value="norm">
+        {% endifequal %}
+
+        <b> Normal Change</b>
+        </th>
+        <td>
+        Any changes other than APPROVAL status
+        </td>
+    </tr>
+
+    <tr>
+        <th style="text-align:left">
+
+        {% ifequal dbval.asis 'asis' %}
+            <input type="radio" name="asis" value="asis" checked>
+        {% else %}
+            <input type="radio" name="asis" value="asis">
+        {% endifequal %}
+
+        <b> Observation is Approved for flight</b>
+        </th>
+        <td>
+        Adds ObsID to the Approved File - nothing else
+        </td>
+    </tr>
+    
+    <tr>
+        <th style="text-align:left">
+
+        {% ifequal dbval.asis 'remove' %}
+            <input type="radio" name="asis" value="remove" checked>
+        {% else %}
+            <input type="radio" name="asis" value="remove">
+        {% endifequal %}
+
+        <b>ObsID no longer ready to go</b>
+        </th>
+        <td>
+        REMOVES ObsID from the Approved List - nothing else
+        </td>
+    </tr>
+    <tr>
+        <th style="text-align:left">
+
+        {% ifequal dbval.asis 'clone' %}
+            <input type="radio" name="asis" value="clone" checked>
+        {% else %}
+            <input type="radio" name="asis" value="clone">
+        {% endifequal %}
+
+        <b>Split this ObsID </b>
+     
+        </th>
+        <td style="color:fuchsia">
+        Please add an explanation why you need
+        <br />
+        to split this observation in the comment area.
+        </td>
+    </tr>
+{% endifequal %}
+</table>
+
+<p>
+    <input type=submit name="check"  value="Submit">
+    <input type=submit name="check"  value="     Update     ">
+</p>
+
+<div style='padding-bottom:20px;'>
+</div>
+
+{% endblock %}

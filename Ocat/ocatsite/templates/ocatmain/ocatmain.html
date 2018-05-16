@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% comment %} ocat main page for POC  {% endcomment %}
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Oct Main Page"  }}
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Ocat Main Page</h2>
+
+<form action="." method="post">{% csrf_token %}
+
+{% comment %}if password change page is requested {% endcomment %}
+
+{% ifequal passchange 'yes' %}
+
+    {% include 'ocatmain/password_change.html' %}
+
+
+{% comment %}the main ocatmain page {% endcomment %}
+
+{% else %}
+
+    <table border=0 style='padding-bottom:20px;'>
+        <tr>
+            <th>Logged In As: </th>
+            <th style='background-color:lime;text-align:center'>{{ submitter }}</th>
+            <td style='text-align:center;'><button type='submit' name='check0' value='Change User'>Change User</button> 
+            / <button  type='submit' name='check0' value='Change Password'>Change Password</button></td>
+            {% ifnotequal pcomment '' %}
+                <td style='color:red;'><b>{{ pcomment }}</b></td>
+            {% endifnotequal %}
+        </tr>
+        <tr>
+            <th>Next Time as TOO-POC: </th>
+            <th  style='background-color:pink;'>{{ period }}</th>
+            <td>(<a href="{{ durl }}/schedule_submitter/">Sign up for more duty periods</a>)</td>
+        </tr>
+    </table>
+    <hr />
+    
+    {% ifequal section '3' %}
+
+{% comment %} display all planned observations  {% endcomment %}
+
+        {%include 'ocatmain/ocat_sec3.html' %}
+
+    {% else %}
+
+{% comment %} display first page  {% endcomment %}
+
+        {%include 'ocatmain/ocat_sec1.html' %}
+
+{% comment %} if the user is cus, display admin function  {% endcomment %}
+
+        {% ifequal submitter 'cus' %}
+            <hr />
+            <hr />
+            <hr />
+            <div style='margin-right:60px;'>
+            <h3><a href="{{ durl }}/admin/">Admin Main Page</a></h3>
+                <p>
+                    Links to data. If you delete an entry from one list, probably you also
+                    need to remove the same entry from the others.
+                </p>
+                <ul>
+                    <li><th><a href="{{ durl }}/admin/ocatdatapage/approved/">Approved List</a></th></li>
+                    <li><th><a href="{{ durl }}/admin/ocatdatapage/updates/">Submission Status</a></th></li>
+                    <li><th><a href="{{ durl }}/admin/ocatdatapage/data_tables/">Submitted Data</a></th></li>
+                </ul>
+                <p>
+                    If you like to edit user information or like to add a new user, go to:
+                </p>
+                <ul>
+                    <li><th><a href="{{ durl }}/admin/auth/user/">User List</a></th>
+                </ul>
+                <p>
+                    If you like to fix a POC schedule, it is better to do on 
+                    <a href="{{ durl }}/schedule_submitter/">Schedule Submitter</a>,
+                    but if that does not solve the problem, you can edit the database:
+                </p>
+                <ul>
+                    <li><th><a href="{{ durl }}/admin/schedule_submitter/schedule/">POC Schedule</a></th>
+                </ul>
+            </div>
+    
+{% comment %} for none cus user, display the second part {% endcomment %}
+
+        {% else %}
+    
+            {%include 'ocatmain/ocat_sec2.html' %}
+    
+        {% endifequal %}
+
+    {% endifequal %}
+
+{% endifequal %}
+
+<input type='hidden' name='durl'      value={{ durl }}>
+<input type='hidden' name='submitter' value={{ submitter }}>
+<input type='hidden' name='dperiod'   value={{ dperiod }}>
+<input type='hidden' name='opi'       value={{ opi }}>
+<input type='hidden' name='toochk'    value={{ toochk }}>
+<input type='hidden' name='ddtchk'    value={{ ddtchk }}>
+<input type='hidden' name='d30chk'    value={{ d30chk }}>
+<input type='hidden' name='open_item' value={{ open_item }}>
+<input type='hidden' name='too_data'  value={{ too_data }}>
+<input type='hidden' name='ddt_data'  value={{ ddt_data }}>
+<input type='hidden' name='d30_data'  value={{ d30_data }}>
+<input type='hidden' name='section'   value={{ section }}>
+<input type='hidden' name='obs_list'  value={{ obs_list }}>
+<input type='hidden' name='vlist'     value={{ vlist }}>
+
+</form>
+
+
+{% comment %}If there is no observation list, push down the footer for at least 500 px {% endcomment %}
+
+{% ifequal ddtchk 0 %}
+    {% ifequal toochk 0 %}
+        {% ifequal d30chk 0 %}
+    
+            <div style='padding-bottom:500px'>
+            </div>
+
+        {% endifequal %}
+    {% endifequal %}
+{% endifequal %}
+
+{%include 'ocatmain/footer.html' %}
+
+{% endblock %}
+

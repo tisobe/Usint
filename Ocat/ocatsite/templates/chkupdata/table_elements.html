@@ -1,0 +1,24 @@
+{% block table_elements  %}
+
+{% comment %}
+how to include this
+{% include  'chkupdata/table_elements.html' %}
+{% endcomment %}
+
+        <tr>
+            {%ifnotequal ent.1 ent.2 %}
+                <th style='background-color:yellow'>{{ ent.0 }}</th>
+            {% else %}
+                <th>{{ ent.0 }}</th>
+            {% endifnotequal %}
+
+            <td>{{ ent.1 }}</td>
+            <td>{{ ent.2 }}</td>
+
+            {% ifequal ent.2 ent.3 %}
+                <td style='background-color:#ADFF2F'>{{ ent.3 }}</td>
+            {% else %}
+                <td style='background-color:#FF00FF'>{{ ent.3 }}</td>
+            {% endifequal %}
+        </tr>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Paramter Check Page  for the case that the submitted obsid is not in the database.
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Ocat Main Page"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+<h1 style='padding-bottom:40px;text-align:left'>Ocat Main Page</h1>
+
+<h2 style='color:red'>If you see this page, something is quite wrong. Please contact tisobe@cfa.harvard.edu. </h2>
+
+<div style='padding-bottom:600px'>
+</div>
+
+    
+{%include 'ocatmain/footer.html' %}
+    
+
+
+{% endblock %}

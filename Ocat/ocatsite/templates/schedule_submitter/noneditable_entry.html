@@ -1,0 +1,29 @@
+{% block editable_entry   %}
+
+<td class='bold'>{{ ent.name }}</td>
+<td class='bold'>
+    {% include "schedule_submitter/month_list.html" with p1=ent.start_month %}
+</td>
+
+{% ifequal ent.color_st 'd' %}
+    <td class='bold' style="background-color:aqua;">{{ ent.start_day }}</td>
+{% else %}
+    <td class='bold'>{{ ent.start_day }}</td>
+{% endifequal %}
+
+
+<td class='bold'>{{ ent.start_year }}</td>
+<td class='bold'>
+    {% include "schedule_submitter/month_list.html" with p1=ent.finish_month %}
+</td>
+{% ifequal ent.color_en 'd' %}
+    <td class='bold' style="background-color:aqua;">{{ ent.finish_day }}</td>
+{% else %}
+    <td class='bold'>{{ ent.finish_day }}</td>
+{% endifequal %}
+<td class='bold'>{{ ent.finish_year }}</td>
+<td class='bold'>{{ ent.assigned }}</td>
+
+
+{% endblock %}
+

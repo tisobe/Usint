@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% comment %} ocat main page  {% endcomment %}
+
+{% block content %}
+<h2>Ocat Main Page</h2>
+
+<form>
+<table border=0>
+    <tr>
+        <th>User Name: </th><td>{{ submitter }}</td>
+        <td>(Change user: <input type='submit' name='check' value='Change'>)</td>
+    </tr>
+</table>
+
+<table border=0>
+    <tr>
+        <th>Ocat Data Page: </th>
+        <td>ObsId: <input type='text' size='10' name='ocat_obsid'></td>
+        <td><input type='submit' name='check' value='Submit'></td>
+    </tr>
+    <tr>
+        <th>Check Submitted ObsID Parameters: </th>
+        <td>
+                ObsId: <input type='text' size='10' name='chk_obsid'>
+                Version: <input type='text' size='10' name='chk_ver'>
+        </td>
+        <td><input type='submit' name='check' value='Submit'></td>
+    </tr>
+    <tr>
+        <td>&#160;</td>
+        <td colspan=2>(if you leave "version" blank, it will display a list of possible selections.)</td>
+    </tr>
+    {% if  vlist  %}
+        <tr>
+        <td>&#160;</td>
+        <td>
+            <ul>
+            {% for ent in vlist %}
+                <li><a href="{{ url }}chkupdata/{{ ent }}">{{ ent }}</a> </li>
+            {% endfor %}
+            </ul>
+        </td>
+        </tr>
+    {% endif %}
+    <tr>
+        <th><a href='{{ url }}/orupdate/'>Sign Off Page</a></th>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <th><a href='{{ url }}/updated/'>Signed Off Observation Page</a></th>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <th><a href='{{ url }}/rm_submission/'>Remove Submission Page</a></th>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <th><a href='{{ url }}/ocat_express/'>Express Approve Page</a></th>
+        <td>&#160;</td>
+    </tr>
+</table>
+</form>
+
+{% ifequal opi 1 %}
+<p> Following obsid.version is/are still waiting to be signed off</p>
+<ul>
+{% for ent in open_item %}
+    <li> <a href='{{ url }}/chkupdata/{{ ent }}/>{{ ent }}</a> </li>
+{% endfor %}
+</ul>
+{% endifequal %}
+
+
+
+
+
+{% comment %} List observations under this submitter {% endcomment %}
+
+<h3>Observations Under Your Name</h3>
+
+{% ifequal ddtchk 1 %}
+    <p><b>DDT</b></p>
+    <table border = 1>
+        <tr>
+            <th>Seq #</th>
+            <th>Obsid</th>
+            <th>Status</th>
+            <th>Planned Date</th>
+            <th>Approved?</th>
+        </tr>
+        {% for ent in ddt_data %}
+            <tr>
+                <td>{{ ent.0 }}</td>
+                <td><a href='{{ url }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+                <td>{{ ent.2 }}</td>
+                <td>{{ ent.3 }}</td>
+                {% ifequal ent.4 'No' %}
+                    <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td style='text-align:center'>{{ ent.4 }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+
+{% ifequal toochk 1 %}
+    <p><b>TOO</b></p>
+    <table border = 1>
+        <tr>
+            <th>Seq #</th>
+            <th>Obsid</th>
+            <th>Status</th>
+            <th>Planned Date</th>
+            <th>Approved?</th>
+        </tr>
+        {% for ent in too_data %}
+            <tr>
+                <td>{{ ent.0 }}</td>
+                <td><a href='{{ url }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+                <td>{{ ent.2 }}</td>
+                <td>{{ ent.3 }}</td>
+                {% ifequal ent.4 'No' %}
+                    <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td style='text-align:center'>{{ ent.4 }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+
+{% ifequal ddtchk 1 %}
+    <p><b>Observations Planned in the Next 30 Days</b></p>
+    <table border = 1>
+        <tr>
+            <th>Seq #</th>
+            <th>Obsid</th>
+            <th>Status</th>
+            <th>Planned Date</th>
+            <th>Approved?</th>
+        </tr>
+        {% for ent in d30_data %}
+            <tr>
+                <td>{{ ent.0 }}</td>
+                <td><a href='{{ url }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+                <td>{{ ent.2 }}</td>
+                <td>{{ ent.3 }}</td>
+                {% ifequal ent.4 'No' %}
+                    <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td style='text-align:center'>{{ ent.4 }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+<div style='padding-bottom:10px;'>
+</div>
+
+{% comment %}If there is no observation list, push down the footer for at least 500 px {% endcomment %}
+
+{% ifequal ddtchk 0 %}
+    {% ifequal toochk 0 %}
+        {% ifequal d30chk 0 %}
+    
+            <div style='padding-bottom:500px'>
+            </div>
+
+        {% endifequal %}
+    {% endifequal %}
+{% endifequal %}
+
+{%include 'ocatmain/footer.html' %}
+
+{% endblock %}
+

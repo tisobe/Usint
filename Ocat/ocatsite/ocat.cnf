@@ -1,0 +1,5 @@
+[client]
+database = db.mysql
+user = cus
+password = ocatdatapage
+default-character-set = utf8

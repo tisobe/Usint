@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Paramter Check Page  for the case that the submitted obsid is not in the database.
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Parameter Check Page"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+<h1 style='padding-bottom:40px;text-align:left'>Parameter Check Page</h1>
+
+<h2 style='color:red'>Submitted Obsidrev: {{ obsidrev }} is not in the databse. Please check the obsid and try again.</h2>
+
+<div style='padding-bottom:600px'>
+</div>
+
+    
+{%include 'chkupdata/footer.html' %}
+    
+
+
+{% endblock %}

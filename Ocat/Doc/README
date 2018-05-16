@@ -1,0 +1,541 @@
+
+################################
+Ocat Data Page Related Scripts
+################################
+
+This directory contains functions that create Ocat Data Page and related interactive web pages 
+using python django.
+
+All django functions use sot ska and need to be able to access: /proj/sot/ska/bin/python. Usually
+the following sourcing does everything (esp. if you need to use command line commands):
+
+    source /proj/sot/ska/bin/ska_envs.csh
+
+Django used in this set of functions are version 1.6. The reference are:
+
+    https://docs.djangoproject.com/en/1.7/intro/tutorial01/ (ver 1.6 is not available anymore)
+    https://realpython.com/learn/start-django/#django-16
+
++++++++++++++++++++++++++++++++
+Main Directories and Functions
++++++++++++++++++++++++++++++++
+
+chkupdata           --- Parameter Check Page                    <main address>/chkupdata/<obsid>.<rev>/
+ocatdatapage        --- Ocat Data Page                          <main address>/ocatdatapage/<obsid>/
+ocat_express        --- Express Sign Off Page                   <main address>/ocat_express/
+ocatmain            --- Ocat Main Page                          <main address>/ocatmain/
+orupdate            --- Target Parameter Update Stautus Form    <main address>/orupdate/
+rm_submission       --- Data Submission Cancellation Page       <main address>/rm_submission/
+schedule_submitter  --- Poc Schedule Submitter                  <main address>/schedule_submitter/
+updated             --- Updated Target List                     <main address>/updated/
+
+ocatsite            --- Django settings are saved here
+utils               --- Django based python scripts are saved here
+
+others              --- non Django python scripts are saved here
+
+db.sqlite3          --- Ocat Data Page related database in sqlite3 format
+db.sqlite3~         --- The bacup of db.sqlite3
+
+manage.py           --- manages django related functions. see "Some useful command line commands" below
+
+Doc                 --- This directory
+
+too_contact_schedule.html -- a web page display poc responsibility time period. (could be migrate somewhere)
+
+
+++++++++++++++++++++++++++++++++++++++++
+A file need to be edited before running
+++++++++++++++++++++++++++++++++++++++++
+
+./ocatsite/static/dir_list_py
+
+Currently it contains:
+
+'/data/mta4/CUS/www/Usint/Ocat/ocatsite/data_save/'             ::  obs_ss
+'/data/mta4/CUS/www/Usint/Pass_dir/'                            ::  pass_dir
+'/data/mta4/CUS/www/Usint/ocat/'                                ::  ocat_dir        #--- don't change
+'/data/mta4/CUS/www/Usint/ocat/Info_save/'                      ::  data_dir        #--- don't change
+'/data/mta4/CUS/www/Usint/Ocat/ocatsite/static/'                ::  house_keeping
+'/data/mta4/CUS/www/Usint/'                                     ::  usint_dir       #--- don't change
+'/usr/bin/'                                                     ::  op_dir
+'/data/mta4/CUS/www/Usint/Ocat/'                                ::  base_dir
+'/data/mta4/CUS/www/Usint/Ocat/utils'                           ::  mta_dir
+'/data/mta4/CUS/www/Usint/Ocat/'                                ::  bin_dir
+'/data/mta4/CUS/www/Usint/ocat/approved'                        ::  approved_list   #--- don't change (test period)
+'/data/mta4/CUS/www/Usint/ocat/updates_table.list'              ::  updates_table   #--- don't change (test period)
+'/data/mta4/CUS/www/Usint/ocat/updates/'                        ::  updates_dir     #--- don't change (test period)
+'/data/mta4/CUS/www/Usint/Ocat/ocatsite/temp/approved'          ::  temp_approved
+'/data/mta4/CUS/www/Usint/Ocat/ocatsite/temp/updates_table.list'::  temp_updates
+'http://127.0.0.1:8000'                                         ::  durl            #--- main web address
+
+
+++++++++
+Details
+++++++++
+
+--------
+ocatsite
+--------
+settings.py     --- settings are saved here. although you want to check all entries, pay attention to:
+                        SECRET_KEY                  --- security key which should not be seen
+                        ALLOWED_HOSTS               --- currently: https://cxc.cfa.harvard.edu/
+                        INSTALLED_APPS              --- need to add your apps
+                        AUTHENTICATION_BACKENDS     --- authentification. we use HEAD authentificaiton
+                                                         see utils/backend.py
+                        DATABASES                   --- database name. if you change it, you need to 
+                                                        change it here
+                        ADMINS/MANAGERS             --- admin names and email address
+
+urls.py         --- setting of how the urls of the apps are set
+                    you need to add url link to this file and the urls.py of the new web page
+                    directry  if you added a new web page
+                    
+
+statics         --- a directory which keeps static data
+                    changable_param_list        --- a list of Ocat Data Page modifiable parameterss
+                    data_table_params           --- a list of Ocat Data Page possible parameters
+                    datbase_entries             --- a list of Ocat Data Page parameter formats
+                    name_list*                  --- a list of Ocat Data Page parameter names and 
+                                                    their abbriviations
+                    non_changable_param_list    --- a list of Ocat Data Page un modifiable parameters
+                    ocat_name_table*            --- a list of Ocat Data Page parameter category lists
+                    ocat_test_condition_table*  --- a list of Ocat Data Page parameter  restrictions
+                    table_name_list*            --- a list of Ocat Data Page parameters<-->name 
+                    param_list                  --- a list of Ocat Data Page parameters
+
+                    dir_list_py*                --- a file contains a list of directory paths/web address
+
+                    css/                        --- a directory contains css file
+                    img/                        --- a directory contains image (currently not used)
+                    js/                         --- a directory contains javascripts
+                    safe/                       --- a directory contains keys
+                    Save/                       --- a directory contains old files/scripts
+
+templates       --- a directory holds templates of each web site (see below)
+temp            --- a directory holds temporary files
+
+data_save       --- a directory holds outputs of non-django python scripts. these are used by other scripts
+                        mp_long_term_roll   --- obsid and its roll angle and range
+                        scheduled_obs       --- obsid and its mp contact
+                        TOO-POC             --- this week's poc  (will be moved to /home/mta/TOO-POC)
+
+
+-------------------
+ocatsite/templates
+-------------------
+auth.html           --- login page template. use util/login
+base.html           --- the base html template. almost all html pages are made base on this.
+                        it gets some data from static/css and static/js.
+footer.html         --- a footer for the all web pages. edit the date on this when one of the pages
+                        is updated
+login.html          --- another login page template.
+
+includes            --- hold small django html codes
+                            jstag.html  --- Ocat Data Page data display tag 
+
+chkupdata           --- a directory that holds all templates of chkupdata
+ocatdatapage        --- a directory that holds all templates of ocatdatapage
+ocat_express        --- a directory that holds all templates of ocat_express
+ocatmain            --- a directory that holds all templates of ocatmain
+orupdate            --- a directory that holds all templates of orupdate
+rm_submission       --- a directory that holds all templates of rm_submission
+schedule_submitter  --- a directory that holds all templates of schedule_submitter
+updated             --- a directory that holds all templates of updated
+
+registration        --- a directory that holds login related html templates
+others              --- a directory that holds none django html page template
+
+Some template references:
+http://www.djangobook.com/en/2.0/chapter04.html
+http://tutorial.djangogirls.org/en/django_templates/
+
+-----
+utils
+-----
+backend.py (???)                --- customized AUTHENTICATION_BACKENDS class object.  this lets you 
+                                    used HEAD user/password in this set of scripts (see passWordCheck.py)
+
+convertTimeFormat.py (tcnv)     --- a collection of functions related to time conversion, format changes etc.
+                                    originally made for python scripts used by other mta scripts. 
+                                    the copy was made as of Aug 31, 2016 and may be different from 
+                                    the original version.
+
+mta_common_functions.py (mcf)   --- a collection of functions of various kinds
+                                    originally made for python scripts used by other mta scripts. 
+                                    the copy was made as of Aug 31, 2016 and may be different from 
+                                    the original version.
+
+create_log_and_email.py (cle)   --- a collection of functions related to email generations and log creation.
+
+DBI.py                          --- a class of objects related to sqlite3 access copied from ska.DBI
+
+ocatCommonFunctions.py (ocf)    --- a collection of functions of various kinds used by Ocat Data Page 
+                                    related scripts
+
+ocatdatabase_access.py (oda)    --- a collection of functions related to database access.
+
+ocatParamRange.py (???)         --- a collection of functions used by Ocat Data page to check restrictions of
+                                    parameter ranges.
+
+ocatsql.py (osq)                --- a collection of functions which interact Ocat Data Page database
+
+passWordCheck.py (pwchk)        --- a collection of functions related user/password check
+
+prepdatdict.py (pdd)            --- a collection of functions which prepare data dictionay for Ocat Data Page
+
+read_updates_list.py (rul)      --- a function reads updates_table database
+
+read_updates_table_entry.py (???)   --- functions to read updates_table database and put the data 
+                                        into a dictonary form
+
+related_obs_list.py (rol)       --- functions to extract too, ddt, and other observations  happend 
+                                    in the next 30 days
+
+violationCheck.py (vchk)        --- functions to check whether modifiable parameters satisfy the restrctions
+
+------
+others
+------
+contains non django scripts which create data used by others
+
+find_planned_roll.py            --- extract roll imformation from mp site and save the results 
+                                    in ocitsite/data_save/
+
+run_wrap_script/run_main_script --- envirionent settings and main script which manage cron jobs
+
+
+------------
+ocatdatapage
+------------
+views.py        --- class objects to create Ocat Data Page
+models.py       --- class objects to define models (or variables)
+forms.py        --- class objects to define parameter forms (names, choice, etc)
+urls.py         --- set url of Ocat Data Page
+
+admin.py        --- class objects to define database entries. this defines:
+                        Approved
+                        Update
+                        Data_Table
+                        Obs_plan
+                    see models.py for indisual entries
+
+this directoy also contains a directory used by all other pages:
+
+management/command/ --- save python functions which use django capacity but not directly used by the web pages
+    clean_up_site.py            --- clean up the database and start from scratch
+    create_schedule_table.py    --- create schedule web page and also send out notificaiton email
+    find_scheduled_obs.py       --- extract scheduled obsids and mp who is responsible for those 
+    mycommand.py                --- run a custom several commands to update database (test period use)
+    naggem,py                   --- sending out sign off notification to appropriate parties
+    updates_sign_off.py         --- sign off "verified" column if all others are signed off
+
+
+---------
+chkupdata
+---------
+views.py        --- class objects to create Parameter Check Page
+models.py       --- class objects to define models (or variables)
+forms.py        --- class objects to define parameter forms (names, choice, etc)
+urls.py         --- set url of Parameter Check Page
+
+------------
+ocat_express
+------------
+views.py        --- class objects to create Express Sign Off Page
+models.py       --- class objects to define models (or variables)
+forms.py        --- class objects to define parameter forms (names, choice, etc)
+urls.py         --- set url of Express Sign Off Page
+
+--------
+ocatmain
+--------
+views.py        --- class objects to create Ocat Main Page
+models.py       --- class objects to define models (or variables)
+forms.py        --- class objects to define parameter forms (names, choice, etc)
+urls.py         --- set url of Ocat Main Page
+
+--------
+orupdate
+--------
+views.py        --- class objects to create Target Parameter Update Stautus Form
+models.py       --- class objects to define models (or variables)
+forms.py        --- class objects to define parameter forms (names, choice, etc)
+urls.py         --- set url of Target Parameter Update Stautus Form
+
+-------------
+rm_submission
+-------------
+views.py        --- class objects to create Data Submission Cancellation Page
+models.py       --- class objects to define models (or variables)
+forms.py        --- class objects to define parameter forms (names, choice, etc)
+urls.py         --- set url of Data Submission Cancellation Page
+
+------------------
+schedule_submitter
+------------------
+views.py        --- class objects to create Poc Schedule Submitter
+models.py       --- class objects to define models (or variables)
+forms.py        --- class objects to define parameter forms (names, choice, etc)
+urls.py         --- set url of Poc Schedule Submitter
+
+admin.py        --- calss object to define schedule related database
+                        Schedule
+                    see models.py to see each entry
+
+-------
+updated
+-------
+views.py        --- class objects to create Updated Target List
+models.py       --- class objects to define models (or variables)
+forms.py        --- class objects to define parameter forms (names, choice, etc)
+urls.py         --- set url of Updated Target List
+
+
+--------
+cron job
+--------
+on r2d2-v with cus:
+
+5 0  * * * cd /data/mta4/CUS/www/Usint/Ocat/others;/data/mta4/CUS/www/Usint/Ocat/others/run_wrap_script > /data/mta4/CUS/www/Usint/Ocat/others/test.cron 2>&1
+
+    *****NOTE:*****
+    while in test, this also synch the database with the current active database daily.
+    disable that function once this goes to a live
+
+
+
+
++++++++++
+Database
++++++++++
+
+============
+Auth databse
+============
+
+----
+User
+----
+The user models is defined as default
+
+    username        --- user name
+    first_name      --- first name
+    last_name       --- last name
+    email_address   --- email address
+
+    id              --- id of the user  (given by the system)
+
+    example:    out = User.objects.get(username = user)
+
+-----------
+UserProfile
+-----------
+This one is defined in ocatdatapage/models.py
+If you want to add more field, you can do so here, but it will not take effect on
+thoese already created. You need to delete them and need to start from scratch.
+
+    office          --- office phone #
+    cell            --- cell phone #
+    home            --- home phone #
+    duty            --- duty of the user
+
+    these information is linked with User "id". so to get them, 
+    first you need to find user id with 
+            out = User.objects.get(username = user)
+    then 
+            profile = UserProfile.objects.get(id= out.id)
+
+=====================
+Ocatdatapage database
+=====================
+This one is defined in ocatdatapage/models.py
+
+---------
+Approved
+---------
+    obsid           --- obsid
+    seqno           --- sequence number
+    poc             --- poc
+    date            --- the data approved
+    odate           --- data in <yy><mm><dd>. used to sort the data
+
+    id              --- id of the input
+
+    example:    out = Approved.objects.get(obsid='19773')
+
+-----------
+Data_tables
+-----------
+    see Data_tabels of ocatdatapage/models.py for all parameter names, but
+    here are the few shown in the admin page
+
+    obsidrev        --- obsid.rev
+    seq_nbr         --- sequence number
+    prop_num        --- proposal number
+    title           --- title
+    poc             --- poc
+    date            --- the data submitted the change
+
+    id              --- id of the input
+
+    example     out Data_tables.objects.get(obsidrev='19773.001')
+
+---------
+Obs_plan
+---------
+    obsid           --- obsid
+    seqno           --- sequence number
+    otype           --- type of the observations (e.g.too, ddt, go, gto)
+    status          --- current status of the observation (unobserved, scheduled, observed, canceled, etc0
+    poc             --- poc
+    ao              --- ao #
+    date            --- (planned) observation date
+    odate           --- data in <yy><mm><dd>
+
+    id              --- id of the input
+
+    example     out = Obs_plan.objects.get(obsid ='19773')
+
+-------
+Updates
+-------
+    obsidrev        --- obsidrev
+    general         --- general sign off status
+    acis            --- acis sign off status
+    si_mode         --- si mode sign off status
+    verified        --- verified status
+    seqno           --- sequence number
+    poc             --- poc
+    obsid           --- obsid
+    rev             --- revision number
+    date            --- the date of the most recent change
+    odate           --- date in <yy><mm><dd>
+
+    id              --- id of the input
+
+    example     out = Updates.objects.get(obsidrev='19773.001')
+
+============================
+Schedule_Submitter database
+============================
+This one is defined in chedule_submitter/models.py
+
+---------
+Schedule
+---------
+    start           --- starting time in seconds from 1998.1.1
+    finish          --- finishing time in seconds from 1988.1.1
+    contact         --- poc
+    start_month     --- start month
+    start_day       --- start day
+    start_year      --- start year
+    finish_month    --- finish month
+    finish_day      --- finish day
+    finish_year     --- finish year
+    assigned        --- person assigned this entry
+
+    id              --- id of the input
+
+    example     out = chedule.objects.get(start='567993595')
+
+
+++++++++++++++++++++++++++++++
+Admin --- Database management
+++++++++++++++++++++++++++++++
+
+To do this, you must be "cus". 
+    1. open <base_html>/admin/ on a browser
+    2. login as cus
+
+When you want to add a user.
+    1. open Users
+    2. click "Add user" on the top right
+    3. add user name. as for the password, use cus password. the user will see only head password.
+    4. click Save and continue editting
+    5. edit the rest of the information
+    6. choose either POC or USINT for group. If s/he is not POC, always choose USINT
+    7. ignore available user permisson
+    8. if s/he is poc, add User profile at the bottom
+    9. save
+
+If you want to edit any of the database
+    1. choose the database to edit
+    2. choose the entry which you want to edit
+    3. edit the information 
+    4. save
+
+If you want to delete the entry
+    1. choodse the database
+    2. click the box at the head of the entreis you want to delete
+    3. choose "Delete Selected..." from Action at the top left
+    4. click "Go"
+    5. it will ask approval of the deletioin, choose "yes"
+
+    You can do the same indivisually. just open the ddata
+    and click "Delete" at the left bottom
+
++++++++++++++++++++++++++++++++++++
+Some useful command line commands
++++++++++++++++++++++++++++++++++++
+
+
+To use the command line commands, first run:
+
+    source /proj/sot/ska/bin/ska_envs.csh
+
+to set the environment.
+
+
+How to run server
+-----------------
+
+python manage.py runserver
+python manage.py runserver 127.0.0.1:8000
+
+this will tell you a vertual web page address to use
+
+
+How to update database
+-----------------------
+
+run the following after update models.py
+
+    python manage.py validate
+    python manage.py sqlall ocatdatapage
+    python manage.py syncdb             <--- syching database
+
+python manage.py shell
+import utils.ocatdatabase_access as oda
+oda.add_approved_list_to_sql()
+oda.add_updates_list_to_sql()
+oda.add_updates_entry_to_sql()
+
+
+Adding New Columns with Sqlite3
+--------------------------------
+
+python manage.py dbshell
+sqlite> ALTER TABLE ocatdatapage_updates ADD COLUMN date VARCHAR(10);
+
+The following can creates a table, but cannot add a proper ID.
+
+
+CREATE TABLE ocatdatapage_updates (
+obsidrev VARCHAR(15)
+,general  VARCHAR(20)
+,acis     VARCHAR(20)
+,si_mode  VARCHAR(20)
+,verified VARCHAR(20)
+,seqno    VARCHAR(15)
+,poc      VARCHAR(15)
+,obsid    VARCHAR(10)
+,rev      VARCHAR(10)
+,date     VARCHAR(10)
+
+ALTER TABLE orig_table_name RENAME TO tmp_table_name;
+DROP TABLE tmp_table_name;
+
+
+
+

@@ -1,0 +1,154 @@
+{% block obs_info   %}
+{% comment %} 
+
+This file contains the top part of orupdate.html page.
+
+{% endcomment %}
+
+<table border = 0>
+
+{% comment %} -- first  row starts - {% endcomment %}
+
+<tr>
+<td style='width:40%'>
+    <b>
+    This form contains all requested updates which have either not been verified or have been verified in the last 24 hours.
+    </b>
+</td>
+<td style='width:5%'>
+    &#160;
+</td> 
+<td style='width:40%'>
+    <b>Links</b>
+    <ul>
+    <li>
+        <a href='{{ durl }}/rm_submission/'>Remove An Accidental Submission</a>.
+    </li>
+    <li>
+        <a href='{{ durl }}/ocatmain/'>Back to Ocat Main Page</a>.
+    </li>
+<!--
+    <li>
+        <a href='https://cxc.cfa.harvard.edu/cus/index.html'>Chandra Uplink Support Page</a>
+    </li>
+-->
+</td>
+</tr>
+
+{% comment %} -- second row starts - {% endcomment %}
+
+<tr>
+    <td>
+        <b>Submitter ID: <em>{{ submitter }}</em></b> 
+        (Change user: <button type='submit' name='check' value='Change'>Change</button>)
+    </td>
+    <td>
+        &#160;
+    </td>
+    <td style='text-align:center'>
+        &#160;
+    </td>
+</tr>
+
+{% comment %} --third row starts --- {% endcomment %}
+
+<tr>
+    <td colspan =2>
+
+{% comment %} -- inner table col3--- {% endcomment %}
+
+        <table border= 0>
+        <tr>
+            {% ifnotequal nstd 0 %}
+                <th style='padding-right:52px'>
+                    Back to Standard Display:
+                </th>
+                <td>
+                    <input type=submit name='check' value="Standard">
+                </td>
+            {% else %}
+                <th>
+                    Display Data for the Last 30 Days:<br />
+                    Display All Verified Cases:
+                </th>
+                <td>
+                    <input type=submit name='check' value="Display 30 Days"> 
+                    <input type=submit name='check' value="Display Verified">
+                </td>
+            {% endifnotequal %}
+        </tr>
+        <tr>
+            <th>
+                Display Data for Obsid: 
+            </th>
+            <td>
+                <input type="text" size=10  name='disp_obsid' value= '' >
+                <input type=submit name='check' value="Submit">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Display Data for Sequence #: 
+            </th>
+            <td>
+                <input type="text" size=10  name='seqno' value= '' >
+                <input type=submit name='check' value="Submit">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Display Data for Proposal #: 
+            </th>
+            <td>
+                <input type="text" size=10  name='prop_num' value= '' >
+                <input type=submit name='check' value="Submit">
+            </td>
+        </tr>
+        </table>
+    </td>
+    <td style='text-align:center'>
+        <table border=0>
+        <tr>
+            <td colspan=2>
+                &#160;
+            </td>
+        </tr>
+        <tr>
+            <th>
+                POC ID:  
+            </th>
+            <td>
+                <input type="text" size=10  name='user_id' value= '' >
+                <input type=submit name='check' value="Find Entries">
+            </td>
+            </tr>
+            <tr>
+            <td colspan =2>
+                <input type=submit name='check' value="Regroup by Obsids">
+            </td>
+        </tr>
+        </table>
+
+{% comment %} - inner table end   -- {% endcomment %}
+
+    </td>
+</tr>
+
+{% comment %} ---------------------- {% endcomment %}
+
+</table>
+
+
+{% comment %} - passing params back -{% endcomment %}
+
+<input type="hidden" name="nstd"       value={{ nstd }}>
+<input type="hidden" name="poc"        value={{ poc }}>
+<input type="hidden" name="prev_obsid" value={{ prev_obsid }}>
+<input type="hidden" name="prev_seqno" value={{ prev_seqno }}>
+<input type="hidden" name="prev_prop"  value={{ prev_prop }}>
+<input type="hidden" name="interval"   value={{ interval }}>
+
+{% endblock %}
+
+
+

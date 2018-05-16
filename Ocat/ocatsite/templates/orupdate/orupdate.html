@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Target Parameter Update Status Form frame work page. It is built on "base.html."
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Target Parameter Update Status Form"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+
+<h1 style='text-align:left'>Target Parameter Update Status Form</h1>
+
+<form  method='post'>{% csrf_token %}
+{%include 'orupdate/obs_info.html' %}
+
+<hr />
+
+{%include 'orupdate/main_table.html' %}
+
+<input type="hidden" name="submitter"  value={{ submitter }}>
+<input type="hidden" name="group"      value={{ group }}>
+
+</form>
+
+
+{%include 'orupdate/footer.html' %}
+    
+
+
+{% endblock %}

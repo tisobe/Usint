@@ -1,0 +1,624 @@
+#!/usr/bin/env /proj/sot/ska/bin/python
+#####################################################################################################
+#                                                                                                   #
+#   read_updates_table_entry.py: read updates_table entries and put in a dictionary form            #
+#                                                                                                   #
+#           author: t. isobe (tisobe@cfa.harvard.edu)                                               #
+#                                                                                                   #
+#           last update:    Nov 01, 2016                                                            #
+#                                                                                                   #
+#####################################################################################################
+
+import sys
+import os
+import time
+import re
+import random
+import unittest
+
+#
+#--- reading directory list
+#
+from os.path import join, dirname, realpath
+BASE_DIR = dirname(dirname(realpath(__file__)))
+path = join(BASE_DIR, 'ocatsite/static/dir_list_py')
+
+f    = open(path, 'r')
+data = [line.strip() for line in f.readlines()]
+f.close()
+
+for ent in data:
+    atemp = re.split('::', ent)
+    var  = atemp[1].strip()
+    line = atemp[0].strip()
+    exec "%s = %s" %(var, line)
+#
+#--- append path to a private folders
+#
+sys.path.append(base_dir)
+sys.path.append(mta_dir)
+
+import ocatCommonFunctions as ocf
+import convertTimeFormat   as tcnv
+import ocatsql             as osq
+
+#--- temp writing file name
+#
+rtail  = int(10000 * random.random())       #---- put a romdom # tail so that it won't mix up with other scripts space
+zspace = '/tmp/zspace' + str(rtail)
+
+extra1    = ['obsidrev', 'obsid', 'targid', 'seq_nbr', 'prop_num', 'targname', 'title', 'poc', 'asis', 'rev','date', 'odate']
+extra2    = ['tooid', 'too_trig', 'too_type', 'too_start', 'too_stop', 'too_remarks']
+
+awin_list = ['chip', 'start_row',  'start_column', 'height', 'width', 'lower_threshold', \
+                     'pha_range', 'sample']
+time_list = ['window_constraint', 'tstart', 'tstop']
+roll_list = ['roll_constraint', 'roll_180', 'roll', 'roll_tolerance']
+
+
+#------------------------------------------------------------------------------------------------------
+#-- read_updates_table_list: read the past obsidrev file and put the results in a dictionary format  --
+#------------------------------------------------------------------------------------------------------
+
+def read_updates_table_list(obsidrev):
+    """
+    read the past obsidrev file and put the results in a dictionary format
+    input:  obsidrev    --- obsid and revision #, e.g., 16232.001
+    outou:  pdict       --- data disctionary param name <---> [<past value>, <requested value>]
+    """
+
+#
+#--- set which parameters to be saved
+#
+    file = house_keeping + 'data_table_params'
+    f    = open(file, 'r')
+    data = [line.strip() for line in f.readlines()]
+    f.close()
+
+    data = extra1 + data
+    data = data   + extra2
+#
+#--- set parameter dictionary. it saves a list of original and requested value
+#
+    pdict = {}
+
+    for ent in data:
+        pdict[ent] = ['','']
+#
+#--- find obsid and revision # from the input
+#
+    obsidrev          = str(obsidrev)
+    atemp             = re.split('\.', obsidrev)
+    obsid             = atemp[0]
+    rev               = atemp[1]
+
+    pdict['obsidrev'] = [obsidrev, obsidrev]
+    pdict['obsid']    = [obsid, obsid]
+    pdict['rev']      = [rev, rev]
+#
+#--- find the date that the data was created
+#
+    [date, odate]     = find_written_date(obsidrev)
+    pdict['date']     = [date, date]
+    pdict['odate']    = [odate, odate]
+#
+#--- get a couple of data from the database
+#
+    db = osq.OcatDB(obsid)
+    title  = db.origValue('title')
+    pdict['title'] = [title, title]
+
+    targid = db.origValue('targid')
+    pdict['targid']  = [targid, targid]
+
+    prop_num = db.origValue('prop_num')
+    pdict['prop_num']  = [prop_num, prop_num]
+#
+#--- read the file
+#
+    file = '/data/mta4/CUS/www/Usint/ocat/updates/' + obsidrev
+    f    = open(file, 'r')
+    table= [line.strip() for line in f.readlines()]
+    f.close()
+
+    chk  = 0
+    
+    pcomments = ''
+    ncomments = ''
+    premarks  = ''
+    nremarks  = ''
+#
+#--- followings are used as place holders to clean up ordered entries
+#
+    tordrp    = 0       #--- previous time ordr
+    tordrn    = 0       #--- requested time ordr
+    rordrp    = 0       #--- previous roll ordr
+    rordrn    = 0       #--- requested roll ordr
+    sordrp    = 0       #--- previous spwindow ordr
+    sordrn    = 0       #--- requested spwindwo ordr
+    trank     = []      #--- time order rank list
+    rrank     = []      #--- roll order rank list
+    srank     = []      #--- spwindow order rank list
+#
+#--- since the older file contains jumbled order, we need special treatment
+#
+    ow_list   = []
+    nw_list   = []
+    for i in range(0, 6):
+        t_list1 = []
+        t_list2 = []
+        for i in range(0, 9):
+            t_list1.append('')
+            t_list2.append('')
+
+        ow_list.append(t_list1)     #--- matrix to keep awin orig data
+        nw_list.append(t_list2)     #--- matrix to keep awin req data
+
+    mrank = 1                       #--- marker for largest "ordr" value
+#
+#--- start reading the contents
+#
+    for ent in table:
+        if ent == '\s+':
+            continue
+        if chk == 0:
+#
+#--- the first part gives basic information
+#
+            mc = re.search('SEQNUM',   ent)
+            if mc is not None:
+                atemp = re.split('=', ent)
+                seqno = atemp[1].strip()
+                pdict['seq_nbr'] = [seqno, seqno]
+                continue
+            
+            mc = re.search('TARGET',   ent)
+            if mc is not None:
+                atemp = re.split('=', ent)
+                target  = atemp[1].strip()
+                pdict['targname'] = [target, target]
+                continue
+            
+            mc = re.search('USER', ent)
+            if mc is not None:
+                atemp = re.split('=', ent)
+                poc   = atemp[1].strip()
+                pdict['poc'] = [poc, poc]
+                continue
+
+            mc = re.search('VERIFIED', ent)
+            if mc is not None:
+                atemp = re.split('AS', ent)
+                asis  = atemp[1].strip()
+                if asis == 'IS':
+                    asis = 'ASIS'
+                pdict['asis'] = [asis,asis]
+                continue
+#
+#--- past and current comments and requests
+#
+            mc = re.search('PAST COMMENTS', ent)
+            if mc is not None:
+                chk = 1
+                continue
+        mc = re.search('NEW COMMENTS', ent)
+        if mc is not None:
+            chk = 2
+            continue
+
+        mc = re.search('PAST REMARKS', ent)
+        if mc is not None:
+            chk = 3
+            continue
+
+        mc = re.search('NEW REMARKS', ent)
+        if mc is not None:
+            chk = 4
+            continue
+
+        mc = re.search('GENERAL', ent)
+        if mc is not None:
+            chk = 5
+            continue
+
+        mc = re.search('REQUESTED VALUE', ent)
+        if mc is not None:
+            chk = 6
+            continue
+
+        if chk == 1:
+            test = ent.strip()
+            if test != '':
+                pcomments = pcomments + test +  ' ' 
+        elif chk == 2:
+            test = ent.strip()
+            if test != '':
+                ncomments = ncomments +  test + ' ' 
+        elif chk == 3:
+            test = ent.strip()
+            if test != '':
+                premarks = premarks + test + ' ' 
+        elif chk == 4:
+            test = ent.strip()
+            if test != '':
+                nremarks = nremarks +  str(ent) + ' ' 
+#
+#--- if there is no current comments/remarks, substitute past comments/remarks
+#
+        if chk == 6:
+            if pcomments != '':
+                if ncomments == '':
+                    ncomments = pcomments
+
+            if premarks != '':
+                if  nremarks == '':
+                    nremarks = premarks
+
+            pdict['comments'] = [pcomments, ncomments]
+            pdict['remarks']  = [premarks,  nremarks]
+            chk = 7
+#
+#--- read the rest of the parameter values
+#
+        if chk == 7:
+            mc = re.search('-----', ent)
+            if mc is not None:
+                continue
+
+            atemp = re.split('\s+', ent)
+            param = atemp[0].lower()
+#
+#--- don't read comments and remarks from this area. they are not complete
+#
+            if param == 'comments' or param == 'remarks':
+                continue
+            try:
+                test = float(param)         #--- occasionally weird entry coming in; screen it out
+                continue
+            except:
+                pass
+
+            alen  = len(atemp)
+            oval = '' 
+            nval = ''
+            if alen == 1:
+                continue
+            if alen == 2:
+                if len(str(ent)) < 50:
+                    oval  = atemp[1]
+                    nval  = ''
+                else:
+                    oval  = ''
+                    nval  = atemp[1]
+            if alen == 3:
+                    oval  = atemp[1]
+                    nval  = atemp[2]
+
+#
+#--- order cases, find the largest order value for both previous and requested case
+#
+            mc1 = re.search('time_ordr', param)
+            mc2 = re.search('roll_ordr', param)
+            mc3 = re.search('ordr',      param)
+
+            if mc1 is not None:
+                [tordrp, tordrn]   = get_ordr_value(oval, nval, tordrp, tordrn)
+                pdict['time_ordr'] = [str(tordrp), str(tordrn)]
+                trank.append(nval)
+
+            elif mc2 is not None:
+                [rordrp, rordrn]   = get_ordr_value(oval, nval, rordrp, rordrn)
+                pdict['roll_ordr'] = [str(rordrp), str(rordrn)]
+                rrank.append(nval)
+
+            elif mc3 is not None:
+                [sordrp, sordrn]   = get_ordr_value(oval, nval, sordrp, sordrn)
+                pdict['ordr']      = [str(sordrp), str(sordrn)]
+                srank.append(nval)
+#
+#--- older record form has mixed up acis window entries regarding to ordr  and need to be adjusted. 
+#
+                try:
+                    orank = int(float(oval))
+                except:
+                    orank = 0
+                try:
+                    nrank = int(float(nval))
+                except:
+                    nrank = 0
+#
+#--- find the largest ordr value
+#
+                if orank > mrank:
+                    mrank = orank
+                if nrank > mrank:
+                    mrank = nrank
+
+            else:
+#
+#--- rearrange acis window parameter values according to correct order # 
+#
+                test = param[:-1]
+                if test in awin_list:
+                    for m in range(0, len(awin_list)):
+                        if test == awin_list[m]:
+                            if oval != '':
+                                mloc = orank-1
+                                ow_list[mloc][m] = oval
+                            if nval != '':
+                                mloc = nrank-1
+                                nw_list[mloc][m] = nval
+                else:
+#
+#--- all other normal cases
+#
+                    pdict[param] = [oval, nval]
+#
+#--- put all acis window parameter values in pdict in correct order
+#
+    for k in range(0, mrank):
+        rank = k + 1
+        for j in range(0, len(awin_list)):
+            pname = awin_list[j] + str(rank)
+            pdict[pname] = [ow_list[k][j], nw_list[k][j]]
+#
+#--- spwindow_flag is named spwindow in data file
+#
+    pdict['spwindow_flag'] = pdict['spwindow']
+
+#
+#--- don't user the following
+#
+#    pdict = clean_up_ordered_cases('window_flag',   'time_ordr', time_list, trank, pdict)
+#    pdict = clean_up_ordered_cases('roll_flag',     'roll_ordr', roll_list, rrank, pdict)
+#    pdict = clean_up_ordered_cases('spwindow_flag', 'ordr',      awin_list, srank, pdict)
+
+    return pdict
+
+#----------------------------------------------------------------------------------
+#-- get_ordr_value: update preivous and requested order values to larger ones   ---
+#----------------------------------------------------------------------------------
+
+def get_ordr_value(oval, nval, pordr, nordr):
+    """
+    compare newly found order value to currenly assigned value and choose a larger one
+    input:  oval    --- a newly found previous order value
+            nval    --- a newly found requested order value
+            pordr   --- a currently assigned previous order value
+            nordr   --- a currently assigned requested order value
+    output: [pordr, nordr]  --- updated currently assigned order values in a list form
+    """
+
+    try:
+        oval = int(float(oval))
+    except:
+        oval = 0
+    if oval > pordr:
+        pordr = oval
+
+    try:
+        nval = int(float(nval))
+    except:
+        nval = 0
+    if nval > nordr:
+        nordr = nval
+
+    return [pordr, nordr]
+
+#----------------------------------------------------------------------------------
+#-- clean_up_ordered_cases: clean up older record of ordered case to match the current database 
+#----------------------------------------------------------------------------------
+
+def clean_up_ordered_cases(flag, ordr_name, entry_list, rank,  pdict):
+    """
+    clean up older record of ordered case to match the current database
+    input:  flag        --- flag name for the ordered case
+            ordr_name   --- name of order (time_ordr, roll_ordr, ordr)
+            entry_list  --- a list of parameters of the ordr
+            rank        --- a list of ordr value listed in the input file
+            pdict       --- data dictionary
+    output: pdict       --- updated data dictionry
+    """
+
+    pflag = pdict[flag][0]
+    nflag = pdict[flag][1]
+
+    if pflag == 'N' and nflag =='N':
+        for i in range(1, 7):
+            for ent in entry_list:
+                name = ent + str(i)
+                pdict[name] = ['', '']
+    else:
+        pordr = pdict[ordr_name][0]
+        nordr = pdict[ordr_name][1]
+        if pflag == 'N':
+            pordr = 0
+        else:
+            try:
+                pordr = int(float(pordr))
+            except:
+                pordr = 0
+
+        if nflag == 'N':
+            nordr = 0
+        else:
+            try:
+                nordr = int(float(nordr))
+            except:
+                nordr = 0
+
+        ordr = pordr
+        if nordr > pordr:
+            ordr = nordr
+#
+#--- some of the input files have order/rank mixed up. so rearrange
+#--- them so that order/rank gores from smallest to largest
+#
+        temp_dict = {}
+        pnam_list = []
+        for i in range(0, ordr):
+            k = i + 1
+            for ent in entry_list:
+                name  = ent + str(k)
+                dname = ent + str(rank[i])
+
+                try:
+                    oval = pdict[name][0]
+                    nval = pdict[name][1]
+                except:
+                    oval = ''
+                    nval = ''
+
+                if ocf.null_value(oval) or ocf.none_value(oval):
+                    oval = ''
+                if ocf.null_value(nval) or ocf.none_value(nval):
+                    nval = ''
+
+                temp_dict[dname] = [str(oval), str(nval)]
+                pnam_list.append(dname)
+
+        for ent in pnam_list:
+            pdict[ent] = temp_dict[ent]
+#
+#--- make sure that the rest of the order is totally blank
+#
+        ordr1 = ordr + 1
+        for i in range(ordr1, 7):
+            for ent in entry_list:
+                name = ent + str(i)
+                pdict[name] = ['', '']
+
+    return pdict
+
+#----------------------------------------------------------------------------------
+#-- find_written_date: find the file creatation date                             --
+#----------------------------------------------------------------------------------
+
+def find_written_date(obsidrev):
+    """
+    find the file creatation date
+    input:  obsidrev        --- obsid and revesion # e.g. 16232.001
+    output: [date, odate]   --- a list of data and odata e.g. ['01/12/14', '140112']
+    """
+
+    file  = '/data/mta4/CUS/www/Usint/ocat/updates/' + str(obsidrev)
+#
+#--- find stat of the file. one of them is the file creation date
+#
+    (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(file)
+    out   = time.ctime(mtime)
+#
+#--- out is in "Mon Dec 01 15:22:37 2014" format
+#
+    atemp = re.split('\s+', out)
+
+    mon   = tcnv.changeMonthFormat(atemp[1])
+    smon  = str(mon)
+    if mon < 10:
+        smon = '0' + smon
+
+    day   = atemp[2]
+    iday  = int(float(day))
+    if iday < 10:
+        day  = '0' + day
+
+    year  = atemp[4]
+    syear = year[2] + year[3]
+#
+#--- date is in 01/12/14 format and odate is in 140112 format
+#
+    date  = smon + '/' + day + '/' + syear
+    odate = syear + smon + day
+    
+    return [date, odate]
+
+#----------------------------------------------------------------------------------
+#-- print_pdict: printing out contents of pdict                                 ---
+#----------------------------------------------------------------------------------
+
+def print_pdict(obsidrev):
+    """
+    print out contents of pdict for checking purpouse
+    input:  obsidrev        --- obsid and revision #
+    output: test_data_out   --- a file with the printed results
+    """
+
+    pdict = read_updates_table_list(obsidrev)
+
+    file = house_keeping + 'data_table_params'
+    f    = open(file, 'r')
+    data = [line.strip() for line in f.readlines()]
+    f.close()
+
+    data = extra1 + data
+    data = data   + extra2
+
+    fo = open('test_data_out', 'w')
+    for ent in data:
+        oval = str(pdict[ent][0])
+        nval = str(pdict[ent][1])
+
+        line = ent + ' : ' + str(oval) + ' : ' + str(nval) + '\n'
+        fo.write(line)
+
+
+    fo.close()
+
+#----------------------------------------------------------------------------------------------------------------
+#-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST  ---
+#----------------------------------------------------------------------------------------------------------------
+
+class TestFunctions(unittest.TestCase):
+
+#----------------------------------------------------------------------------------
+
+    def test_find_written_date(self):
+
+        obsidrev = '7361.004'
+        [date, odate] = find_written_date(obsidrev)
+        self.assertEquals(date, '12/26/06')
+        self.assertEquals(odate, '061226')
+
+#----------------------------------------------------------------------------------
+
+    def test_read_updates_table_list(self):
+
+        obsidrev = '7361.004'
+        pdict    = read_updates_table_list(obsidrev)
+
+        self.assertEquals(pdict['title'][0].strip(), 'Coordinated Spitzer/Chandra Observations of Gamma Ray Blazars')
+        self.assertEquals(pdict['si_mode'][0], 'TE_0036C')
+        self.assertEquals(pdict['si_mode'][1], 'TE_0036C')
+        self.assertEquals(pdict['dec'][1], '-5.789306')
+        
+##        obsidrev = '16245.001'
+        #obsidrev = '17375.001'
+##        pdict    = read_updates_table_list(obsidrev)
+##
+##        for i in range(1, 3):
+##            for param in awin_list:
+##                name = param + str(i)
+##                print name + '<--->' + str(pdict[name])
+        
+##        print 'I AM HERE: ' + str(pdict['pre_id'])
+        
+#----------------------------------------------------------------------------------
+
+    def test_print_pdict(self):
+
+        obsidrev= 16232.001
+        print_pdict(obsidrev)
+        
+        obsidrev= 16259.002
+        print_pdict(obsidrev)
+        
+        
+#----------------------------------------------------------------------------------
+
+if __name__ == "__main__":
+
+    """
+    if you just run this script, it will run a test mode.
+    """
+    unittest.main()
+

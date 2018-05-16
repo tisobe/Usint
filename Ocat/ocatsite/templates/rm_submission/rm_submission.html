@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Data Submission Cancellation Page frame work page. It is built on "base.html."
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Data Submission Cancellation Page"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+
+<h1 style='text-align:left'>Data Submission Cancellation Page</h1>
+
+<form  method='post'>{% csrf_token %}
+{%include 'rm_submission/obs_info.html' %}
+
+<hr />
+
+{%include 'rm_submission/remove_table.html' %}
+
+<input type="hidden" name="submitter"  value={{ submitter }}>
+</form>
+
+
+{%include 'rm_submission/footer.html' %}
+    
+
+
+{% endblock %}

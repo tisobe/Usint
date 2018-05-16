@@ -1,0 +1,28 @@
+{% block hrc_parameters %}
+
+{% comment %} HRC Parameter Section. {% endcomment %}
+
+<h2>HRC Parameters</h2>
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='hrc_timing_mode' p2='Timing Mode'         p3=gen_name.hrc_timing_mode %}
+        {% include "includes/jstag.html" with p1='hrc_zero_block'  p2=pname.hrc_zero_block  p3=gen_name.hrc_zero_block %}
+        {% include "includes/jstag.html" with p1='hrc_si_mode'     p2='SI Mode'             p3=gen_name.hrc_si_mode %}
+    </tr>
+    <tr>
+        <td>&#160;</td><td>&#160;</td>
+        {% include "includes/jstag.html" with  p2='HRC SI Mode Change Only:'             p3=gen_name.hrc_si_select %}
+<!--
+        <th colspan=3>HRC SI Mode Change Only:</th>
+        <td>
+            <input type='radio' name='hrc_si_select' value='no' checked>No</input>
+            <input type='radio' name='hrc_si_select' value='yes'>Yes</input>
+        </td>
+-->
+    </tr>
+
+<table>
+
+{% endblock %}
+

@@ -1,0 +1,16 @@
+{% block pull_down   %}
+
+<select name={{ p1 }}>
+    {% for ent in p2 %}
+
+        {% ifequal p3 ent  %}
+            <option value= {{ ent }}  selected> {{ ent }}</option>
+        {% else %}
+            <option value= {{ ent }} > {{ ent }} </option>
+        {% endifequal %}
+    {% endfor %}
+</select>
+
+
+{% endblock %}
+

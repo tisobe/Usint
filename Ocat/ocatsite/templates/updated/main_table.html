@@ -1,0 +1,68 @@
+{% block main_table   %}
+{% comment %}
+
+This file contains the result table part of updated.html page
+
+{% endcomment %}
+<div style='padding-top:5px; padding-bottom:10px'>
+<input type='submit' name='check' value ='Back To Top Page'>
+</div>
+
+
+<table border=1 style='border-spacing:5ps; border-collapse:separate;width:90%'>
+    <tr>
+        <th style='text-align:center;color:green;width:10%'>Obsid.Rev</th>
+        <th style='text-align:center;color:green;width:10%'>General Obscat</th>
+        <th style='text-align:center;color:green;width:10%'>ACIS Obscat</th>
+        <th style='text-align:center;color:green;width:10%'>SI Mode</th>
+        <th style='text-align:center;color:green;width:10%'>Verified by</th>
+    </tr>
+{% comment %}
+
+    ent is a list with:
+
+        ent.0   --- obsidrev 
+        ent.1   --- general 
+        ent.2   --- acis    
+        ent.3   --- si mode 
+        ent.4   --- verified 
+        ent.5   --- seq number 
+        ent.6   --- poc 
+        ent.7   --- date 
+
+{% endcomment %}
+
+    {% for ent in updates_list %}
+        <tr>
+            <th style='text-align:center'>
+                <a href='{{ durl }}/chkupdata/{{ ent.0 }}/'>{{ ent.0 }}</a>
+                <br /> {{ ent.5 }} <br /> {{ ent.7  }} <br /> {{ent.6 }}
+            </th>
+
+            <td style='text-align:center'> 
+                    {{ ent.1 }} 
+            </td>
+
+            <td style='text-align:center'> 
+                    {{ ent.2 }} 
+            </td>
+
+            <td style='text-align:center'> 
+                    {{ ent.3 }} 
+            </td>
+
+            <td style='text-align:center'> 
+                    {{ ent.4 }} 
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+<br /><br />
+
+<input type='submit' name='check' value ='Back To Top Page'>
+
+{% endblock %}
+
+
+

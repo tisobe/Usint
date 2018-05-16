@@ -1,0 +1,38 @@
+Hi Scott, Malgosia, and Jean
+
+Ocat data page started taking the shape. I think that I got rid of most major bugs, and now I would like you to test the pages to find more bugs.
+
+        http://r2d2-v.cfa.harvard.edu/ocatmain/
+
+If you go to this page, you will be asked a user name and a password. The password is either that of HEAD or a default password "Ocat1234#". If you use the latter, you will be asked to update the password. For the moment, you need to update the password daily as the database is reset everyday, but eventually the password will be permanently saved in the database.
+
+Note that, when this go to live and everyone updated the password, the use of HEAD password will be removed unless there are objections.
+
+Once you get in the page, you can do whatever you like to break the scripts. The database is reset everyday at the midnight and sync with the real database. So any changes you made during the day will be removed.
+
+If you submit changes, probably you will receive email; some of them won't be sent to you in a real case (e.g., email to acisdude to notify the request of sign off), but for now, you will get the email for the inspection. All email will have "(TEST!!!)" in the Subject line so you know these are from the test submission.
+
+There are two groups of people: POC and USINT. All of you are POC and can edit all pages. The people in USINT have limited access which I need to ask them later whether it is enough to do for their jobs.
+
+I would like to know:
+
+1. bugs
+2. design issue --- is everything clear for users?
+3. potential problems that you can see (e.g. Jean suggested the potential passowd security problem)
+4. wish list    --- if you want me to add an "extra" button, I can do.
+5. misspells/grammer problems
+
+Scott and Malgosia:
+Please also check "Admin" page where you can add a new user and edit submitted data. I made a short guide:
+
+        /proj/web-r2d2-v/lib/python2.7/site-packages/r2d2-v/Doc/admin_user_guide.pdf
+
+so that you can follow (I hope) the steps to do above. If something is not clear, please let me know.
+
+
+Malgosia:
+It is a good time to upload Ocat data page to git hub. Please let me know the procedure.
+
+Thanks
+
+

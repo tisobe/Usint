@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Parameter Check Page frame work page. It is built on "base.html."
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Input Parameter Check Page"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+
+<h1 style='text-align:left'>Paramter Check  Page</h1>
+
+{%include 'chkupdata/headnotificaiton.html' %}
+
+<hr />
+
+{%include 'chkupdata/obs_info.html' %}
+
+<hr />
+
+{%include 'chkupdata/remarks_comments.html' %}
+
+
+{%include 'chkupdata/parameter_changes.html' %}
+
+<hr />
+
+<h2>All Entries</h2>
+
+{%include 'chkupdata/general_parameters.html' %}
+
+<br />
+
+{%include 'chkupdata/dither_parameters.html' %}
+
+<br />
+
+{%include 'chkupdata/time_constraints_pameters.html' %}
+
+<br />
+
+{%include 'chkupdata/roll_constraints_pameters.html' %}
+
+<br />
+
+{%include 'chkupdata/other_constraints_pameters.html' %}
+
+<br />
+
+{% ifequal chkval.inst 'acis' %}
+    {%include 'chkupdata/acis_parameters.html' %}
+
+    <br />
+    
+    {%include 'chkupdata/acis_win_parameters.html' %}
+
+{% else %}
+
+    {%include 'chkupdata/hrc_parameters.html' %}
+
+{% endifequal %}
+
+<br />
+
+{%include 'chkupdata/too_parameters.html' %}
+
+<br />
+
+{%include 'chkupdata/remarks_comments_section.html' %}
+
+
+
+{%include 'chkupdata/footer.html' %}
+    
+
+
+{% endblock %}

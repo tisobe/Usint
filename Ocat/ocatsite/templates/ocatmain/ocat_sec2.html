@@ -1,0 +1,68 @@
+{% block ocat_sec2 %}
+
+{% comment %} ocat main page section 3  {% endcomment %}
+
+{% ifequal opi 1 %}
+<p> Following obsID.version is/are still waiting to be signed off</p>
+<ul>
+{% for ent in open_item %}
+    <li> <a href='{{ durl }}/chkupdata/{{ ent }}/>{{ ent }}</a> </li>
+{% endfor %}
+</ul>
+{% endifequal %}
+
+
+{% comment %} List observations under this submitter {% endcomment %}
+
+<h3>Observations Under Your Name</h3>
+
+{% comment %} DDT {% endcomment %}
+{% ifequal ddtchk 1 %}
+    <p><b>DDT</b></p>
+    <table border = 1>
+        {%include 'ocatmain/obs_table_head.html' %}
+
+        {% for ent in ddt_data %}
+            {%include 'ocatmain/obs_table.html' %}
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+
+{% comment %} TOO {% endcomment %}
+{% ifequal toochk 1 %}
+    <p><b>TOO</b></p>
+    <table border = 1>
+        {%include 'ocatmain/obs_table_head.html' %}
+
+        {% for ent in too_data %}
+            {%include 'ocatmain/obs_table.html' %}
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+
+{% comment %} next 30 days {% endcomment %}
+{% ifequal d30chk 1 %}
+    <p><b>Observations Planned in the Next 30 Days</b></p>
+    <table border = 1>
+        {%include 'ocatmain/obs_table_head.html' %}
+
+        {% for ent in d30_data %}
+            {%include 'ocatmain/obs_table.html' %}
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+<div style='padding-bottom:20px;'>
+</div>
+
+{% comment %} Link to all planned observations {% endcomment %}
+
+<input type='submit' name='check3' value='Open All Planned Observation List' style='font-weight:bold;'>
+
+<div style='padding-bottom:10px;'>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,149 @@
+{% block finalized  %}
+
+{% comment %} finalzied page  {% endcomment %}
+
+<h2>Submission Completed!</h2>
+
+<table border=0>
+    <tr>
+        <th>User Name: </th><td>{{ dbval.submitter }}</td>
+    </tr>
+</table>
+
+<table border=0>
+    <tr>
+        <th>Back to: </th>
+        <td><a href="{{ durl }}/ocatdatapage/{{ dbval.obsid }}/">Ocat Data Page</a></td>
+    </tr>
+    <tr>
+        <th> Go to: </th>
+        <td><a href='{{ durl }}/ocatmain/'>Ocat Main Page</a></th>
+    </tr>
+    <tr>
+        <th>Check </th>
+        <td><a href='{{ durl }}/chkupdata/{{ dbval.obsid }}.{{ rev }}'>Changes ?</a></td>
+    </tr>
+    <tr>
+        <th>Go to: </th>
+        <td><a href='{{ durl }}/orupdate/'>Sign Off Page</a></td>
+    </tr>
+</table>
+
+{% ifequal opi 1 %}
+<p> Following obsid.version is/are still waiting to be signed off</p>
+<ul>
+{% for ent in open_item %}
+    <li> <a href='{{ durl }}/chkupdata/{{ ent }}>{{ ent }}</a> </li>
+{% endfor %}
+</ul>
+{% endifequal %}
+
+<p>
+Work on the Other Obsid:
+<input type=text name='tobsid' size=10>
+<input type='submit' name ='tcheck'  value='Start'>
+</p>
+
+
+{% comment %} List observations under this submitter {% endcomment %}
+
+<h3>Other Observations Under Your Name</h3>
+
+{% ifequal ddtchk 1 %}
+    <p><b>DDT</b></p>
+    <table border = 1>
+        <tr>
+            <th>Seq #</th>
+            <th>Obsid</th>
+            <th>Status</th>
+            <th>Planned Date</th>
+            <th>Approved?</th>
+        </tr>
+        {% for ent in ddt_data %}
+            <tr>
+                <td>{{ ent.0 }}</td>
+                <td><a href='{{ durl }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+                <td>{{ ent.2 }}</td>
+                <td>{{ ent.3 }}</td>
+                {% ifequal ent.4 'No' %}
+                    <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td style='text-align:center'>{{ ent.4 }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+
+{% ifequal toochk 1 %}
+    <p><b>TOO</b></p>
+    <table border = 1>
+        <tr>
+            <th>Seq #</th>
+            <th>Obsid</th>
+            <th>Status</th>
+            <th>Planned Date</th>
+            <th>Approved?</th>
+        </tr>
+        {% for ent in too_data %}
+            <tr>
+                <td>{{ ent.0 }}</td>
+                <td><a href='{{ durl }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+                <td>{{ ent.2 }}</td>
+                <td>{{ ent.3 }}</td>
+                {% ifequal ent.4 'No' %}
+                    <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td style='text-align:center'>{{ ent.4 }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+
+{% ifequal ddtchk 1 %}
+    <p><b>Observations Planned in the Next 30 Days</b></p>
+    <table border = 1>
+        <tr>
+            <th>Seq #</th>
+            <th>Obsid</th>
+            <th>Status</th>
+            <th>Planned Date</th>
+            <th>Approved?</th>
+        </tr>
+        {% for ent in d30_data %}
+            <tr>
+                <td>{{ ent.0 }}</td>
+                <td><a href='{{ durl }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+                <td>{{ ent.2 }}</td>
+                <td>{{ ent.3 }}</td>
+                {% ifequal ent.4 'No' %}
+                    <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td style='text-align:center'>{{ ent.4 }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+<div style='padding-bottom:10px;'>
+</div>
+
+{% comment %}If there is no observation list, push down the footer for at least 500 px {% endcomment %}
+
+{% ifequal ddtchk 0 %}
+    {% ifequal toochk 0 %}
+        {% ifequal d30chk 0 %}
+    
+            <div style='padding-bottom:500px'>
+            </div>
+
+        {% endifequal %}
+    {% endifequal %}
+{% endifequal %}
+
+{% endblock %}
+

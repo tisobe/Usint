@@ -1,0 +1,57 @@
+{% block ocat_sec1 %}
+
+{% comment %} ocat main page section 1  {% endcomment %}
+
+<table border=0>
+    <tr>
+        <th>Check Submitted<br /> ObsID Parameters: </th>
+        <td>
+                ObsId: <input type='text' size='10' name='chk_obsid'>
+                Version: <input type='text' size='10' name='chk_ver'>
+        </td>
+        <td><input type='submit' name='check2' value='Submit'></td>
+    </tr>
+    {% if  vlist  %}
+        <tr>
+        <td>&#160;</td>
+        <td>
+            <ul>
+            {% for ent in vlist %}
+                <li><a href="{{ durl }}/chkupdata/{{ ent }}">{{ ent }}</a> </li>
+            {% endfor %}
+            </ul>
+        </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td>&#160;</td>
+            <td colspan=2>(if you leave "version" blank, it will display a list of possible selections.)</td>
+        </tr>
+    {% endif %}
+    </table>
+    <table boder=0>
+    <tr>
+        <th><a href='{{ durl }}/orupdate/'>Target Parameter Update Status Form</a></th>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <th><a href='{{ durl }}/updated/'>Signed Off Observation Page</a></th>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <th><a href='{{ durl }}/rm_submission/'>Remove Submission Page</a></th>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+       <th><a href="javascript:WindowOpen4('https://cxc.cfa.harvard.edu/mta/CUS/Usint/poc_obsid_list_ver2.cgi')">Check Observations of Other POCs</a></th>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+       <th><a href="javascript:WindowOpen4('https://cxc.cfa.harvard.edu/mta/CUS/Usint/obsid_poc_list.cgi')">POC Contact for Each Observation</a></th>
+        <td>&#160;</td>
+    </tr>
+
+</table>
+
+{% endblock %}
+

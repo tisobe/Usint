@@ -1,0 +1,196 @@
+{% block submission_check_page  %}
+
+{% comment %} Submission entry check page. {% endcomment %}
+
+<h2>Submitted Parameters</h2>
+
+{%include 'ocatdatapage/warning_part.html' %}
+
+<h3>
+You have submitted the following values for obsid {{ dbval.obsid }}. Please check 
+all parameters are set correctly before "FINALIZE" the submission.
+</h3>
+
+<table>
+<tr>
+<th>User Name: </th><td>{{ dbval.submitter }}</td>
+</tr>
+<td>
+<!-- <input type="submit" name="check" value="FINALIZE"> -->
+<input type="submit" name="check" value="Previous Page">
+</td>
+</tr>
+</table>
+
+
+<table border=1> 
+<tr>
+<th>Parameter and Database Name</th>
+<th>Original Value</th>
+<th>Requested</th>
+</tr>
+
+{% for ent in  submitted %}
+    <tr>
+    {% ifnotequal  ent.0 'remarks' %}
+        {% ifnotequal  ent.0 'comments' %}
+    
+            {% ifequal ent.2 ent.3   %}
+                <th> {{ ent.1 }} <span style='font-weight:normal;font-size:95%'>({{ ent.0 }})</span> </th>
+            {% else %}
+                <th style='color:red;font-size:105%'> {{ ent.1 }} 
+                <span style='font-weight:normal;font-size:95%'> ({{ ent.0 }})</span> </th>
+            {% endifequal %}
+
+            <td> {{ ent.2 }} </td>
+    
+            {% ifequal ent.2 ent.3   %}
+    
+                <td> No Change </td>
+    
+            {% else %}
+    
+                <td class='red'><b> {{ ent.3 }} </b> </td>
+    
+            {% endifequal %}
+    
+        {% endifnotequal  %}
+    {% endifnotequal  %}
+    
+    </tr>
+{% endfor %}
+
+</table>
+
+<h3>REMARKS and COMMENTS Changes</h3>
+{% ifequal dbval.remarks_b dbval.org_remarks_b   %}
+
+    <p>
+    <b>REMARKS unchanged and set to: </b>
+    </p>
+    <p>
+    {% ifequal dbval.org_remarks '' %}
+        &lt;Blank&gt;
+    {% else %}
+        {{ dbval.org_remarks  }}
+    {% endifequal %}
+    </p>
+    
+{% else %}
+    
+    <p>
+    <b class='red'>REMARKS changed from:</b>
+    </p>
+    <p>
+    {% ifequal dbval.org_remarks ""   %}
+
+        <em>&lt;Blank&gt;</em>
+
+    {% else %}
+
+        {{ dbval.org_remarks  }}
+
+    {% endifequal %}
+    </p>
+    <p>
+    <b class='red'>to:</b>
+    </p>
+    <p>
+    
+    {% ifequal dbval.remarks ""   %}
+
+        <em>&lt;Blank&gt;</em>
+
+    {% else %}
+
+        {{ dbval.remarks  }}
+
+    {% endifequal %}
+    </p>
+{% endifequal %}
+
+
+
+
+{% ifequal dbval.comments_b dbval.org_comments_b   %}
+
+    <p>
+    <b>COMMENTS unchanged and set to: </b>
+    </p>
+    <p>
+    {% ifequal dbval.org_comments '' %}
+        &lt;Blank&gt;
+    {% else %}
+        {{ dbval.org_comments  }}
+    {% endifequal %}
+    </p>
+
+{% else %}
+
+    <p>
+    <b class='red'>COMMENTS changed from:</b>
+    </p>
+    <p>
+    
+    {% ifequal dbval.org_comments ""   %}
+
+        <em>&lt;Blank&gt;</em>
+
+    {% else %}
+
+        {{ dbval.org_comments  }}
+
+    {% endifequal %}
+
+    </p>
+    <p>
+    <b class='red'>to:</b>
+    </p>
+    <p>
+
+    {% ifequal dbval.comments ""   %}
+
+        <em>&lt;Blank&gt;</em>
+
+    {% else %}
+
+        {{ dbval.comments }}
+
+    {% endifequal %}
+    </p>
+{% endifequal %}
+
+
+{% comment %} sending back all parameter values. {% endcomment %}
+{% for ent in  submitted %}
+
+    <input type="hidden" name={{ ent.0 }}  value={{ ent.3 }}>
+
+{% endfor %}
+{% for ent in text_set %}
+
+    <input type="hidden" name={{ ent.0 }}  value={{ ent.1 }}>
+
+{% endfor %}
+{% for ent in org_keys %}
+
+    <input type="hidden" name={{ ent.0 }}  value={{ ent.1 }}>
+
+{% endfor %}
+
+
+<input type="hidden" name='remarks'     value={{ dbval.remarks }}>
+<input type="hidden" name='comments'    value={{ dbval.comments }}>
+<input type="hidden" name='hrc_si_select'    value={{ dbval.hrc_si_select }}>
+
+<hr class='short'></hr>
+
+<p style='padding-top:5px'>
+    <input type="submit" name="check" value="Previous Page">
+    <input type="submit" name="check" value="FINALIZE">
+</p>
+
+
+
+{% endblock %}
+

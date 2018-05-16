@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Updated Target List  frame work page. It is built on "base.html."
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Updated Target List"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+
+<h1 style='text-align:left'>Updated Target List</h1>
+
+<form>
+{%include 'updated/obs_info.html' %}
+
+<hr />
+
+{% ifequal month_display 'y' %}
+
+    {%include 'updated/main_table.html' %}
+
+{% else %}
+
+    {%include 'updated/intro_table.html' %}
+
+{% endifequal %}
+
+
+
+</form>
+
+
+{%include 'updated/footer.html' %}
+    
+
+
+{% endblock %}

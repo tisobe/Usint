@@ -1,0 +1,79 @@
+{% block month_pull_down   %}
+
+<select name= {{ p1 }}>
+    {% ifequal p2 1 %}
+        <option value=1 selected> January</option>
+    {% else %}
+        <option value=1> January</option>
+    {% endifequal %}
+    
+    {% ifequal p2 2 %}
+        <option value=2 selected> February</option>
+    {% else %}
+        <option value=2> February</option>
+    {% endifequal %}
+    
+    {% ifequal p2 3 %}
+        <option value=3 selected> March</option>
+    {% else %}
+        <option value=3> March</option>
+    {% endifequal %}
+    
+    {% ifequal p2 4 %}
+        <option value=4 selected> April</option>
+    {% else %}
+        <option value=4> April</option>
+    {% endifequal %}
+    
+    {% ifequal p2 5 %}
+        <option value=5 selected> May</option>
+    {% else %}
+        <option value=5> May</option>
+    {% endifequal %}
+    
+    {% ifequal p2 6 %}
+        <option value=6 selected> June</option>
+    {% else %}
+        <option value=6> June</option>
+    {% endifequal %}
+    
+    {% ifequal p2 7 %}
+        <option value=7 selected> July</option>
+    {% else %}
+        <option value=7> July</option>
+    {% endifequal %}
+    
+    {% ifequal p2 8 %}
+        <option value=8 selected> August</option>
+    {% else %}
+        <option value=8> August</option>
+    {% endifequal %}
+    
+    {% ifequal p2 9 %}
+        <option value=9 selected> September</option>
+    {% else %}
+        <option value=9> September</option>
+    {% endifequal %}
+    
+    {% ifequal p2 10 %}
+        <option value=10 selected> October</option>
+    {% else %}
+        <option value=10> October</option>
+    {% endifequal %}
+    
+    {% ifequal p2 11 %}
+        <option value=11 selected> November</option>
+    {% else %}
+        <option value=11> November</option>
+    {% endifequal %}
+    
+    {% ifequal p2 12 %}
+        <option value=12 selected> December</option>
+    {% else %}
+        <option value=12> December</option>
+    {% endifequal %}
+</select>
+
+
+{% endblock %}
+

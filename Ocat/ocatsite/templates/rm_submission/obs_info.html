@@ -1,0 +1,61 @@
+{% block obs_info   %}
+{% comment %} 
+
+This file contains the top part of rm_submission.html page.
+
+{% endcomment %}
+
+<table border = 0>
+
+<tr>
+<td style='width:40%'>
+Only the signed-off entry with the following conditions can be removed from the list.
+<ul>
+    <li style='padding-bottom:3px'>
+        You are the person who signed off (submitter ID must be same as that of the person who signed off).
+    </li>
+    <li style='padding-bottom:3px'>
+        The signed-off was made either today or yesterday.
+    </li>
+    <li style='padding-bottom:3px'>
+        The observation is not approved yet.
+    </li>
+    <li style='padding-bottom:3px'>
+        General, ACIS, or SI_Mode sign-offs can be removed only when "Verified by" is not signed off yet.
+    </li>
+</ul>
+If the entry fullfils the condtions, you will see "<b>Remove</b>" button. By clicking the button, the sign-off
+will be removed from the database and you will see "<em>Not Signed Off Yet</em>" in that place.
+
+</td>
+<td style='width:5%'>
+    &#160;
+</td> 
+<td style='width:40%'>
+    <b>Links</b>
+    <ul>
+    <li>
+        <a href='{{ durl }}/orupdate/' >Target Parameter Update Status Form</a>
+    </li>
+    <li>
+        <a href='{{ durl }}/ocatmain/' >Ocat Main Page</a>
+    </li>
+<!--
+    <li>
+        <a href='https://cxc.cfa.harvard.edu/cus/index.html'>Chandra Uplink Support Page</a>
+    </li>
+-->
+</td>
+</tr>
+</table>
+
+<p>
+<b>
+Submitter ID: {{ submitter }}
+</b>
+</p>
+
+{% endblock %}
+
+
+

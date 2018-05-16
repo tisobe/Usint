@@ -1,0 +1,22 @@
+
+I've created a ocatsql database and two users we've discussed.
+username:passwords for this users are located in the file I've created for you. It's readable only by you , you can delete it once you save the passwords in the safe location.
+passwords are in /home/isobe/ocatsql.txt
+
+Please be careful with your testing, especially running through some loops etc. because there are many different databases running on this mysql server and lots of CXC web pages depend on this mysql server.
+
+Please note: cusweb user has very restricted privileges for security reasons and should be used in your web pages.  This user can access ocatsql database only from r2d2-v server since your web server will be running on this machine.
+
+I don't know python but it would probably be a good idea to have mysql server name which is cxcweb11 in hidden file outside of htdocs (your web server root).
+For example you can have /proj/web-r2d2-v/.htmysqlserver file which will hold the name of mysql server.  This file will not be visible or readable by web server users
+You can have similar file for password, just make sure it starts with .ht, for examples /proj/web-r2d2-v/.htmysqlpass
+
+to access mysql server from command line you can run this command:
+mysql -h cxcweb11 -u cusadmin -p
+
+then it will ask you for password.
+
+if you have any questions send me an email.
+
+thanks,
+Gary

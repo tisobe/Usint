@@ -1,0 +1,219 @@
+#
+#------ parameter range and restriction test table ---------
+#
+# Note:
+# 1. If the possible values are digits with "<>", it indicates inclusive value range.
+# 2. If OPEN is given, the parameter can take any values including <blank>
+# 3. If MUST is given, the value must exists.
+#  ----(removed) ----
+# 4. If parameter names are listed in Extra Restriction column, they must have some value, except the main parameter is NULL
+# 5. if the parametesr in the ER column has "=", there do not follow the above convention and have an extra instruction
+#        O: open, N: none, M: must, C: custom
+#
+# Parameter             : Possible Values                                                           : Extra Restriction
+# -------------------------------------------------------------------------------------------------------------------------------------
+#
+#---- general information (editable) -----------
+#
+obj_flag                : NO,SS,MT                                                                  : NA
+object                  : NONE,NEW,VENUS,EARTH,MOON,MARS,JUPITER,SATURN,URANUS,NEPTUNE,PLUTO,COMET  : NA
+si_mode                 : MUST                                                                      : NA
+photometry_flag         : NULL,N,Y                                                                  : NA
+vmagnitude              : NULL,-15<>20                                                              : NA
+ra                      : OPEN                                                                      : NA
+dec                     : OPEN                                                                      : NA
+est_cnt_rate            : NULL,0<>10000                                                             : NA
+forder_cnt_rate         : NULL,0<>10000                                                             : NA
+y_det_offset            : -120<>120                                                                 : NA
+z_det_offset            : -120<>120                                                                 : NA
+raster_scan             : OPEN                                                                      : NA
+approved_exposure_time  : OPEN                                                                      : NA
+seg_max_num             : OPEN                                                                      : NA
+aca_mode                : NULL,DEFAULT,NEW                                                          : NA
+grating                 : NONE,LETG,HETG                                                            : est_cnt_rate=OMM,forder_cnt_rate=OMM
+instrument              : HRC-I,HRC-S,ACIS-I,ACIS-S                                                 : NA
+type                    : GO,GTO,CAL,CAL_ER,TOO,DDT,CDFS,ARCHIVE                                    : NA
+extended_src            : NULL,N,Y                                                                  : NA
+uninterrupt             : NULL,N,P,Y                                                                : NA
+#
+#----- triggering flags ------------------------
+#
+phase_constraint_flag   : NULL,N,Y,P                                                                : phase_perio,phase_epoche
+dither_flag             : NULL,N,Y                                                                  : y_amp,y_freq,y_phase,z_amp,z_freq,z_phase
+roll_flag               : NULL,N,Y,P                                                                : NA
+window_flag             : NULL,N,Y                                                                  : NA
+spwindow_flag           : NULL,N,Y                                                                  : NA
+#
+#------ remark entries  ------------------------
+#
+remarks                 : OPEN                                                                      : NA
+mp_remarks              : OPEN                                                                      : NA
+#
+#------ roll constraint information ------------
+#
+roll_constraint         : NULL,N,P,Y                                                                : roll,roll_tolerance,roll_180
+roll_180                : NULL,N,Y                                                                  : roll_constraint
+roll                    : NULL,0<>360                                                               : roll_constraint
+roll_tolerance          : OPEN                                                                      : NA
+#
+#----- time constraint information -------------
+#
+window_constraint       : NULL,N,P,Y                                                                : tstart,tstop,pre_id=OONN
+tstart                  : OPEN                                                                      : window_constraint
+tstop                   : OPEN                                                                      : window_constraint
+#
+#----- other constraint information ------------
+#
+constr_in_remarks       : NULL,N,P,Y                                                                : NA
+pre_min_lead            : NULL,OPEN                                                                 : pre_id=OO
+pre_max_lead            : NULL,OPEN                                                                 : pre_id=OO
+pre_id                  : NULL,OPEN                                                                 : pre_min_lead=OM,pre_max_lead=OM
+observatories           : OPEN                                                                      : multitelescope
+group_id                : NULL,OPEN                                                                 : NA
+multitelescope          : N,P,Y                                                                     : observatories,multitelescope_interval
+multitelescope_interval : OPEN                                                                      : multitelescope
+#
+#----- phase constraint information ------------
+#
+phase_period            : OPEN                                                                      : NA
+phase_epoch             : NULL,46066.0<>1.0e10                                                      : NA
+phase_start             : OPEN                                                                      : NA
+phase_end               : OPEN                                                                      : NA
+phase_start_margin      : OPEN                                                                      : NA
+phase_end_margin        : OPEN                                                                      : NA
+#
+#----- hrc parameters --------------------------
+#
+hrc_zero_block          : NULL,N,Y                                                                  : NA
+timing_mode             : NULL,N,Y                                                                  : NA
+hrc_si_mode             : OPEN                                                                      : NA
+#
+#----- acis parameters -------------------------
+#
+exp_mode                : NULL,TE,CC                                                                : NA
+ccdi0_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+ccdi1_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+ccdi2_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+ccdi3_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+ccds0_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+ccds1_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+ccds2_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+ccds3_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+ccds4_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+ccds5_on                : NULL,N,Y,O1,O2,O3,O4,O5                                                   : NA
+bep_pack                : NULL,VF,F,F+B,G                                                           : NA
+onchip_sum              : NULL,N,Y                                                                  : NA
+onchip_row_count        : NULL,1<>512                                                               : NA
+onchip_column_count     : NULL,1<>512                                                               : NA
+frame_time              : NULL,0<>10                                                                : most_efficient=ON
+subarray                : NONE,CUSTOM                                                               : subarray_start_row,subarray_row_count
+subarray_start_row      : NULL,1<>925                                                               : subarray=OC
+subarray_row_count      : NULL,100<>1024                                                            : subarray=OC
+duty_cycle              : NULL,N,Y                                                                  : NA
+secondary_exp_count     : OPEN                                                                      : NA
+primary_exp_time        : NULL,0.1<>10                                                              : NA
+eventfilter             : NULL,N,Y                                                                  : eventfilter_lower,eventfilter_higher
+eventfilter_lower       : NULL,0.0<>15.0                                                            : eventfilter
+eventfilter_higher      : NULL,0.0<>15.0                                                            : eventfilter
+most_efficient          : NULL,N,Y                                                                  : frame_time=MMN,primary_exp_time=OON
+dropped_chip_count      : OPEN                                                                      : NA
+multiple_spectral_lines : NULL,N,Y                                                                  : NA
+spectra_max_count       : NULL,1<>100000                                                            : NA
+#
+#----- acis window constraints (spwindow_flag) -
+#
+aciswin_id              : NA                                                                        : NA
+#
+#----- acis window constraints information -----
+#
+start_row               : NULL,1<>925                                                               : chip
+start_column            : NULL,1<>896                                                               : chip
+width                   : NULL,1<>1024                                                              : chip
+height                  : NULL,1<>1024                                                              : chip
+lower_threshold         : NULL,0.0<>15                                                              : chip
+pha_range               : NULL,0.0<>15                                                              : chip
+sample                  : OPEN                                                                      : NA
+#chip                    : NULL,I0,I1,I2,I3,S0,S1,S2,S3,S4,S5                                        : spwindow_flag,start_row,width,height,start_column,lower_threshold,pha_range,sample
+chip                    : NULL,I0,I1,I2,I3,S0,S1,S2,S3,S4,S5                                        : start_row,width,height,start_column,lower_threshold,pha_range,sample
+#include_flag           : I,E                                                                       : NA
+#
+#----- dither parameters -----------------------
+#
+y_amp                   : OPEN                                                                      : dither_flag,y_freq,y_phase,z_amp,z_freq,z_phase
+y_freq                  : OPEN                                                                      : dither_flag,y_amp,y_phase,z_amp,z_freq,z_phase
+y_phase                 : OPEN                                                                      : dither_flag,y_amp,y_freq,z_amp,z_freq,z_phase
+z_amp                   : OPEN                                                                      : dither_flag,y_amp,y_freq,y_phase,z_freq,z_phase
+z_freq                  : OPEN                                                                      : dither_flag,y_amp,y_freq,y_phase,z_amp,z_phase
+z_phase                 : OPEN                                                                      : dither_flag,y_amp,y_freq,y_phase,z_amp,z_freq
+#
+#----- focus information -----------------------
+#
+trans_offset            : NULL,-190.5<>+126.621                                                     : NA
+focus_offset            : OPEN                                                                      : NA
+#
+#---- general information (non-editable) -------
+#
+targid                  :  NA                                                                       : NA
+seq_nbr                 :  NA                                                                       : NA
+targname                :  NA                                                                       : NA
+ocat_propid             :  NA                                                                       : NA
+acisid                  :  NA                                                                       : NA
+hrcid                   :  NA                                                                       : hrc_si_mode
+tooid                   :  NA                                                                       : NA
+rem_exp_time            :  NA                                                                       : NA
+soe_st_sched_date       :  NA                                                                       : NA
+obs_ao_str              :  NA                                                                       : NA
+lts_lt_plan             :  NA                                                                       : NA
+status                  :  NA                                                                       : NA
+mpcat_star_fidlight_file:  NA                                                                       : NA
+data_rights             :  NA                                                                       : NA
+description             :  NA                                                                       : NA
+total_fld_cnt_rate      :  NA                                                                       : NA
+#
+#----- too parameters (non editable) -----------
+#
+too_type                :  NA                                                                       : NA
+too_trig                :  NA                                                                       : NA
+too_start               :  NA                                                                       : NA
+too_stop                :  NA                                                                       : NA
+too_followup            :  NA                                                                       : NA
+too_remarks             :  NA                                                                       : NA
+#
+#----- observed roll (different from roll) -----
+#
+roll_obsr               :  NA                                                                       : NA
+planned_roll            :  NA                                                                       : NA
+#
+#-- proposal related information (non editable) -
+#
+prop_num                :  NA                                                                       : NA
+title                   :  NA                                                                       : NA
+joint                   :  NA                                                                       : NA
+hst_approved_time       :  NA                                                                       : NA
+xmm_approved_time       :  NA                                                                       : NA
+rxte_approved_time      :  NA                                                                       : NA
+noao_approved_time      :  NA                                                                       : NA
+nrao_approved_time      :  NA                                                                       : NA
+swift_approved_time     :  NA                                                                       : NA
+nustar_approved_time    :  NA                                                                       : NA
+suzaku_approved_time    :  NA                                                                       : NA
+spitzer_approved_time   :  NA                                                                       : NA
+#
+#---- PI name (non editable) -------------------
+#
+pi_name                 :  NA                                                                       : NA
+#
+#---- observer related I(non editable) ---------
+#
+observer                :  NA                                                                       : NA
+#
+#---- extra:these won't be tested ------
+#
+comments                :  NA                                                                       : NA
+group                   :  NA                                                                       : NA
+monitor                 :  NULL,N,Y                                                                 : NA
+time_ordr               :  NA                                                                       : NA
+roll_ordr               :  NA                                                                       : NA
+ordr                    :  NA                                                                       : NA
+obsid                   :  NA                                                                       : NA
+monitor_flag            :  NULL,N,Y                                                                 : NA

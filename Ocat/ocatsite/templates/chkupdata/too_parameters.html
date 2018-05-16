@@ -1,0 +1,20 @@
+{% block too_parameters  %}
+
+<table border=1 style='border-spacing:5ps; border-collapse:separate; width:90%'>
+    <tr>
+        <th colspan=2>TOO Paramters (Not Modifiable by POC)</th>
+    </tr>
+    <tr>
+        <th style='color:green;width:10%'>Parameter Name</th>
+        <th style='color:green;width:80%'>Current Value</th>
+    </tr>
+    {% for ent in too_list %}
+        <tr>
+                <th>{{ ent.0 }}</th>
+                <td>{{ ent.3 }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

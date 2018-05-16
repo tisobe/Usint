@@ -1,0 +1,12 @@
+-rw------- 1 mta head 173135630 Apr  5 09:45 mta_mail
+-rwxr-xr-x 1 mta head      8819 Apr  4 14:18 new_too_ddt_notifier.py
+-rwxr-xr-x 1 mta head       262 Apr  4 13:56 obs_list_update_main_script
+-rwxr-xr-x 1 mta head        82 Mar 21 13:38 obs_list_update_wrap_script
+lrwxrwxrwx 1 mta head        72 Mar 21 13:43 propno_poc_list -> /data/mta4/CUS/www/Usint/ocat/Info_save/too_contact_info/propno_poc_list
+drwxr-xr-x 2 mta head      4096 Mar 21 12:54 Save
+lrwxrwxrwx 1 mta head        79 Mar 21 13:44 special_obsid_poc_list -> /data/mta4/CUS/www/Usint/ocat/Info_save/too_contact_info/special_obsid_poc_list
+lrwxrwxrwx 1 mta head        83 Mar 20 08:15 this_week_person_in_charge -> /data/mta4/CUS/www/Usint/ocat/Info_save/too_contact_info/this_week_person_in_charge
+-rw-r--r-- 1 mta head       427 Apr  5 09:50 update_log.cron
+-rwxr-xr-x 1 mta head     29756 Apr  5 09:19 update_obs_lists.py
+lrwxrwxrwx 1 mta head        71 Apr  4 13:56 usint_personal -> /data/mta4/CUS/www/Usint/ocat/Info_save/too_contact_info/usint_personal
+

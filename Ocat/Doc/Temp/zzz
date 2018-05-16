@@ -1,0 +1,113 @@
+
+Ocat Data package saves almost all data in sqlite3 database which you can edit on a browser. To edit the database, however, you must be a user “cus”. 
+
+First, open: http://r2d2-v.cfa.harvard.edu/ocatmain/ on your browser.  If you have not logged in for the last 24 hours, you will see: 
+
+
+
+Type “cus” in the user box and its password in the password box. 
+
+If you are already on the main page as you, use :
+to change the user to “cus”.
+
+ 
+This will open the page for the super user “cus”. The top half is the same as that of any other POC, but the bottom half of the page is the admin area.
+
+
+
+Although you can go to each section directly by clicking the link (e.g. Approved List), in this guide, click “Admin  Main Page” link to go to the top admin page.
+
+The main page address is http://r2d2-v.cfa.harvard.edu/admin/ and you can directly go there by using this address in the browser, but you must be “cus” to be able to edit the data. Althoug the database list start from the group database, it has only two data (POC/USINT) and we ignore it in the guide.
+
+User Database
+This database contains information about POC and USINT user information.  All users are manually added to the database.  Select “User” from the list. It will open
+
+
+
+The green tick mark indicates that “cus” is the super user and all others are not. 
+Choose one of the users whom you want to change information. 
+
+
+For now, skip password part.  The most important part here is “Groups”. We have only two choices: POC and USINT. POC can edit all pages, but USINT  has a limited access
+
+
+
+For POC user, you also need to fill the information at the bottom of the page.
+
+
+The date part is automatically updated and you don't need to do anything.
+
+When you want to go back to the previous page, you can either use the back button of the browser or the navigation link at the top left corner of the page.
+
+
+
+Adding a New User
+If you need to add a new user, there are two ways to start; both open the same page.  One is from the top admin page by clicking “+Add” button and other is from inside of the user page (http://r2d2-v.cfa.harvard.edu/admin/auth/user/). 
+
+
+This will open “Add user” page. Type a HEAD user name in Username box. Use "Ocat1234#" as a  password for Password boxes. When the new user uses this password, the page will ask to update the password. Note, you cannot open any of the pages with this default password.
+
+If the user is POC, fill the rest of the information, but if s/he is a USINT user, keep these boxes empty.
+
+
+
+
+Click “Save and continue editing” button which brings you to the main user page. Select “Active” from “Permissions” area, and choose either USINT or POC in Group area. Then hit “Save” button at the bottom of the page.
+
+
+Approveds Database
+
+Approved database (django automatically add “s” at the end of the database name) contains the list of the obsids which were approved. Each row displays Obsid, Sequence Number, POC, and Signed off Date.
+
+If one of these were an accidental submission, you can remove it by selecting the entry and from “Action", select “Delete selected..." and hit “Go”. Although POC can remove any "approved" entry from Ocat Data Page by herself, on this page, you can remove several of them at the same time.
+
+It will display a confirmation page before actually remove the data, but once it is removed, you cannot recover. So be careful.
+
+If you want to edit data, e.g., if you want to change the POC id, then open the data by clicking the obsid.
+
+
+After edit whatever you need, don't forget to save the change.
+
+
+
+Data_tables Database
+The data_table database contains the full information of the submitted data from Ocat Data Page (e/g/. http://r2d2-v.cfa.harvard.edu/ocatdatapage/19333)/. The top page displays the summary table with each row containing: Obsidrev, Sequence number, Proposal number, Title, POC, and signed data. 
+
+
+
+Although you should not edit any of the data from here, if you need, you can remove the entry as a whole by selecting “Delete...” option from Action. Make sure that you also remove the same entry from Updates Database (see below) and if it is approved one, remove it also from approved list. 
+
+If you click obsidrev, you can inspect all the data save for that obsidrev.  There are three types of data. Ones with header “Org”, ones with “Req”, and those without either of them. The first ones list values before the submission occurred and the second ones list requested values. Those without headers are non-modifiable (on Ocat Data Page) data. 
+
+
+
+
+Obs_Plans Database
+
+Obs_plan database lists currently planned observations and those  just recently observed but not yet archived. Each row lists Obsid, Sequence number, observation type, status, POC, AO number, and Observation Planned Date.
+
+Only data you may need to edit here is POC. Although the script guesses well which POC is responsible to which observations, occasionally POC changes happen and also the script guesses POC totally wrong. If that happens, you need to come to this page, choose obsid, and edit the database. 
+
+
+
+Updatess Database
+
+Updates database is used by Target Parameter Update Status Form (http://r2d2-v.cfa.harvard.edu/orupdate/). It lists Obsidrev, General signed off status, ACIS signed off status, SI Mode signed off status, and Verified status.  It also lists, Sequence number, POC and date created. 
+
+
+
+
+Although the user can retract the signed off status for 24 hours after the signed off was made, after that time period, the admin needs to change the status if it is needed.  If you need to edit the data, again click the obsidrev and go to the editing page to update the data. 
+
+Schedules Database
+
+Although I don't think that you really need to edit the schedule database since all modification can be done from the web site (http://r2d2-v.cfa.harvard.edu/schedule_submitter/), you may find an occasion to do so. If that is the case, go to this page and update the database.
+
+
+
+
+This memo was prepared by T. Isobe (tisobe@cfa.harvard.edu).
+
+Last Update Oct 3, 2016
+
+

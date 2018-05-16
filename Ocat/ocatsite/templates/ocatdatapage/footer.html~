@@ -1,0 +1,14 @@
+{% block footer %}
+
+<hr />
+<hr />
+
+<p style='padding-top:5px; padding-bottom:5px;font-size:85%'>
+    This page is maintained by <em>MTA</em> group. 
+    If you have any problems with this page, please contact: <a href="mailto:tisobe@cfa.harvard.edu">tisobe@cfa.harvard.edu</a>
+    and/or <a href="mailto:swolk@cfa.harvard.edu">sowlk@cfa.harvard.edu</a>
+    <br /><br />
+    <em>Last Updated: Apr 28, 2015</em>
+</p>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% block main_table   %}
+{% comment %}
+
+This file contains the table part of orupdate.html page
+
+{% endcomment %}
+{% ifequal entry_list '' %}
+    <p style='font-size:110%;padding-top:20px'>
+        <b>
+        Sorry, but there is no entry which you can approve at this time.
+        </b> 
+    </p>
+    
+    <p style='font-size:110%;padding-bottom:300px'>
+    </p>
+
+{% else %}
+    <div style='padding-top:10px'>
+    </div>
+    <p>
+        <b>Before approving</b> all observations you selected, please check the following table. 
+        If you find any of the observations are not for approval, click the "<b><em>Remove</em></b>" 
+        button to remove them from the list.
+    </p>
+
+    <p>
+        If entries are marked with <span style='background-color:#FF00FF;color:#FF00FF;'>___</span>,
+        the observations are either already approved or you are not POC of the observation, and
+        you cannot approve them. If it is the latter, you need to change your user ID above, or go to:
+        <a href='{{ durl }}/ocatdatapage/'>Ocat Data Page</a>
+        and approve observations individually.
+
+        Only those marked with <span style='background-color:#ADFF2F;color:#ADFF2F;'>___</span>
+        will be automatically approved.
+    </p>
+
+    
+    <table border=1 style='border-spacing:5ps; border-collapse:separate;width:90%'>
+        <tr>
+            <th style='text-align:center;color:green;width:10%'>Obsid<br /> Seq. No<br /> Prop No</th>
+            <th style='text-align:center;color:green;width:10%'>Target</th>
+            <th style='text-align:center;color:green;width:40%'>Title</th>
+            <th style='text-align:center;color:green;width:10%'>&#160</th>
+        </tr>
+    {% comment %}
+    
+    ent.0   --- obsid
+    ent.1   --- sequence #
+    ent.2   --- proposal #
+    ent.3   --- target
+    ent.4   --- Title
+    ent.5   --- Note
+    ent.6   --- name of parameter e.g.obsid_17226
+    ent.7   --- indicator of whether the submitter can approve this observation
+    
+    {% endcomment %}
+    
+        {% for ent in entry_list %}
+            <tr>
+                {% ifequal ent.7 'n' %}
+                    <th style='text-align:center;background-color:#FF00FF'>
+                {% else %}
+                    <th style='text-align:center;background-color:#ADFF2F'>
+                {% endifequal %}
+                    <a href='{{ durl }}/ocatdatapage/{{ ent.0 }}/' target='blank'>{{ ent.0 }}</a>
+                    <br /> 
+                    <a href='http://cda.cfa.harvard.edu/chaser/startViewer.do?menuItem=sequenceSummary&obsid={{ ent.0 }}' target='blank'>{{ ent.1 }}</a>
+                    <br />
+                    <a href='https://icxc.cfa.harvard.edu/cgi-bin/cdo//review_report/disp_report.cgi?{{ ent.2 }}' target='blank'>{{ ent.2 }}</a>
+                </th>
+                <td style='text-align:center;'>{{ ent.3 }}</td>
+                <td style='text-align:center;'>{{ ent.4 }}</td>
+                <td style='text-align:center;'>
+                    {% ifequal ent.7 'y' %}
+                        <input type="submit"  name={{ ent.0 }}     value='Remove'>
+                    {% else %}
+                        {{ ent.5 }}
+                    {% endifequal %}
+                </td>
+            </tr> 
+        {% endfor %}
+    </table>
+
+    <br /><br />
+
+    {% ifequal ychk 1 %}
+        <input type='submit' name='check' value='Approve All'>
+    {% else %}
+        {% ifequal ychk -1 %}
+            <p>
+                <b style='color:red'>The input formt seems wrong, please go back and re-enter.</b>
+            <p>
+        {% endifequal %}
+    {% endifequal %}
+    <input type='submit' name='check' value='Back To Front Page'>
+
+    <input type='hidden' name='obsidentry'  value={{ obsidentry }}>
+    <input type='hidden' name='ostatus'     value={{ ostatus }}>
+
+    {% endifequal %}
+
+{% endblock %}
+
+
+

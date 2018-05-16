@@ -1,0 +1,29 @@
+
+This repository contains the sets of scripts used by Usint (User Interface).
+
+Check_approved_obs  --- Check updates_table.list and send out email
+Chkupdata           --- cgi script lets USINT to inspect changes made on the parameters of observation
+Express_signoff     --- cgi script lets USINT to approve multiple observation at the same time
+Find_mishatch       --- check update_table.list and check whether a phantom entry is created in the list
+Find_planned_roll   --- extract planned roll agnles
+Find_schedule_obs   --- inds which observations is MP scheduled
+Go_form             --- Updating letter generator for new AO
+Html_pages          --- Save html pages used by USINT
+Input_new_contact   --- cgi script lets USINT to update contact information
+Make_access_list    --- makes a list of users who can access to the observations
+Ocat                --- functions that create Ocat Data Page and related interactive web pages using python django
+Ocatdata_page       --- cgi script let USINT to update observational parameters
+Orupdate            --- cgi script let all requested updates which have either not been verified or have been verified in the last 24 hours
+POC_notification    --- sends out POC duty notification
+POC_OBSIDS          --- cgi script lists approved TOO/DDT and thier POC/observations handled by a given POC
+Remove_submission   --- cgi script lets USINT user to remove an accidental submission
+Schedule_page       --- cgi script lets USINT to choose when they want to assume POC responsibility
+                        and a perl script creates a html page from a given schedule
+Sign_off_request    --- sends out signoff requests to user
+SOT_observation     --- A ksh script to run sot_data.sql and the sql script obtains specified column values from database from all data
+Split_check         --- check whether a newly added obsid is a split observation, and send notify to POC.
+This_week_POC       --- finds who is this week's POC and update /home/mta/TOO-POC
+TOO_Obs             --- Check TOO/DDT observations and update related information
+Updated_targets     --- cgi script lists all targets which have been verified as updated
+Update_passowrd     --- Check whether any of the users listed changed her/his passwoard and update the password list
+Update_Targets      --- cgi script lists all targets which have been verified as updated

@@ -1,0 +1,57 @@
+cron job is running from r2d2-v
+
+the files are in:
+
+/data/mta4/CUS/www/Usint/Ocat/ocatdatapage/management/commands
+
+
+
+original cron jobs are on c3po-v with mta:
+
+
+#
+#--- create arcops list ------ NOT USING THIS ONE
+#
+0 4 * * * cd  /data/mta4/obs_ss/; perl /data/mta4/obs_ss/chk_arcops.perl >> $HOME/Logs/chk_arcops.cron 2>&1
+#
+#---read MP long term web page and extract obsid and planned roll angle
+#
+0 1 * * * cd /data/mta4/obs_ss; perl find_planned_roll.perl >> $HOME/Logs/find_planned_roll.cron 2>&1
+#
+#---create an access list for ocatdata2html.cgi ------ NOT USING THIS ONE
+#
+0 12,18,23 * * 0-6 cd /data/mta4/obs_ss; /data/mta4/obs_ss/make_access_list_wrap  >> $HOME/Logs/make_access.cron 2>&1
+#
+#--- sending out sign off request to a user ------ NOT USING THIS ONE
+#
+0 5 * * 0-6 perl /data/mta4/CUS/www/Usint/send_sign_off_req.perl >> $HOME/Logs/send_sign_off_req.cron 2>&1
+#
+#--- parse the updates log and nag people who haven't signed off changes they requested
+#
+0 4 * * 0-6 perl /data/mta4/CUS/www/Usint/naggem.pl >> $HOME/Logs/naggem.cron 2>&1
+#
+#--- scheduled observation list
+#
+35 * * * * cd  /data/mta4/obs_ss/; /data/mta4/obs_ss/find_scheduled_obs_wrap_script >> $HOME/Logs/find_scheduled_obs.cron 2>&1
+#
+#--- sot database   ---- KEEP AS IT IS
+#
+30 * * * * cd  /data/mta4/obs_ss/;  /data/mta4/obs_ss/sot_data.ksh >> $HOME/Logs/sot_data.cron 2>&1
+#
+#--- copying data set   ---- WILL BE TERMINATED
+#
+0 3,9,15,21 * * * cd /data/mta4/CUS/www/Usint/ocat; cp /data/mta4/CUS/www/Usint/ocat/updates_table.list /data/mta4/CUS/www/Usint/ocat/updates_table.list~
+#
+#--- password update
+#
+##0 * * * *  cd /proj/web-cxc-secure/htpasswd/mta; makepasswordfile.pl
+##1 * * * * cp /proj/web-cxc-secure/htpasswd/mta/.htpasswd /data/mta_www/.
+#
+#--- cleaning up tmp directory
+0 * * * * /home/mta/Cron/clean_tmp.pl > $HOME/Logs/clean_tmp.cron 2>&1
+#
+##14 7 * * * rm -rf /tmp/zspace*
+#
+##32 2 3 * * cd /data/mta4/Gratings/;  /data/mta4/Gratings/Script/run_grating_wrap_script >> $HOME/Logs/run_grating_ti.cron 2>&1
+#
+

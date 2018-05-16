@@ -1,0 +1,68 @@
+{% block remarks_comments %}
+
+{% comment %} Remarks {% endcomment %}
+
+{% ifequal  chkval.remarks_chk 1 %}
+
+    <h3>Past Current/Remarks</h3>
+    <p>{{ chkval.org_remarks }}</p>
+    <br />
+{% endifequal %}
+
+{% ifequal  chkval.remarks_chk 2 %}
+    <h3>New Remarks</h3>
+    <p>{{ chkval.req_remarks }}</p>
+    <br />
+{% endifequal %}
+
+{% ifequal  chkval.remarks_chk 3 %}
+    <h3>Past Remarks</h3>
+    <p>{{ chkval.org_remarks }}</p>
+    <br />
+{% endifequal %}
+
+{% ifequal  chkval.remarks_chk 4 %}
+    <h3>Past Remarks</h3>
+    <p>{{ chkval.org_remarks }}</p>
+    <br />
+
+    <h3>New Remarks</h3>
+    <p>{{ chkval.req_remarks }}</p>
+    <br />
+{% endifequal %}
+
+
+
+{% comment %} Comments {% endcomment %}
+
+
+{% ifequal  chkval.comments_chk 1 %}
+
+    <h3>Past/Current Comments</h3>
+    <p>{{ chkval.org_comments }}</p>
+    <br />
+{% endifequal %}
+
+{% ifequal  chkval.comments_chk 2 %}
+    <h3>New Comments</h3>
+    <p>{{ chkval.req_comments }}</p>
+    <br />
+{% endifequal %}
+
+{% ifequal  chkval.comments_chk 3 %}
+    <h3>Past Comments</h3>
+    <p>{{ chkval.org_comments }}</p>
+    <br />
+{% endifequal %}
+
+{% ifequal  chkval.comments_chk 4 %}
+    <h3>Past Comments</h3>
+    <p>{{ chkval.org_comments }}</p>
+    <br />
+
+    <h3>New Comments</h3>
+    <p>{{ chkval.req_comments }}</p>
+    <br />
+{% endifequal %}
+
+{% endblock %}

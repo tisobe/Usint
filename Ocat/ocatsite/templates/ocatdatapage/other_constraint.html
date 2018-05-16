@@ -1,0 +1,151 @@
+{% block other_constraint %}
+
+{% comment %} Other Constraints section. {% endcomment %}
+
+<h2>Other Constraint</h2>
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='constr_in_remarks' p2=pname.constr_in_remarks  p3=gen_name.constr_in_remarks %}
+    </tr>
+    
+    {% comment %} Phase constraints are uneditable, but need to show the setting. {% endcomment %}
+    
+    <tr>
+        {% ifequal dbval.phase_constraint_flag 'N' %}
+            {% include "includes/jstag.html" with p1='phase_constraint_flag' p2=pname.phase_constraint_flag p3='NONE' %}
+        {% endifequal %}
+     
+        {% ifequal dbval.phase_constraint_flag 'P' %}
+            {% include "includes/jstag.html" with p1='phase_constraint_flag' p2=pname.phase_constraint_flag p3='PREFERENCE' %}
+        {% endifequal %}
+     
+        {% ifequal dbval.phase_constraint_flag 'Y' %}
+            {% include "includes/jstag.html" with p1='phase_constraint_flag' p2=pname.phase_constraint_flag p3='CONSTRAINT' %}
+        {% endifequal %}
+    </tr>
+</table>
+
+<table>
+
+    {% ifnotequal dbval.phase_constraint_flag 'N' %}
+{% comment %} If phase constraint flag is not 'N', show the rest of the information.  {% endcomment %}
+
+        <tr>
+            {% include "includes/jstag.html" with p1='phase_epoch'  p2=pname.phase_epoch  p3=gen_name.phase_epoch %}
+            {% include "includes/jstag.html" with p1='phase_period' p2=pname.phase_period p3=gen_name.phase_period %}
+        </tr>
+        <tr>
+            {% include "includes/jstag.html" with p1='phase_startd'       p2=pname.phase_startd       p3=gen_name.phase_startd %}
+            {% include "includes/jstag.html" with p1='phase_start_margin' p2=pname.phase_start_margin p3=gen_name.phase_start_margin %}
+        </tr>
+        <tr>
+            {% include "includes/jstag.html" with p1='phase_end'        p2=pname.phase_end        p3=gen_name.phase_end %}
+            {% include "includes/jstag.html" with p1='phase_end_margin' p2=pname.phase_end_margin p3=gen_name.phase_end_margin %}
+        </tr>
+     
+    {% endifnotequal %}
+    
+
+    {% ifnotequal dbval.group_id  'None'  %}
+{% comment %}For the case, group id is defined, we do not show monitor_flag related entries.{% endcomment %}
+
+        <tr>
+            {% include "includes/jstag.html" with p1='group_id' p2=pname.group_id p3=dbval.group_id %}
+        </tr>
+        <tr>
+            <td colspan = 4>
+            <b>Observations in the Group: </b>
+     
+            {% for obs in dbval.monitor_list %}
+                <a href = '{{ durl }}/ocatdatapage/{{ obs }}/'>{{ obs }}</a>, 
+            {% endfor %}
+            </td>
+        </tr>
+    
+        <input type="hidden" name='group_id'       value={{ dbval.group_id  }} >
+        <input type="hidden" name='monitor_list_b' value={{ dbval.monitor_list_b  }} >
+        <input type="hidden" name='monitor_flag'   value={{ dbval.monitor_flag }}>
+        <input type="hidden" name='pre_id'         value={{ dbval.pre_id  }} >
+        <input type="hidden" name='pre_min_lead'   value={{ dbval.pre_min_lead  }} >
+        <input type="hidden" name='pre_max_lead'   value={{ dbval.pre_max_lead  }} >
+
+    {% else %}
+{% comment %} For the case, group id is NOT defined.  {% endcomment %}
+
+        <tr>
+            {% include "includes/jstag.html" with p1='group_id'     p2=pname.group_id              p3=dbval.group_id %}
+            {% include "includes/jstag.html" with p1='monitor_flag' p2='Monitoring Observation? '  p3=gen_name.monitor_flag %}
+        </tr>
+
+        <input type="hidden" name='group_id'  value='' >
+
+    {% endifnotequal %}
+    
+    {% ifequal dbval.monitor_flag 'Y' %}
+{% comment %} For the case, monitor_flag is 'Y'.  {% endcomment %}
+
+        <tr>
+            <td colspan = 4>
+            {% if  dbval.monitor_list %}
+                <b>Remaining Observations in the Monitoring: </b>
+    
+                {% for obs in dbval.monitor_list %}
+                    <a href = '{{ durl }}/ocatdatapage/{{ obs }}/'>{{ obs }}</a>, 
+                {% endfor %}
+
+            {% endif %}
+     
+            </td>
+        </tr>
+    
+    {% endifequal %}
+    
+    <tr>
+        <td>&#160;</td><td>&#160;</td>
+        <td>&#160;</td><td>&#160;</td>
+    </tr>
+    
+    {% ifnotequal dbval.group_id 'None'  %}
+{% comment %} group_id is given. {% endcomment %}
+
+        <tr>
+            <th>
+            <a href="#" onClick="WindowOpen('pre_id');return false;">{{ pname.pre_id }}</a>
+            </th>
+            <td>
+            <a href = '{{ durl }}/ocatdatapage/{{  dbval.pre_id }}/'>{{ dbval.pre_id }}</a>
+            </td>
+         
+            <td>&#160;</td><td>&#160;</td>
+        </tr>
+        <tr>
+            {% include "includes/jstag.html" with p1='pre_min_lead' p2=pname.pre_min_lead p3=dbval.pre_min_lead %}
+            {% include "includes/jstag.html" with p1='pre_max_lead' p2=pname.pre_max_lead p3=dbval.pre_max_lead %}
+        </tr>
+    {% else %}
+{% comment %} group_id is NOT given: pre_min_leade/pre_max_lead are editable{% endcomment %}
+
+        <tr>
+            {% include "includes/jstag.html" with p1='pre_id' p2=pname.pre_id p3=gen_name.pre_id %}
+            <td>&#160;</td><td>&#160;</td>
+        </tr>
+        <tr>
+            {% include "includes/jstag.html" with p1='pre_min_lead' p2=pname.pre_min_lead p3=gen_name.pre_min_lead %}
+            {% include "includes/jstag.html" with p1='pre_max_lead' p2=pname.pre_max_lead p3=gen_name.pre_max_lead %}
+        </tr>
+ 
+    {% endifnotequal %}
+    
+    <tr>
+        {% include "includes/jstag.html" with p1='multitelescope' p2=pname.multitelescope p3=gen_name.multitelescope %}
+        {% include "includes/jstag.html" with p1='observatories'  p2=pname.observatories  p3=gen_name.observatories %}
+    </tr>
+    <tr>
+        {% include "includes/jstag.html" with p1='multitelescope_interval' p2=pname.multitelescope_interval p3=gen_name.multitelescope_interval %}
+        <td>&#160;</td><td>&#160;</td>
+    </tr>
+<table>
+
+{% endblock %}
+

@@ -1,0 +1,17 @@
+'/data/mta4/CUS/www/Usint/Ocat/ocatsite/data_save/'             ::  obs_ss
+'/data/mta4/CUS/www/Usint/Pass_dir/'                            ::  pass_dir
+'/data/mta4/CUS/www/Usint/ocat/'                                ::  ocat_dir
+'/data/mta4/CUS/www/Usint/ocat/Info_save/'                      ::	data_dir
+'/data/mta4/CUS/www/Usint/Ocat/ocatsite/static/'                ::  house_keeping
+'/data/mta4/CUS/www/Usint/'                                     ::	usint_dir
+'/usr/bin/'                                                     ::  op_dir
+'/data/mta4/CUS/www/Usint/Ocat/'                                ::	base_dir
+'/data/mta4/CUS/www/Usint/Ocat/utils'                           ::	mta_dir
+'/data/mta4/CUS/www/Usint/Ocat/'                                ::	bin_dir
+'/data/mta4/CUS/www/Usint/ocat/approved'                        ::  approved_list
+'/data/mta4/CUS/www/Usint/ocat/updates_table.list'              ::  updates_table
+'/data/mta4/CUS/www/Usint/ocat/updates/'                        ::  updates_dir
+'/data/mta4/CUS/www/Usint/Ocat/ocatsite/temp/approved'          ::  temp_approved
+'/data/mta4/CUS/www/Usint/Ocat/ocatsite/temp/updates_table.list'::  temp_updates
+'/proj/web-r2d2-v/lib/'                                         ::  l_path
+'http://127.0.0.1:8000'                                         ::  durl

@@ -1,0 +1,53 @@
+{% block obs_info   %}
+{% comment %} 
+
+This file contains the top part of schedule submitter page.
+
+{% endcomment %}
+
+<h3 style='padding-left:100px'>
+POC ID: {{ submitter }} 
+</h3>
+
+
+<p style='text-align:right;'>
+    <a href="{{ durl }}/ocatmain"><b>Go to Ocat Main Page</b></a>
+<br />
+<!--    <a href='https://cxc.cfa.harvard.edu/cus/index.html'><b>Chandra Uplink Support Page</b></a> -->
+</p>
+
+<p>
+The duty period is usually Monday through Sunday, but occaionally a period starts and/or end
+on different day.  Periods which do not start on Monday and/or end on Sunday are marked by 
+<span style="color:aqua;background-color:aqua;">aqua</span>.
+</p>
+
+<p>
+If you like to scheulde your duty on the standard period, just select your name (or any other
+POC name) from "Contact" column of the period, and click "Update" buttom.  Your poc id will 
+appear on the column "Assigned By". You can submit more than one entries at a time. 
+</p>
+
+<p>
+If you like to schedule your duty in a  none standard period, just change the dates accordingly.
+It will either adjust adjuascent period(s) or create another row to fill a gap. In the case 
+of the overlapping, it will modify the overlapped period. If the adjustment is not possible (e.g.
+the affected row is already signed up), it will adjust in the range which does not affect the
+signed up period.
+</p>
+
+<p>
+You can do the same for the already scheduled period. Just open the period by clicking "unlock"
+button, and take the same procedure described above. However, this works only when poc id in
+the "Assigned By" column is the same as yours (<i>{{ submitter }}</i>). 
+
+
+<p>
+<b>IMPORTANT</b>: After click 'Update', or 'Unlock', please do not click any other buttons until 
+the page is completely reloaded.
+</p>
+
+{% endblock %}
+
+
+

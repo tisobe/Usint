@@ -1,0 +1,74 @@
+{% block ocat_sec3 %}
+
+{% comment %} ocat main page section 3  {% endcomment %}
+
+<p>
+</p>
+<p style='text-align:right;'>
+    <a href="{{ durl }}/ocatmain">Back to Ocat Main Page</a>
+</p>
+
+<table border=1>
+    <tr>
+        <th>Obsid</th>
+        <th>Seq Number</th>
+        <th>Type</th>
+        <th>POC</th>
+        <th>Status</th>
+        <th>AO</th>
+        <th>Planned Date</tH>
+    </tr>
+
+    {%for ent in obs_list %}
+        <tr>
+{% comment %}  obsid {% endcomment %}
+            {% ifequal ent.3 submitter %}
+                <td><a href="{{ durl }}/ocatdatapage/{{ ent.0 }}">{{ ent.0 }}</a></td>
+            {% else %}
+                <td>{{ ent.0 }}</td>
+            {% endifequal %}
+
+{% comment %}  seq # {% endcomment %}
+            <td>{{ ent.1 }}</td>
+
+{% comment %}  type {% endcomment %}
+            {% ifequal ent.2 'too' %}
+                <td style='background-color:lime;'>{{ ent.2 }}</td>
+            {% else %}
+                {% ifequal ent.2 'ddt' %}
+                    <td style='background-color:lime;'>{{ ent.2 }}</td>
+                {% else %}
+                    <td>{{ ent.2 }}</td>
+                {% endifequal %}
+            {% endifequal %}
+
+{% comment %}  poc {% endcomment %}
+            <td>{{ ent.3 }}</td>
+
+{% comment %}  status {% endcomment %}
+            {% ifequal ent.4 'unobserved' %}
+                <td style='background-color:pink;'>{{ ent.4 }}</td>
+            {% else %}
+                {% ifequal ent.4 'unobserved' %}
+                    <td style='background-color:pink;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td>{{ ent.4 }}</td>
+                {% endifequal %}
+            {% endifequal %}
+
+{% comment %}  ao {% endcomment %}
+            <td>{{ ent.5 }}</td>
+
+{% comment %}  date {% endcomment %}
+            <td>{{ ent.6 }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+<p style='text-align:right;'>
+    <a href="{{ durl }}/ocatmain">Back to Ocat Main Page</a>
+</p>
+
+{% endblock %}
+

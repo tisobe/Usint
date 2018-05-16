@@ -1,0 +1,30 @@
+{% block obs_info %}
+
+<h2>Observation Information</h2>
+
+<table border = 0 style='width:80%'>
+    <tr>
+        <th>OBSID     </th>
+        <td><a href='{{ durl }}/ocatdatapage/{{ chkval.obsid }}'>{{ chkval.obsid }}</a></td>
+        <th>REVISON  #</th><td>{{ chkval.revision }}</td>
+        <th>Sequence #</th>
+        <td><a href="javascript:WindowOpen2('https://icxc.cfa.harvard.edu/cgi-bin/mp/target.cgi?{{ chkval.seq_nbr }}')">{{ chkval.seq_nbr }}</a></td>
+    </tr>
+    <tr>
+        <th>Proposal #</th><td>{{ chkval.prop_num }}</td>
+        <th>Target    </th><td>{{ chkval.target }}</td>
+        <th>PI Name   </th><td>{{ chkval.pi_name }}</td>
+    </tr>
+    <tr>
+        <th>Obs AO    </th><td>{{ chkval.ao_nbr }}</td>
+        <th>Group ID  </th><td>{{ chkval.group_id }}</td>
+        <th>&#160;    </th><td>&#160;              </td>
+    </tr>
+    <tr>
+        <th>POC       </th><td>{{ chkval.poc }}</td>
+        <th>Submitted </th><td>{{ chkval.date }}</td>
+        <th>Submitted Status</th><td>{{ chkval.asis }}</td>
+    </tr>
+</table>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% block submission_page   %}
+{% comment %} 
+
+This file contains the ocat express submission page
+
+{% endcomment %}
+
+<p>
+Please type all obsids which you want to approve. The obsids can be delimited by any of:
+</p>
+<ul>
+<li>"," (comma) </li>
+<li>";" (semi-colon) </li>
+<li>"/" (right slant) </li>
+<li>blank space(s)</li>
+<li>tab(s)</li>
+<li>"-" (dash) for a continuous case (the values are <em>INCLUSIVE</em>)</li>
+</ul>
+
+<h3>Examples</h3>
+<ul>
+<li>12507, 12508, 12509  gives<br /> 
+    <span style='padding-left:20px'></span>
+        <b>[12507, 12608, 12509]</b> </li>
+
+<li>12507 12508; 12509/12510 gives<br /> 
+    <span style='padding-left:20px'></span>
+        <b>[12507, 12508, 12509, 12510]</b></li>
+
+<li>12507-12510, 12512 gives<br /> 
+    <span style='padding-left:20px'></span>
+        <b>[12507, 12508, 12509, 12510, 12512]</b></li>
+
+<li>12507-12510, 12512; 12514-12517 gives<br /> 
+    <span style='padding-left:20px'></span>
+        <b>[12507, 12508, 12509, 12510, 12512, 12514, 12515, 12516, 12517]</b></li>
+</ul>
+
+
+<input type='text'size=100 name='obsid_list', value="">
+<br />
+<br />
+
+
+<input type="submit"  name='check' value='Submit'>
+
+<div style='padding-bottom:400px'>
+</div>
+
+{% endblock %}
+
+
+

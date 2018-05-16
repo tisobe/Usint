@@ -1,0 +1,75 @@
+{% block main_table   %}
+{% comment %}
+
+This file contains the table part of orupdate.html page
+
+{% endcomment %}
+
+<table border=1 style='border-spacing:5ps; border-collapse:separate;width:90%'>
+    <tr>
+        <th style='text-align:center'>Year</th>
+        <th style='text-align:center'>Jan</th>
+        <th style='text-align:center'>Feb</th>
+        <th style='text-align:center'>Mar</th>
+        <th style='text-align:center'>Apr</th>
+        <th style='text-align:center'>May</th>
+        <th style='text-align:center'>Jun</th>
+        <th style='text-align:center'>Jul</th>
+        <th style='text-align:center'>Aug</th>
+        <th style='text-align:center'>Sep</th>
+        <th style='text-align:center'>Oct</th>
+        <th style='text-align:center'>Nov</th>
+        <th style='text-align:center'>Dec</th>
+    </tr>
+    {% for year in  year_list %}
+        <tr>
+            <th>{{ year }}</th>
+            {% ifequal year endyear %}
+                {% ifequal endmonth 1 %}
+                    {% include 'updated/updated_jan.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 2 %}
+                    {% include 'updated/updated_feb.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 3 %}
+                    {% include 'updated/updated_mar.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 4 %}
+                    {% include 'updated/updated_apr.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 5 %}
+                    {% include 'updated/updated_may.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 6 %}
+                    {% include 'updated/updated_jun.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 7 %}
+                    {% include 'updated/updated_jul.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 8 %}
+                    {% include 'updated/updated_aug.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 9 %}
+                    {% include 'updated/updated_sep.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 10 %}
+                    {% include 'updated/updated_oct.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 11 %}
+                    {% include 'updated/updated_nov.html' %}
+                {% endifequal %}
+                {% ifequal endmonth 12 %}
+                    {% include 'updated/updated_dec.html' %}
+                {% endifequal %}
+
+            {% else %}
+                    {% include 'updated/updated_dec.html' %}
+            {% endifequal %} 
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+
+
+

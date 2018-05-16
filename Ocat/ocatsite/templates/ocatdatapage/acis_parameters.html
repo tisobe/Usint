@@ -1,0 +1,126 @@
+{% block acis_parameters %}
+
+{% comment %} ACIS Parameters Section. {% endcomment %}
+
+<h2>ACIS Parameters</h2>
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='exp_mode'   p2=pname.exp_mode   p3=gen_name.exp_mode %}
+        {% include "includes/jstag.html" with p1='bep_pack'   p2=pname.bep_pack   p3=gen_name.bep_pack %}
+        {% include "includes/jstag.html" with p1='frame_time' p2=pname.frame_time p3=gen_name.frame_time %}
+    </tr>
+    <tr>
+        {% include "includes/jstag.html" with p1='most_efficient' p2=pname.most_efficient p3=gen_name.most_efficient %}
+        <td>&#160;</td><td>&#160;</td>
+        <td>&#160;</td><td>&#160;</td>
+    </tr>
+    <tr>
+        <th><a href="#" onClick="WindowOpen(fep);return false;">FEP</a></th><td>{{ dbval.fep }}</td>
+        <th><a href="#" onClick="WindowOpen(dropped_chip_count);return false;">Dropped Chip Count</a></th>
+        <td>{{ dbval.dropped_chip_count  }}</td>
+        <td>&#160;</td><td>&#160;</td>
+    </tr>
+</table>
+
+<div style='padding-top:20px;'></div>
+
+{% comment %} ACIS Chip Array Display. The first <table> tag is just making the frame around it. {% endcomment %}
+
+<table border=1 style='cellpadding: 5px;margin-left:20px;'>
+    <tr>
+        <td>
+        <table>
+            <tr>
+                <th colspan=4 style='font-size:110%'>CCD Chip Selection</td>
+                {% include "includes/jstag.html" with p1='ccdi0_on' p2=pname.ccdi0_on p3=gen_name.ccdi0_on %}
+                {% include "includes/jstag.html" with p1='ccdi1_on' p2=pname.ccdi1_on p3=gen_name.ccdi1_on %}
+                <td>&#160;</td><td>&#160;</td>
+                <td>&#160;</td><td>&#160;</td>
+            </tr>
+            <tr>
+                <td>&#160;</td><td>&#160;</td>
+                <td>&#160;</td><td>&#160;</td>
+                {% include "includes/jstag.html" with p1='ccdi2_on' p2=pname.ccdi2_on p3=gen_name.ccdi2_on %}
+                {% include "includes/jstag.html" with p1='ccdi3_on' p2=pname.ccdi3_on p3=gen_name.ccdi3_on %}
+                <td>&#160;</td><td>&#160;</td>
+                <td>&#160;</td><td>&#160;</td>
+            </tr>
+            <tr>
+                {% include "includes/jstag.html" with p1='ccds0_on' p2=pname.ccds0_on p3=gen_name.ccds0_on %}
+                {% include "includes/jstag.html" with p1='ccds1_on' p2=pname.ccds1_on p3=gen_name.ccds1_on %}
+                {% include "includes/jstag.html" with p1='ccds2_on' p2=pname.ccds2_on p3=gen_name.ccds2_on %}
+                {% include "includes/jstag.html" with p1='ccds3_on' p2=pname.ccds3_on p3=gen_name.ccds3_on %}
+                {% include "includes/jstag.html" with p1='ccds4_on' p2=pname.ccds4_on p3=gen_name.ccds4_on %}
+                {% include "includes/jstag.html" with p1='ccds5_on' p2=pname.ccds5_on p3=gen_name.ccds5_on %}
+            </tr>
+        </table>
+        </td>
+    </tr>
+</table>
+
+<div style='padding-top:20px;'></div>
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='subarray' p2="Use Subarray" p3=gen_name.subarray %}
+        <td colspan=4>
+        <i> Please fill the next two entries, if you select YES.  You can find <br />the old default subarrays at </i>
+        <a href="#" onClick="WindowOpen(subarray);return false;">Subarray Setting</a>.
+        </td>
+    </tr>
+
+    <tr>
+        {% include "includes/jstag.html" with p1='subarray_start_row' p2=pname.subarray_start_row p3=gen_name.subarray_start_row %}
+        {% include "includes/jstag.html" with p1='subarray_row_count' p2=pname.subarray_row_count p3=gen_name.subarray_row_count %}
+        <td>&#160;</td><td>&#160;</td>
+    </tr>
+
+    <tr>
+        <td colspan=6>          {% comment %} Just adding a space. {% endcomment %}
+    </tr>
+
+    <tr>
+        {% include "includes/jstag.html" with p1='duty_cycle' p2=pname.duty_cycle p3=gen_name.duty_cycle %}
+        <td colspan=4>
+        <i> If you selected YES, please fill the next two entries.  </i>
+        </td>
+    </tr>
+
+    <tr>
+        {% include "includes/jstag.html" with p1='secondary_exp_count' p2=pname.secondary_exp_count p3=gen_name.secondary_exp_count %}
+        {% include "includes/jstag.html" with p1='primary_exp_time'    p2=pname.primary_exp_time p3=gen_name.primary_exp_time %}
+        <td>&#160;</td><td>&#160;</td>
+    </tr>
+
+    <tr>
+        <td colspan=6>
+    </tr>
+
+    <tr>
+        {% include "includes/jstag.html" with p1='onchip_sum'          p2=pname.onchip_sum          p3=gen_name.onchip_sum %}
+        {% include "includes/jstag.html" with p1='onchip_row_count'    p2=pname.onchip_row_count    p3=gen_name.onchip_row_count %}
+        {% include "includes/jstag.html" with p1='onchip_column_count' p2=pname.onchip_column_count p3=gen_name.onchip_column_count %}
+    </tr>
+
+    <tr>
+        {% include "includes/jstag.html" with p1='eventfilter'        p2=pname.eventfilter        p3=gen_name.eventfilter %}
+        {% include "includes/jstag.html" with p1='eventfilter_lower'  p2=pname.eventfilter_lower  p3=gen_name.eventfilter_lower %}
+        {% include "includes/jstag.html" with p1='eventfilter_higher' p2=pname.eventfilter_higher p3=gen_name.eventfilter_higher %}
+    </tr>
+
+    <tr>
+        <td>&#160;</td><td>&#160;</td>
+        <td>&#160;</td><td>&#160;</td>
+        <th>Highest Energy: </td><td>{{ dbval.eventfilter_highest }}</td>
+    </tr>
+
+    <tr>
+        {% include "includes/jstag.html" with p1='multiple_spectral_lines' p2=pname.multiple_spectral_lines p3=gen_name.multiple_spectral_lines %}
+        {% include "includes/jstag.html" with p1='spectra_max_count'       p2=pname.spectra_max_count       p3=gen_name.spectra_max_count %}
+        <td>&#160;</td><td>&#160;</td>
+    </tr>
+</table>
+
+{% endblock %}
+

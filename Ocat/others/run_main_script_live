@@ -1,0 +1,9 @@
+source /proj/sot/ska/bin/ska_envs.csh
+
+/data/mta4/CUS/www/Usint/Ocat/others/find_planned_roll.py
+
+cd /data/mta4/CUS/www/Usint/Ocat/; python  manage.py updates_sign_off
+cd /data/mta4/CUS/www/Usint/Ocat/; python  manage.py create_schedule_table
+cd /data/mta4/CUS/www/Usint/Ocat/; python  manage.py naggem
+cd /data/mta4/CUS/www/Usint/Ocat/; python  manage.py find_scheduled_obs
+

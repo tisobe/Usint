@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Ocat Data Page frame work page. It is built on "base.html.
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Ocat Data Page"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+{% ifequal gen_name.check 'Submit' %}
+
+{% comment %} for the case that the submission is requested {%endcomment %}
+
+    <form  method='post' action="{% url  'ocatdatapage:ocatdatapage' dbval.obsid %}" >{% csrf_token %}
+
+    {% ifequal gen_name.asis 'norm' %}
+
+{% comment %} open up the submitted parameter checking page {%endcomment %}
+
+        {%include 'ocatdatapage/submission_check_page.html' %}
+    {% else %}
+
+{% comment %} asis page, remove page, or split page  {%endcomment %}
+
+        {%include 'ocatdatapage/submission_check_page2.html' %}
+    {% endifequal %}
+
+<!--
+    {% for key, value in dbval.items  %}
+        <input type="hidden" name="{{ key }}"  value={{ value }}>
+    {% endfor %}
+-->
+
+    <input type="hidden" name="asis"  value={{ dbval.asis }}>
+    {% for key, value in ogval.items  %}
+        <input type="hidden" name="org_{{ key }}"  value={{ value }}>
+    {% endfor %}
+
+    {% for key, value in ncval.items  %}
+        <input type="hidden" name="nc_{{ key }}"  value={{ value }}>
+    {% endfor %}
+
+
+    </form>
+
+
+{% else %}
+
+    <form  method='post' action="{% url  'ocatdatapage:ocatdatapage' dbval.obsid %}">{% csrf_token %}
+
+    {% ifequal gen_name.check 'FINALIZE' %}
+
+{% comment %} go to the finalize confirmation page {%endcomment %}
+
+        {%include 'ocatdatapage/finalized.html' %}
+
+        {% for key, value in ogval.items  %}
+            <input type="hidden" name="org_{{ key }}"  value={{ value }}>
+        {% endfor %}
+    
+        {% for key, value in ncval.items  %}
+            <input type="hidden" name="nc_{{ key }}"  value={{ value }}>
+        {% endfor %}
+
+    {% else %}
+
+{% comment %} for the case that the main page display is requested  {%endcomment %}
+
+        <h1 style='text-align:left'>
+            Obscat Data Page <span style='font-size:50%;'>(POC ID: {{ submitter }})</span>
+        </h1>
+        <p style='text-align:right;'>
+            <a href='{{ durl }}/ocatmain'>Go back to Ocat Main Page</a>
+            <br />
+            <a href="javascript:WindowOpen2('http://cxc.cfa.harvard.edu/cgi-bin/provis/provis_load.cgi')">Open Provis</a>
+            <br />
+            <a href="javascript:WindowOpen2('http://cxc.harvard.edu/cda/footprint/')">Open Footprint Server</a>
+            <br />
+            <a href="javascript:WindowOpen2('https://icxc.cfa.harvard.edu/cgi-bin/cdo/review_report/disp_report.cgi?{proposal_number}')">Peer Review Report</a>
+            <br />
+            <a href="javascript:WindowOpen2('https://cxc.cfa.harvard.edu/cgi-bin/target_search/search.html')">Observation Search Page</a>
+            <br />
+        </p>
+    
+        {%include 'ocatdatapage/headnotificaiton.html' %}
+     
+        <form  method='post' action="{% url  'ocatdatapage:ocatdatapage' dbval.obsid %}">{% csrf_token %} 
+     
+        {%include 'ocatdatapage/generalparam.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/dither.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/timeconstraint.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/roll_constraint.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/other_constraint.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/hrc_parameters.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/acis_parameters.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/acis_win_constraint.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/too_parameters.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/comment_section.html' %}
+     
+        <hr />
+     
+        {% ifequal permission True %}
+            {%include 'ocatdatapage/options.html' %}
+    
+        {% else %}
+            <h3>Submission Options </h3>
+
+            <p style='font-size:110%;color:red'>
+            <b>
+                Sorry, but you cannot request any changes.
+            </b>
+            </p>
+        {% endifequal %}
+
+        <hr />
+     
+        {%include 'ocatdatapage/links.html' %}
+
+        {% for key, value in ogval.items  %}
+            <input type="hidden" name="org_{{ key }}"  value={{ value }}>
+        {% endfor %}
+
+        {% for key, value in ncval.items  %}
+            <input type="hidden" name="nc_{{ key }}"  value={{ value }}>
+        {% endfor %}
+    
+
+    {% endifequal %}
+    </form>
+
+{% endifequal %}
+    
+{%include 'ocatdatapage/footer.html' %}
+    
+
+
+{% endblock %}

@@ -1,0 +1,70 @@
+
+I am still working on Schedule Submitter
+
+1. Updating schedule with modified data span (e.g. changed starting data)
+   needs farther testing.
+
+2. Overlapped update (e.g., one period ending happens after the next starting time),
+   needs to be tested. This should automatically modify the adjuscent period(s)
+    --- overlapped case does not remove the extra entry yet
+
+3. Updating may mess up user names, especially with TBD cases
+
+4. TBD user name should not appear beyound the last offically signed up period
+        --- too many TBD show up after the last correct entry after overlap case is
+            removed (or try to remove)
+
+5. Unlocking is not tested at all
+
+6. warning display is not implemented yet. Preferably use javascript popup page
+
+7. color coding is not implemented yet.
+        * closed/signed up/open
+        * none-standard period finishing/starting 
+        * problem entries
+
+8. speed seems very slow. try to improve coding
+
+9. some of the functions are too long. devide them into smaller functions
+
+
+
+#############
+Other Update:
+#############
+#############
+Ocat Data Page:
+1. Add dither submission. 
+    Email from Jean (Sep 30, 2015)
+    ------------------------------
+    For ocatdata2html, it recently came up that Brad accidentally
+    submitted a dither request in degrees when the form expected
+    arcseconds. I wonder if it might make sense for the form to complain
+    on non-zero dither amplitude values less than .1 arcsec.
+
+
+
+
+
+
+# Reordering the ranks of aciswin in increasing order
+# (Jul 17, 2015)
+#
+#  /soft/ascds/DS.release/ots/bin/perl ---> /usr/bin/perl  (accessible from cxc)
+#
+# Aimpoint Chipx and Chipy values added         ---- DONE
+# (Oct 26, 2015)
+#
+# Observations in the Monitoring --> Remaining Observations in the Monitoring   ---- DONE
+# (May 10, 2016)
+#
+# Warning email to MP about the late submission (less than 10days to lts date)  ---- HALF DONE EMIAL NEED TO BE ADDED
+# (May 26, 2016)
+#
+# Bug due to null lts_lt_plan date fixed
+# (June 07, 2016)
+#
+# Warning email to MP now also sent to USINT user
+# (Jun 30, 2016)
+#
+

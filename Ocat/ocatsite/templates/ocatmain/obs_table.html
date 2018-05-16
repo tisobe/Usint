@@ -1,0 +1,13 @@
+{% block obs_table %}
+    <tr>
+        <td>{{ ent.0 }}</td>
+        <td><a href='{{ durl }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+        <td>{{ ent.2 }}</td>
+        <td>{{ ent.3 }}</td>
+        {% ifequal ent.4 'No' %}
+            <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+        {% else %}
+            <td style='text-align:center'>{{ ent.4 }}</td>
+        {% endifequal %}
+    </tr>
+{% endblock %}

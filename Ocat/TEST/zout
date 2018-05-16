@@ -1,0 +1,5 @@
+select  seq_nbr, targname, obj_flag, object  from target where obsid=1601
+
+[('700217', 'CENTAURUS A', 'NO', 'NONE')]
+------------------------------------------
+

@@ -1,0 +1,37 @@
+cleartool: Command not found.
+/data/mta4/CUS/www/Usint/Ocat
+11651.005	jhagler 12/14/09	NULL	NULL	emk 12/14/09	702237 emk
+01540	juda
+15731.004	NULL	NULL	NULL	 10/29/13	200944
+15732.003	NULL	NULL	NULL	 10/29/13	200945
+15733.003	NULL	NULL	NULL	 10/29/13	200946
+16509.002	NULL	NULL	NULL	 10/29/13	200944
+16510.002	NULL	NULL	NULL	 10/29/13	200945
+16511.002	NULL	NULL	NULL	 10/29/13	200946
+016	nss
+/data/mta4/CUS/www/Usint/Ocat
+/data/mta4/CUS/www/Usint/Ocat
+/data/mta4/CUS/www/Usint/Ocat
+/data/mta4/CUS/www/Usint/Ocat
+Traceback (most recent call last):
+  File "manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+  File "/proj/sot/ska/arch/x86_64-linux_CentOS-6/lib/python2.7/site-packages/django/core/management/__init__.py", line 399, in execute_from_command_line
+    utility.execute()
+  File "/proj/sot/ska/arch/x86_64-linux_CentOS-6/lib/python2.7/site-packages/django/core/management/__init__.py", line 392, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/proj/sot/ska/arch/x86_64-linux_CentOS-6/lib/python2.7/site-packages/django/core/management/base.py", line 242, in run_from_argv
+    self.execute(*args, **options.__dict__)
+  File "/proj/sot/ska/arch/x86_64-linux_CentOS-6/lib/python2.7/site-packages/django/core/management/base.py", line 285, in execute
+    output = self.handle(*args, **options)
+  File "/data/mta4/CUS/www/Usint/Ocat/ocatdatapage/management/commands/find_scheduled_obs.py", line 66, in handle
+    find_scheduled_obs()
+  File "/data/mta4/CUS/www/Usint/Ocat/ocatdatapage/management/commands/find_scheduled_obs.py", line 85, in find_scheduled_obs
+    [mp_list, mp_dict] =  make_mp_file_list(year, mon, day)
+  File "/data/mta4/CUS/www/Usint/Ocat/ocatdatapage/management/commands/find_scheduled_obs.py", line 147, in make_mp_file_list
+    [mp_list, file_list] = find_schedule_file(year, mon, day)
+  File "/data/mta4/CUS/www/Usint/Ocat/ocatdatapage/management/commands/find_scheduled_obs.py", line 241, in find_schedule_file
+    if check_date(mfile, sday, cmon1, cmon2) == 1:
+  File "/data/mta4/CUS/www/Usint/Ocat/ocatdatapage/management/commands/find_scheduled_obs.py", line 267, in check_date
+    bday  = int(float(bday))
+ValueError: could not convert string to float: _M

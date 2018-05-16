@@ -1,0 +1,136 @@
+Ocat1234#
+/proj/web-r2d2-v/lib/python2.7/site-packages/r2d2-v
+
+
+- In general, hitting <enter> after inputting value into any field results 
+in being redirected to the login page. I tend to do this a lot out of a habit 
+and I suspect that other users do it as well.
+
+            ---- Use of return key is disabled.
+
+(1) http://r2d2-v.cfa.harvard.edu/rm_submission/
+
+- "The obserbation is not approved yet." -> does it meant not approved for flight? or not "verified by"?
+
+            ---- Only when the observation is approved, you cannot cancel the submission. 
+                 You can cancel "verified by", too, if you are the submitter. 
+
+(2) http://r2d2-v.cfa.harvard.edu/orupdate/
+
+- When I click "Display verified", I get a table that has one empty column (the second one from the right) 
+  - it originally contained the "Update" button. Is there a way to get rid of this column from the table?
+
+            ---- I implemented a new design.
+
+- Selecting POC ID: I would expect that the table will only show entries belonging to this POC, instead 
+entries belonging to this POC are displayed first and are followed with all the other entries. This 
+is a bit confusing if one wants to search for their own entries and expects to see only a few.
+
+            ---- This is by design. At the last update, the users wanted to bubble up their entries but
+                 also wanted to  see others. 
+
+- Is it allowed that I verify submissions that were submitted by someone else? 
+I have just managed to do this.
+
+            ---  This is by design; just in a case, the POC in the responsibility is not around
+                for a quick approval (e.g. too/ddt), someone can step in.
+
+
+(3) http://r2d2-v.cfa.harvard.edu/chkupdata/19497.002/
+
+- In case of observations approved 'AS IS', there is (obviously) no Modified parameters section. 
+Still, maybe we could add an info saying that the observation was approved AS IS, for completeness?
+
+            --- Added
+
+- Parameter check page displays Submitted date as, e.g., Nov 008 2016. Why 008?
+
+            --- Corrected
+
+- It would be helpful to have a legend explaining the meaning of colors used in Parameter check page 
+(green, magenta, yellow, etc.)
+
+            --- Added
+
+(4) Express approval page:
+
+- When I place the cursor in "Please type obsids" box the text does not disapear 
+  and has to be deleted manually
+
+            ---- Removed the "Please..."
+
+- Please type obsids: I entered a random text (not a obsid number) and was still 
+taken to the next page that showed an empty table. Is there a way to validating the entered 
+value before redirecting?
+
+            ---- Added a notification informs the wrong format input
+
+- I typed obsid=1, and I was still able to approve it. It then showed up in Target Parameter 
+Update form with a note "Already in approved list". Is this a desired procedure? I would think 
+we would like to detect and ignore observations that have already been already archived/approved? 
+I also found obsid=1 on the Approved list with today's date.
+
+            ---- There is the mechanism to do this. Unfortunately, obsid=1 is an old observation
+                 and it was removed from the approved list; so the script thinks that it is not
+                 approved yet. try obsid=19890.
+                 Because this is an express approval, it does not check whether the obsids are
+                 in the current possible observation list. 
+
+Admin page
+
+(5) Once in Django Administration, I could not find an easy way to go back to http://r2d2-v.cfa.harvard.edu/ocatmain/ 
+and I used back arrow, which caused some problems:
+
+            ---- This is by design. Two pages are supposed to be totally separate.
+                 In normal case, only "cus" can use admin page, and "cus" are not a real "POC" 
+                 and "cus" should not do anything on "ocatmain" side.
+                
+
+(6) I wanted to sign up myself for more duty periods (beyond March 2017), but my name was missing 
+from the drop down menu. I checked and I was a member of only the USINT group. I added myself 
+to the POC group, used back arrow to get back to the page with duty sign up form. 
+I still could not see my name in the drop down menu. It appeared only when I reloaded the page.
+
+            ---- This is because django design. The page needs to be reloaded before any changes take effect.
+                 the reloading forces to read the updated database.
+
+(7) Then I tried to sign up someone else and I was able to sign up Takashi. I clicked 'unlock' 
+button in the line with the new record, expecting to be able to edit it. Instead, it disappeared.
+
+            ---- This is by design. if you unlock, the entry is removed from the database and
+                 go back to the original blank entry.
+
+(8) I was not able to add TBD (no new record showed up in the table), but later on I found out 
+that the TBD entry was actually added to the database, it was visible in Django Administration 
+in Home # Schedule_submitter # Schedules.
+
+            --- By design, TBD does not show up on the page. On surface, it is same as <blank>.
+                TBD has a slightly different meaning in the database/scripts and I need to keep it as
+                an option in the pulldown.
+
+(9) Choosing 'unlock' next to existing records results in no action. I would expect to be able to edit them.
+
+            --- See (7)
+
+(10) Approved page: I was able to change Obsid=19497 to an invalid value of 19497777. Then I was 
+able to change date to "11/08/16fwef".
+
+            ---- You can do anything you want as an admin (cus). That is why only "cus" has the privilege.
+
+(11) I spotted a few typos:
+
+http://r2d2-v.cfa.harvard.edu/rm_submission/
+
+- obserbation -> observation
+- remvoed -> removed
+
+http://r2d2-v.cfa.harvard.edu/orupdate/
+
+- "Dislay Data for the Last 30 Days" -> Display
+- "Dislay All Verified Cases" -> Display
+
+- "Paramter check page" -> Parameter
+
+- Express approval page:  indivisually -> individually
+
+

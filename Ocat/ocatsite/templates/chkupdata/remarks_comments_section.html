@@ -1,0 +1,43 @@
+{% block general_parameters  %}
+
+
+<table border=1 style='border-spacing:5ps; border-collapse:separate; width:90%'>
+    <tr>
+    <th colspan=2>Remarks</th>
+    </tr>
+    <tr>
+        <th style='color:green; width:15%'>Original</th>
+        <td>{{ chkval.org_remarks }}</td>
+    </tr>
+    <tr>
+        <th style='color:green; width:15%'>Requested</th>
+        <td>{{ chkval.req_remarks }}</td>
+    </tr>
+    <tr>
+        <th style='color:green; width:15%'>Updated</th>
+        <td>{{ chkval.dat_remarks }}</td>
+    </tr>
+</table>
+
+<br />
+
+<table border=1 style='border-spacing:5ps; border-collapse:separate; width:90%'>
+    <tr>
+    <th colspan=2>Comments</th>
+    </tr>
+    <tr>
+        <th style='color:green; width:15%'>Original</th>
+        <td>{{ chkval.org_comments }}</td>
+    </tr>
+    <tr>
+        <th style='color:green; width:15%'>Requested</th>
+        <td>{{ chkval.req_comments  }}</td>
+    </tr>
+    <tr>
+        <th style='color:green; width:15%'>Updated</th>
+        <td>{{ chkval.dat_comments }}</td>
+    </tr>
+</table>
+
+{% endblock %}
+

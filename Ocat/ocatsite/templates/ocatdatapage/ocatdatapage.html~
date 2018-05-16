@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Ocat Data Page frame work page. It is built on "base.html.
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Ocat Data Page"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+{% ifequal gen_name.check 'Submit' %}
+
+{% comment %} for the case that the submission is requested {%endcomment %}
+
+    <form  action="{% url  'ocatdatapage:ocatdatapage' dbval.obsid %}" method="get"> 
+
+    {% ifequal gen_name.asis 'norm' %}
+
+{% comment %} open up the submitted parameter checking page {%endcomment %}
+
+        {%include 'ocatdatapage/submission_check_page.html' %}
+    {% else %}
+
+{% comment %} asis page, remove page, or split page  {%endcomment %}
+
+        {%include 'ocatdatapage/submission_check_page2.html' %}
+    {% endifequal %}
+
+    </form>
+
+
+{% else %}
+
+    <form  action="{% url  'ocatdatapage:ocatdatapage' dbval.obsid %}" method="get"> 
+
+    {% ifequal gen_name.check 'FINALIZE' %}
+
+{% comment %} go to the finalize confirmation page {%endcomment %}
+
+        {%include 'ocatdatapage/finalized.html' %}
+    </form>
+
+    {% else %}
+
+{% comment %} for the case that the main page display is requested  {%endcomment %}
+
+        <h1 style='text-align:left'>
+            Obscat Data Page <span style='font-size:50%;'>(POC ID: {{ submitter }})</span>
+        </h1>
+        <p style='text-align:right;'>
+            <a href='{{ durl }}/ocatmain'>Go back to Ocat Main Page</a>
+            <br />
+            <a href="javascript:WindowOpen2('http://cxc.cfa.harvard.edu/cgi-bin/provis/provis_load.cgi')">Open Provis</a>
+            <br />
+            <a href="javascript:WindowOpen2('http://cxc.harvard.edu/cda/footprint/')">Open Footprint Server</a>
+        </p>
+    
+        {%include 'ocatdatapage/headnotificaiton.html' %}
+     
+        <form  action="{% url  'ocatdatapage:ocatdatapage' dbval.obsid %}" method="get">
+
+        {%include 'ocatdatapage/generalparam.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/dither.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/timeconstraint.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/roll_constraint.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/other_constraint.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/hrc_parameters.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/acis_parameters.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/acis_win_constraint.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/too_parameters.html' %}
+     
+        <hr />
+     
+        {%include 'ocatdatapage/comment_section.html' %}
+     
+        <hr />
+     
+        {% ifequal permission True %}
+            {%include 'ocatdatapage/options.html' %}
+    
+        {% else %}
+            <h3>Submission Options </h3>
+
+            <p style='font-size:110%;color:red'>
+            <b>
+                Sorry, but you cannot request any changes.
+            </b>
+            </p>
+        {% endifequal %}
+
+        <hr />
+     
+        {%include 'ocatdatapage/links.html' %}
+
+        </form>
+
+    {% endifequal %}
+
+{% endifequal %}
+    
+{%include 'ocatdatapage/footer.html' %}
+    
+
+
+{% endblock %}

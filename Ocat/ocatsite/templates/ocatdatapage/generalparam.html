@@ -1,0 +1,184 @@
+{% block generalparam %}
+
+{% comment %}
+
+This is "General Parameters" Section. 
+
+{% endcomment %}
+
+<h2>General Parameters</h2>
+
+<table>
+    <tr>
+        <th>
+        <a href="#" onClick="WindowOpen(seq_nbr);return false;">Sequence Number</a>
+        </th>
+        <td>
+        <a href="javascript:WindowOpen3('https://icxc.cfa.harvard.edu/cgi-bin/mp/target.cgi?{{ dbval.seq_nbr }}')">
+        <i class='large'>{{ dbval.seq_nbr }}</i>
+        </a>
+        </td>
+        {% include "includes/jstag.html" with p1='status'          p2=pname.status   p3=dbval.status %}
+        {% include "includes/jstag.html" with p1='obsid'           p2=pname.obsid    p3=dbval.obsid %}
+        {% include "includes/jstag.html" with p1='proposal_number' p2=pname.prop_num p3=dbval.prop_num %}
+    </tr>
+</table>
+    
+    
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='proposal_title' p2=pname.title      p3=dbval.title %}
+    </tr>
+</table>
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='obs_ao_str'     p2=pname.obs_ao_str    p3=dbval.obs_ao_str %}
+        <th>Charge AO Status:</th><td>{{dbval.charge_ao_str}}</td>
+        <th>Proposal  AO Status:</th><td>{{dbval.ao_str}}</td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='targname'   p2=pname.targname   p3=dbval.targname %}
+        {% include "includes/jstag.html" with p1='si_mode'    p2=pname.si_mode    p3=gen_name.si_mode %}
+        {% include "includes/jstag.html" with p1='aca_mode'   p2=pname.aca_mode   p3=gen_name.aca_mode %}
+    </tr>
+    <tr>
+        {% include "includes/jstag.html" with p1='instrument' p2=pname.instrument p3=gen_name.instrument %}
+        {% include "includes/jstag.html" with p1='grating'    p2=pname.grating    p3=gen_name.grating %}
+        {% include "includes/jstag.html" with p1='otype'      p2=pname.type       p3=gen_name.type %}
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='pi_name'      p2=pname.pi_name       p3=dbval.pi_name %}
+        <td>&#160;</td>
+        {% include "includes/jstag.html" with p1='observer'     p2=pname.observer      p3=dbval.observer %}
+    </tr>
+    <tr>
+        {% include "includes/jstag.html" with p1='approved_exposure_time' p2=pname.approved_exposure_time p3=dbval.approved_exposure_time p4='ks' %}
+        {% include "includes/jstag.html" with p1='rem_exp_time' p2=pname.rem_exp_time  p3=dbval.rem_exp_time p4='ks' %}
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='joint'  p2=pname.joint  p3=dbval.joint %}
+    </tr>
+    {% comment %}If joint proposal is None, don't show the following section. {% endcomment %}
+
+    {% ifnotequal dbval.joint 'None' %}
+
+        {% include "includes/joint.html" with p1='hst_approved_time'  p2=pname.hst_approved_time  p3=dbval.hst_approved_time %}
+        {% include "includes/joint.html" with p1='noao_approved_time' p2=pname.noao_approved_time p3=dbval.noao_approved_time %}
+        {% include "includes/joint.html" with p1='xmm_approved_time'  p2=pname.xmm_approved_time  p3=dbval.xmm_approved_time %}  
+        {% include "includes/joint.html" with p1='rxte_approved_time' p2=pname.rxte_approved_time p3=dbval.rxte_approved_time %} 
+        {% include "includes/joint.html" with p1='vla_approved_time'  p2=pname.vla_approved_time  p3=dbval.vla_approved_time %}  
+        {% include "includes/joint.html" with p1='vlba_approved_time' p2=pname.vlba_approved_time p3=dbval.vlba_approved_time %} 
+
+    {% endifnotequal %}
+
+</table>
+
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='soe_st_sched_date' p2=pname.soe_st_sched_date p3=dbval.soe_st_sched_date %}
+        {% include "includes/jstag.html" with p1='lts_lt_plan'       p2=pname.lts_lt_plan       p3=dbval.lts_lt_plan %}
+    </tr>
+</table>
+
+<p>
+    You may enter RA and Dec in either HMS/DMS format (separated by colons, e.g. 16:22:04.8 -27:43:04.0), 
+    or as decimal degrees. The original OBSCAT decimal degree values are provided below the update boxes.
+</p>
+
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='ra'           p2=pname.ra           p3=gen_name.ra %}
+        {% include "includes/jstag.html" with p1='dec'          p2=pname.dec          p3=gen_name.dec %}
+        {% include "includes/jstag.html" with p1='planned_roll' p2=pname.planned_roll p3=dbval.planned_roll %}
+    </tr>
+    <tr>
+        <th>RA / DEC</th><th> (in degree): </th>
+        <td style='padding-right:10px;'>{{ dbval.dra }} </td> 
+        <td style='padding-right:20px;'>{{ dbval.ddec }} </td>
+        <!--
+        {% include "includes/jstag.html" with p1='dra'          p2=pname.dra          p3=dbval.dra %}
+        {% include "includes/jstag.html" with p1='ddec'         p2=pname.ddec         p3=dbval.ddec %}
+        -->
+        {% include "includes/jstag.html" with p1='roll_obsr'    p2=pname.roll_obsr    p3=dbval.roll_obsr %}
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='y_det_offset' p2=pname.y_det_offset p3=gen_name.y_det_offset p4='arcmin' %}
+        {% include "includes/jstag.html" with p1='z_det_offset' p2=pname.z_det_offset p3=gen_name.z_det_offset p4='arcmin' %}
+    </tr>
+    <tr>
+        {% include "includes/jstag.html" with  p2='Aim Point: Chip X: ' p3=dbval.chipx %}
+        {% include "includes/jstag.html" with  p2='Chip Y: '            p3=dbval.chipy %}
+    </tr>
+    <tr>
+        {% include "includes/jstag.html" with p1='trans_offset' p2=pname.trans_offset p3=gen_name.trans_offset p4='mm' %}
+        {% include "includes/jstag.html" with p1='focus_offset' p2=pname.focus_offset p3=gen_name.focus_offset p4='mm' %}
+    </tr>
+    <tr>
+        {% include "includes/jstag.html" with p1='defocus'      p2=pname.defocus      p3=gen_name.defocus %}
+        {% include "includes/jstag.html" with p1='raster_scan'  p2=pname.raster_scan  p3=dbval.raster_scan %}
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        {% include "includes/jstag.html" with p1='uninterrupt'     p2=pname.uninterrupt     p3=gen_name.uninterrupt %}
+        {% include "includes/jstag.html" with p1='extended_src'    p2=pname.extended_src    p3=gen_name.extended_src %}
+    </tr> 
+    <tr>
+        {% include "includes/jstag.html" with p1='obj_flag'        p2=pname.obj_flag        p3=gen_name.obj_flag %}
+        {% include "includes/jstag.html" with p1='object'          p2=pname.object          p3=gen_name.object %}
+    </tr> 
+    <tr>
+        {% include "includes/jstag.html" with p1='photometry_flag' p2=pname.photometry_flag p3=gen_name.photometry_flag %}
+        {% include "includes/jstag.html" with p1='vmagnitude'      p2=pname.vmagnitude      p3=gen_name.vmagnitude %}
+    </tr> 
+    <tr>
+        {% include "includes/jstag.html" with p1='est_cnt_rate'    p2=pname.est_cnt_rate    p3=gen_name.est_cnt_rate %}
+        {% include "includes/jstag.html" with p1='forder_cnt_rate' p2=pname.forder_cnt_rate p3=gen_name.forder_cnt_rate %}
+    </tr>
+<table>
+
+{% comment %} Passing all non-editable values {% endcomment %}
+{% for ent in nc_param %}
+    <input type="hidden" name={{ ent.0 }}  value={{ ent.1 }}>
+{% endfor %}
+<input type="hidden" name="obsid"  value={{ dbval.obsid }}>
+<input type="hidden" name="planned_roll"  value={{ dbval.planned_roll }}>
+
+<input type="hidden" name="chipx"  value={{ dbval.chipx }}>
+<input type="hidden" name="org_chipx"  value={{ dbval.org_chipx }}>
+<input type="hidden" name="chipy"  value={{ dbval.chipy }}>
+<input type="hidden" name="org_chipy"  value={{ dbval.org_chipy }}>
+ 
+<input type="hidden" name='title_b'             value={{ dbval.title_b }}>
+<input type="hidden" name='targname_b'          value={{ dbval.targname_b }}>
+<input type="hidden" name='lts_lt_plan_b'       value={{ dbval.lts_lt_plan_b }}>
+<input type="hidden" name='soe_st_sched_date_b' value={{ dbval.soe_st_sched_date_b }}>
+
+{% for ent in org_keys %}
+    <input type="hidden" name={{ ent.0 }}  value={{ ent.1 }}>
+{% endfor %}
+
+
+
+{% endblock %}
+

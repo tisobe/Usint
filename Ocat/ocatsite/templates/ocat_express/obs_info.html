@@ -1,0 +1,22 @@
+{% block obs_info   %}
+{% comment %} 
+
+This file contains the top part of ocat_express.tml page.
+
+{% endcomment %}
+
+
+<p>
+<b>
+Submitter ID: {{ submitter }}
+</b>
+</p>
+
+<p>
+If your ID is not <b>{{ submitter }}</b>, please re-login to change the user ID: 
+<button type="submit" name="check" value="Change">Change</button> 
+
+{% endblock %}
+
+
+

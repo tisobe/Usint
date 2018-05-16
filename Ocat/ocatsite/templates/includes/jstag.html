@@ -1,0 +1,23 @@
+{% comment %}
+
+This is a tag which opens up a window using javascrpit in a table cell format. 
+
+p1 : name of the var                         e.g., seq_nbr (don't use 'sq_nbr')
+p2 : the name appears in the cell            e.g., 'Sequence Number'
+p3 : the value appears in the following cell e.g., '12343' (CharField accepted)
+p4 : extra such as a unit                    e.g., 'arcsec'
+p5 : colspan for the first cell
+p6 : colspan for the second cell
+
+{% endcomment %}
+
+<span id='jstag'>
+<th colspan={{ p5 }}>
+<a href="#" onClick="WindowOpen({{ p1 }});return false;">{{ p2 }}</a>
+</th>
+<td colspan= {{ p6 }} >
+{{ p3 }}
+{{ p4 }}
+</td>
+</span>
+

@@ -1,0 +1,150 @@
+/* Ocat PageCSS Style Sheet */
+
+
+/*
+<!DOCTYPE HTML>
+*/
+
+body{
+	background-color:#FFFFE0;
+    color:           #000000;
+    font-family:     serif, sans-serif, Verdana, Helvetica, Arial;
+    font-size:       11pt;    
+    text-align:      left;
+    color:           #FFF8DC;
+    margin-top:      10px;
+    margin-left:     20px;
+    margin-right:    25px;
+    margin-bottom:   15px;
+    padding:         5px;
+
+}
+    
+table{
+	color:	    	#000000;
+	font-size:      90%;
+}
+
+th {
+    padding:        5px;
+    white-space:    nowrap;
+}
+
+td {
+    padding:        5px;
+}
+
+td.red{
+    color:          red;
+}
+
+p{
+	color:	    	#000000;
+    margin-left:    10px;
+}
+
+textarea.ch{
+    line-height:    50%;
+    padding-top:    6px;
+    margin-bottom: -2px;
+}
+
+
+p.center{
+	text-align:	center;
+}
+
+p.tight{
+    margin-left:    30px;
+    margin-right:   50px;
+    text-align:     justify;
+}
+
+a:link    {color:	#0000FF}  /* unvisited link */
+a:visited {color:	#000080}  /* visited link */
+a:hover   {color:	#800080}  /* mouse over link */
+a:active  {color:	#800080}  /* selected link */
+    
+h1{
+	text-align: 	center;
+}
+
+h1, h2, h3, h4{
+	color:	    	#000000;
+   	font-style:     oblique;
+}
+
+h2.center{
+	text-align: 	center;
+}
+
+h4{
+	color:		    #B0E0E6;
+}
+
+li{
+    color:          black;
+}
+
+li.warning{
+    font-style:     italic;
+    color:          #8B008B;
+    font-weight:    bold;
+}
+
+em.white{
+	font-style:	    normal; 
+	color:		    #ffffff; 
+}
+
+em.yellow{
+	font-style:	    normal; 
+	color:		    #fff000; 
+}
+
+em.red{
+	font-style:	    italic; 
+	color:		    #ff0000;
+}
+
+
+em.blue{
+    font-style:     normal; 
+    color:          #0000FF;
+}
+
+em.lime{
+    font-style:     normal; 
+    color:          #00FF00;
+}
+
+b.red{
+    color:          red;
+}
+
+i.large{
+    font-size:      110%;
+}
+
+hr.short{
+    width:          80%;
+}
+
+.uline{
+	text-decoration:underline;      /* under line class */
+	text-align: 	center;
+}
+
+.emshift{				/* use for no border table to the entry to stand out */
+	border: 	        0;
+	border-collapse:    separate;
+	border-spacing:     8px;
+	margin-left:	    80px; 
+	font-size:	        105%; 
+	color:		        #B0E0E6;
+}
+
+td.bold{
+    font-weight:     bold;
+    text-align:     center;
+}

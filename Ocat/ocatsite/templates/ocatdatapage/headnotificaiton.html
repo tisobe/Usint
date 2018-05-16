@@ -1,0 +1,69 @@
+{% block headnotification %}
+
+{% ifequal dbval.head_notificaiton 1 %}
+    <p style="padding-top:5px;font-size:110%">
+        <b>
+        This observation was 
+
+        {% ifequal dbval.status 'archived' %}
+            already
+        {% endifequal %}
+
+        {% ifequal dbval.status 'observed' %}
+            already
+        {% endifequal %}
+
+        <em class='red'> {{ dbval.status|upper }} </em>.
+        </b>
+    </p>
+{% endifequal %}
+
+{% ifequal dbval.head_notificaiton 2 %}
+
+    <p style="padding-top:5px;font-size:110%">
+        <b class="red">
+        This observation is currently under review in an active OR list. 
+        You must get a permission from MP to modify entries.
+        </b>
+    </p>
+
+{% endifequal %}
+
+{% ifequal dbval.head_notificaiton 3 %}
+
+    <p style="padding-top:5px;font-size:110%">
+        <b>
+        This observation is already in a <em class='red'>APPROVED</em> list.
+        Please <em class='red'>REMOVE</em> it from the approved list before updating the parameters. 
+        (Use:  <em>"ObsID no longer ready to go"</em> option.)
+        </b>
+    </p>
+
+{% endifequal %}
+
+{% ifequal dbval.head_notificaiton 4 %}
+
+    <p style="padding-top:5px;font-size:110%">
+        <b class="red">
+        {{ dval.lts_span }} day(s) left to LTS date. You must get a permission from MP to modify entries.
+        </b>
+    </p>
+
+{% endifequal %}
+
+<p>
+    A brief description of the listed parameters is given
+    <!--<a href="https://cxc.cfa.harvard.edu/mta/CUS/Usint//user_help.html" target='blank'>here</a>.-->
+    <a href="javascript:WindowOpen2('https://cxc.cfa.harvard.edu/mta/CUS/Usint/Ocat/ocatsite/static/user_help.html')">here</a>
+</p>
+
+{% ifequal permission False %}
+    <p style="padding-top:5px;font-size:110%;color:red">
+    <b>
+    You do not have a permission to edit this page. If you need a permission, please contact
+    swolk@cfa.harvard.edu. 
+    </b>
+    </p>
+{% endifequal %}
+
+{% endblock %}

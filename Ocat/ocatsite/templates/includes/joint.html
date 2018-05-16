@@ -1,0 +1,27 @@
+{% comment %}
+
+This creates a table entry for a joint proposal section. It appeas only when the joint
+observations are given time.
+
+{% endcomment %}
+
+<span id='joint'>
+{% ifnotequal p3 'None' %}
+    {% ifnotequal p3 'NA' %}
+        {% ifnotequal p3 'Null' %}
+            {% ifnotequal p3 '' %}
+                <tr>
+                    <td>&#160;</td>
+                    <th>
+                        <a href="#" onClick="WindowOpen({{ p1 }});return false;">{{ p2 }}</a>
+                    </th>
+                    <td>
+                        {{ p3 }} ks
+                    </td>
+                </tr>
+            {% endifnotequal %}
+        {% endifnotequal %}
+    {% endifnotequal %}
+{% endifnotequal %}
+</span>
+

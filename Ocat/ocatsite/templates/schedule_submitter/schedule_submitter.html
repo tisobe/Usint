@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Schedule Submitter Page frame work page. It is built on "base.html."
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Schedule Submitter"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+
+<h1 style='text-align:left'>Schedule Submitter</h1>
+
+<form  method='post'>{% csrf_token %}
+{%include 'schedule_submitter/obs_info.html' %}
+
+<hr />
+
+{%include 'schedule_submitter/main_table.html' %}
+
+<input type="hidden" name="submitter"     value={{ submitter }}>
+
+</form>
+
+
+{%include 'schedule_submitter/footer.html' %}
+    
+
+
+{% endblock %}

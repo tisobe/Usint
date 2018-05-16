@@ -1,0 +1,113 @@
+{% block ocat_sec2 %}
+
+{% comment %} ocat main page section 3  {% endcomment %}
+
+{% ifequal opi 1 %}
+<p> Following obsid.version is/are still waiting to be signed off</p>
+<ul>
+{% for ent in open_item %}
+    <li> <a href='{{ durl }}/chkupdata/{{ ent }}/>{{ ent }}</a> </li>
+{% endfor %}
+</ul>
+{% endifequal %}
+
+
+{% comment %} List observations under this submitter {% endcomment %}
+
+<h3>Observations Under Your Name</h3>
+
+{% comment %} DDT {% endcomment %}
+{% ifequal ddtchk 1 %}
+    <p><b>DDT</b></p>
+    <table border = 1>
+        <tr>
+            <th>Seq #</th>
+            <th>Obsid</th>
+            <th>Status</th>
+            <th>Planned Date</th>
+            <th>Approved?</th>
+        </tr>
+        {% for ent in ddt_data %}
+            <tr>
+                <td>{{ ent.0 }}</td>
+                <td><a href='{{ durl }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+                <td>{{ ent.2 }}</td>
+                <td>{{ ent.3 }}</td>
+                {% ifequal ent.4 'No' %}
+                    <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td style='text-align:center'>{{ ent.4 }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+
+{% comment %} TOO {% endcomment %}
+{% ifequal toochk 1 %}
+    <p><b>TOO</b></p>
+    <table border = 1>
+        <tr>
+            <th>Seq #</th>
+            <th>Obsid</th>
+            <th>Status</th>
+            <th>Planned Date</th>
+            <th>Approved?</th>
+        </tr>
+        {% for ent in too_data %}
+            <tr>
+                <td>{{ ent.0 }}</td>
+                <td><a href='{{ durl }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+                <td>{{ ent.2 }}</td>
+                <td>{{ ent.3 }}</td>
+                {% ifequal ent.4 'No' %}
+                    <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td style='text-align:center'>{{ ent.4 }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+
+{% comment %} next 30 days {% endcomment %}
+{% ifequal ddtchk 1 %}
+    <p><b>Observations Planned in the Next 30 Days</b></p>
+    <table border = 1>
+        <tr>
+            <th>Seq #</th>
+            <th>Obsid</th>
+            <th>Status</th>
+            <th>Planned Date</th>
+            <th>Approved?</th>
+        </tr>
+        {% for ent in d30_data %}
+            <tr>
+                <td>{{ ent.0 }}</td>
+                <td><a href='{{ durl }}/ocatdatapage/{{ent.1}}/'>{{ ent.1 }}</a></td>
+                <td>{{ ent.2 }}</td>
+                <td>{{ ent.3 }}</td>
+                {% ifequal ent.4 'No' %}
+                    <td style='text-align:center;color:red;'>{{ ent.4 }}</td>
+                {% else %}
+                    <td style='text-align:center'>{{ ent.4 }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endifequal %}
+
+<div style='padding-bottom:20px;'>
+</div>
+
+{% comment %} Link to all planned observations {% endcomment %}
+
+<input type='submit' name='check' value='Open All Planned Observation List' style='font-weight:bold;'>
+
+<div style='padding-bottom:10px;'>
+</div>
+
+{% endblock %}
+

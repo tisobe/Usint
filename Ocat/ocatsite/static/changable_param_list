@@ -1,0 +1,133 @@
+#-------------------------------------------
+##general:General Parameter
+#-------------------------------------------
+si_mode::SI Mode
+instrument::Instrument
+grating::Grating
+type::Type
+ra::RA (HMS)
+dec::DEC (DMS)
+dra::RA
+ddec::DEC
+y_det_offset::Offset: Y
+z_det_offset::Offset: Z
+trans_offset::Z-Sim
+focus_offset::Sim-Focus
+defocus::Focus
+raster_scan::Raster Scan
+uninterrupt::Uninterrupted Obs
+extended_src::Extended SRC
+obj_flag::Solar System Object
+object::Object
+photometry_flag::Photometry
+vmagnitude::V Mag
+est_cnt_rate::Count Rate
+forder_cnt_rate::1st Order Rate
+#-------------------------------------------
+##dither:Dither Parameter
+#-------------------------------------------
+dither_flag::Dither
+y_amp::Y Amp
+z_amp::Z Amp
+y_freq::Y Freq
+z_freq::Z Freq
+y_phase::Y Phase
+z_phase::Z Phase
+#-------------------------------------------
+##time:Time Constraint
+#-------------------------------------------
+window_flag::Window Flag
+time_ordr::Time Rank
+window_constraint::Temporal Window
+tstart::Temporal Start
+tstop::Temporal End
+#-------------------------------------------
+##roll:Roll Constraint
+#-------------------------------------------
+roll_flag::Roll Flag
+roll_ordr::Roll Rank
+roll_constraint::Roll Angle Constraints
+roll::Roll Angle
+roll_tolerance::Roll Tolerance
+#-------------------------------------------
+##other:Other Constraint
+#-------------------------------------------
+constr_in_remarks::Constraints in Remarks?
+phase_constraint_flag::Phase Constraint
+phase_epoch::Phase Epoch
+phase_period::Phase Period
+phase_start::Phase Min
+phase_start_margin::Phase Min Err
+phase_end::Phase Max
+phase_end_margin::Phase Max Err
+group_id::Group ID
+monitor_flag::Monitoring Observations?
+pre_id::Follows ObsID#
+pre_min_lead::Follows Obs Min Int
+pre_max_lead::Follows Obs Max Int
+multitelescope::Coordinated Observation
+observatories::Observatories
+multitelescope_interval::Max Coordination Offset
+#-------------------------------------------
+##hrc:HRC Parameter
+#-------------------------------------------
+hrc_config::HRC Configuration
+hrc_zero_block::Zero Block
+timing_mode::Timing Mode
+hrc_si_mode::SI Mode
+#-------------------------------------------
+##acis:ACIS Parameter
+#-------------------------------------------
+exp_mode::ACIS Exposure Mode
+bep_pack::Event TM Format
+frame_time::Frame Time
+most_efficient::Most Efficient
+standard_chips::Standard Chips
+ccdi0_on::I0
+ccdi1_on::I1
+ccdi2_on::I2
+ccdi3_on::I3
+ccds0_on::S0
+ccds1_on::S1
+ccds2_on::S2
+ccds3_on::S3
+ccds4_on::S4
+ccds5_on::S5
+subarray::Subarray Type
+subarray_start_row::Start
+subarray_row_count::Rows
+subarray_frame_time::Frame Time
+duty_cycle::Duty Cycle
+secondary_exp_count::Number
+primary_exp_time::Tprimary
+secondary_exp_time::Tsecondary
+onchip_sum::Onchip Summing
+onchip_row_count::Rows
+onchip_column_count::Columns
+eventfilter::Event Filter
+eventfilter_lower::Lowest Energy
+eventfilter_higher::Energy Range
+multiple_spectral_lines::MultiSpectral Lines
+spectra_max_count::Spectra Max Count
+#-------------------------------------------
+##awin:ACIS Window Parameter
+#-------------------------------------------
+spwindow_flag::Window Filter
+ordr::Rank
+chip::Chip
+include_flag::Photon Type
+start_row::START ROW
+start_column::Start Column
+height::Height
+width::Width
+lower_threshold::Lower Energy
+pha_range::Energy Range
+sample::Sample Rate
+bias_request::Bias
+frequency::Frequency
+bias_after::Bias After
+#-------------------------------------------
+##c&r:Comments and Remarks
+#-------------------------------------------
+remarks::Remarks
+comments::Comments

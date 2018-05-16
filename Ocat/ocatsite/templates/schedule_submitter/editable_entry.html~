@@ -1,0 +1,55 @@
+{% block editable_entry   %}
+
+<td class='bold'>
+    {% include "schedule_submitter/pull_down_name.html"  with p1=ent.name_id  p2=contact_list  p3=ent.user %}
+</td>
+
+
+<td class='bold'>
+    {% include "schedule_submitter/month_pull_down.html"  with p1=ent.start_month_id  p2=ent.start_month %}
+</td>
+{% ifequal ent.color_st 'd' %}
+    <td class='bold' style="background-color:aqua;">
+{% else %}
+    <td class='bold'>
+{% endifequal %}
+
+    {% include "schedule_submitter/pull_down.html"  with p1=ent.start_day_id  p2=day_list  p3=ent.start_day %}
+</td>
+
+
+
+
+<td class='bold'>
+    {% include "schedule_submitter/pull_down.html"  with p1=ent.start_year_id  p2=year_list  p3=ent.start_year %}
+</td>
+
+
+
+<td class='bold'>
+    {% include "schedule_submitter/month_pull_down.html" with p1=ent.finish_month_id  p2=ent.finish_month %}
+</td>
+{% ifequal ent.color_en 'd' %}
+    <td class='bold' style="background-color:aqua;">
+{% else %}
+    <td class='bold'>
+{% endifequal %}
+
+    {% include "schedule_submitter/pull_down.html" with p1=ent.finish_day_id  p2=day_list  p3=ent.finish_day %}
+</td>
+<td class='bold'>
+    {% include "schedule_submitter/pull_down.html"  with p1=ent.finish_year_id  p2=year_list  p3=ent.finish_year %}
+</td>
+
+
+
+<td class='bold'>
+    <input type='text' name={{ ent.assigned_id }} size=10 maxlength=20 value= {{ ent.assigned }}>
+</td>
+
+<td>
+<input type='submit' name='check' value='Update'>
+</td>
+
+{% endblock %}
+

@@ -1,0 +1,79 @@
+
+Jul 23, 2015  Jean
+---------------------
+Regarding changing the layout of content that is already there, I
+don't know if it would screw anybody else up, but in ocatdata2html I
+would just love it if the RA, Dec were in one field so I could easily
+copy and paste coordinates into other tools.
+
+RA Dec :  <RA> <Dec>
+
+For feature enhancements, it would be great if I could link from the
+ocatdata2html to provis and the footprint server using those
+coordinates directly.
+
+Regarding clarity, I think there's some confusion about cycles, as
+ocatdata2html calls the proposal cycle "Obs AO Status" and it would
+make more sense to me if the page just printed all three of the cycle
+dates: target.obs_ao_str, target.charge_ao_str, prop_info.ao_str  with
+labels on them.
+
+Regarding feature requests:
+
+I had previously written up a tool to generate obsvis fov files based
+on the OCAT.  It would be helpful to plug that in to ocatdata2html so
+that one could grab a fov file from the page.
+
+A separate page performing basic ACIS checks would be very helpful to me.
+
+If you set up a Django server to serve these pages I may be able to
+contribute "apps" for that kind of thing as time allows.
+
+Regards,
+Jean
+
+Jul 27, 2015 Jean
+-------------------
+
+On Mon, Jul 27, 2015 at 9:05 AM, Isobe, Takashi <tisobe@cfa.harvard.edu> wrote:
+> Hi Jean
+> Thank you for the suggestions.
+>
+> Could you tell me what is "provis" and "footprint server"? I have never
+> heard about them.
+
+Provis is the planning tool to see when a target is visible in a cycle:
+
+http://cxc.cfa.harvard.edu/cgi-bin/provis/provis_load.cgi
+
+The footprint server
+
+http://cxc.harvard.edu/cda/footprint/
+
+is an archive tool to find previous Chandra data that overlaps with
+the coordinates or target you give it.
+I find it slightly more helpful than the ds9 interface to the archive
+when I want to see which parts of a target have previously been
+observed with Chandra and in what configurations.
+
+> It is also nice if you explain me more about what needs to be done for
+> "basic ACIS checks".
+>
+> I am not hurry; so if you can explain them in next couple of months, that it
+> fine.
+
+Sure.  There are no "standard" basic ACIS checks, but as an ACIS USINT
+I usually try to check at least:
+
+1) that the target is on a ccd that is actually ON
+2) that the target is not too close to a chip edge or a node boundary
+3) that the estimated count rate is won't saturate telemetry in the
+mode specified
+4) If a subarray is specified that the target is in the subarray
+5) If a subarray is specified that there is only one chip ON
+6) That Very Faint mode is selected for low count rates
+
+These are all checks that aren't really dependent on the proposal goals.
+
+But, as I said, if you can actually get a django server set up, I
+might be able to contribute this kind of thing as an "app".

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% comment %}
+
+This is Parameter Check Page frame work page. It is built on "base.html."
+
+{% endcomment %}
+
+
+{% comment %}header section {% endcomment %}
+{% block title %}
+{{ "Input Parameter Check Page"  }}
+{% endblock %}
+
+{% comment %} main section {% endcomment %}
+
+{% block content %}
+
+
+<h1 style='text-align:left'>Paramter Check  Page</h1>
+
+{%include 'chkupdata/headnotificaiton.html' %}
+
+<hr />
+
+{%include 'chkupdata/obs_info.html' %}
+
+<hr />
+
+{%include 'chkupdata/remarks_comments.html' %}
+
+
+{%include 'chkupdata/parameter_changes.html' %}
+
+<hr />
+
+<h2>All Entries</h2>
+
+{%include 'chkupdata/general_parameters.html' %}
+
+<br />
+
+{%include 'chkupdata/dither_parameters.html' %}
+
+<br />
+
+{%include 'chkupdata/time_constraints_pameters.html' %}
+
+<br />
+
+{%include 'chkupdata/roll_constraints_pameters.html' %}
+
+<br />
+
+{%include 'chkupdata/other_constraints_pameters.html' %}
+
+<br />
+
+{%include 'chkupdata/acis_parameters.html' %}
+
+<br />
+
+{%include 'chkupdata/acis_win_parameters.html' %}
+
+<br />
+
+{%include 'chkupdata/hrc_parameters.html' %}
+
+<br />
+
+{%include 'chkupdata/too_parameters.html' %}
+
+<br />
+
+{%include 'chkupdata/remarks_comments_section.html' %}
+
+<div style='padding-top:20px;'>
+<p><b>Legend</b></p>
+<ul>
+<li><span style='color:yellow;background-color:yellow;'>color</span>: a new value requested.</li>
+<li><span style='color:#ADFF2F;background-color:#ADFF2F;'>color</span>: the database value is same as the requested value.</li>
+<li><span style='color:#FF00FF;background-color:#FF00FF;'>color</span>: the database value is different from the requested value.</li>
+</ul>
+</div>
+
+<table border = 0 style='width:100%; padding-top:20px;'>
+    <tr>
+    <td style='text-align:right'>
+        <a href="{{ durl }}/ocatmain">Back to Ocat Main Page</a>.
+        <br />
+        <a href="{{ durl }}/orupdate">Back to Target Parameter Update Status Form</a>.
+    </td>
+    </tr>
+</table>
+
+
+
+{%include 'chkupdata/footer.html' %}
+    
+
+
+{% endblock %}

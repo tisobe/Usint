@@ -1,0 +1,82 @@
+{% block too_parameters %}
+
+{% comment %} TOO Parameters Section. {% endcomment %}
+
+<h2>TOO Parameters</h2>
+
+{% ifequal dbval.tooid 'NULL'   %}
+{% comment %} If this is not a TOO observation, show this part. {% endcomment %}
+    <p>
+        This observation is not a TOO.
+    </p>
+{% else %}
+
+    {% ifequal dbval.tooid 'NA'   %}
+        <p>
+            This observation is not a TOO.
+        </p>
+    {% else %}
+
+        {% ifequal dbval.tooid None   %}
+            <p>
+                This observation is not a TOO.
+            </p>
+
+        {% else %}
+{% comment %} If this is a TOO observation; show this part. {% endcomment %}
+
+            <table>
+                <tr>
+                    {% include "includes/jstag.html" with p1='too_id' p2=pname.tooid p3=dbval.tooid %}
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                </tr>
+                <tr>
+                    {% include "includes/jstag.html" with p1='too_trig' p2=pname.too_trig  p3=dbval.too_trig p6=6 %}
+                </tr>
+                <tr>
+                    {% include "includes/jstag.html" with p1='too_type' p2=pname.too_type  p3=dbval.too_type %}
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                </tr>
+            </table>
+         
+            <div sytle='padding-top:10px'></div>
+         
+            <table>
+                <tr>
+                    <td colspan=2>
+                    <b>Exact Response Window (days):</b>
+                    </td>
+                    {% include "includes/jstag.html" with p1='too_start' p2=pname.too_start p3=dbval.too_start %}
+                    {% include "includes/jstag.html" with p1='too_stop'  p2=pname.too_stop  p3=dbval.too_stop %}
+                </tr>
+                <tr>
+                    {% include "includes/jstag.html" with p1='too_followup' p2='# of Follow-up Observations' p3=dbval.too_followup p5=2 %}
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                    <td>&#160;</td>
+                </tr>
+                <tr>
+                    <td colspan=8>&#160</td>
+                </tr>
+            </table>
+
+            <table>
+                {% include "includes/jstag.html" with p1='too_remarks' p2=pname.too_remarks  p3=dbval.too_remarks p6=6 %}
+                <input type="hidden" name='too_remarks_b' value={{ dbval.too_remarks_b }}>
+            </table>
+     
+        {% endifequal %}
+    {% endifequal %}
+{% endifequal %}
+
+{% endblock %}
+
